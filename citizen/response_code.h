@@ -1,0 +1,20 @@
+#ifndef RESPONSE_CODE_H
+#define RESPONSE_CODE_H
+
+// Error codes
+typedef enum {
+    SUCCESS,
+    ERROR,
+    FILE_NOT_FOUND,
+    FILE_ALREADY_EXISTS,
+    MEMORY_ALLOCATION_FAILED,
+    MISMATCHED_INPUT,
+    OPERATION_FAILED,
+    NOT_FOUND,
+    FILE_WRITE_FAILED,
+    FILE_READ_FAILED,
+} ResponseCode;
+
+
+
+#endif // RESPONSE_CODE_H
