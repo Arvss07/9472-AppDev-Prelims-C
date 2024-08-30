@@ -1,7 +1,7 @@
+#include "citizen.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "citizen.h"
 
 void initCitizenList(CitizenList *list) {
     list->head = NULL;
@@ -9,15 +9,39 @@ void initCitizenList(CitizenList *list) {
 }
 
 
-enum ResponseCode addCitizenFirst(CitizenList *list, const char *name, enum Brgy barangay, int age, int citizenId, const char *completeAddr) {
-    Node *newNode = (Node *)malloc(sizeof(Node));
+void copyCitizens(Node *newNode, int citizenId, const char *firstName, const char *middleName, const char *lastName,
+                   Gender gender, const char *birthDate, MaritalStatus maritalStatus, const char *nationality,
+                   const char *religion, const char *contactNumber, const char *emailAddress, Address address) {
+
+    newNode->citizen.citizenId = citizenId;
+    strncpy(newNode->citizen.firstName, firstName, sizeof(newNode->citizen.firstName) - 1);
+    newNode->citizen.firstName[sizeof(newNode->citizen.firstName) - 1] = '\0';
+    strncpy(newNode->citizen.middleName, middleName, sizeof(newNode->citizen.middleName) - 1);
+    newNode->citizen.middleName[sizeof(newNode->citizen.middleName) - 1] = '\0';
+    strncpy(newNode->citizen.lastName, lastName, sizeof(newNode->citizen.lastName) - 1);
+    newNode->citizen.lastName[sizeof(newNode->citizen.lastName) - 1] = '\0';
+    newNode->citizen.gender = gender;
+    strncpy(newNode->citizen.birthDate, birthDate, sizeof(newNode->citizen.birthDate) - 1);
+    newNode->citizen.birthDate[sizeof(newNode->citizen.birthDate) - 1] = '\0';
+    newNode->citizen.maritalStatus = maritalStatus;
+    strncpy(newNode->citizen.nationality, nationality, sizeof(newNode->citizen.nationality) - 1);
+    newNode->citizen.nationality[sizeof(newNode->citizen.nationality) - 1] = '\0';
+    strncpy(newNode->citizen.religion, religion, sizeof(newNode->citizen.religion) - 1);
+    newNode->citizen.religion[sizeof(newNode->citizen.religion) - 1] = '\0';
+    strncpy(newNode->citizen.contactNumber, contactNumber, sizeof(newNode->citizen.contactNumber) - 1);
+    newNode->citizen.contactNumber[sizeof(newNode->citizen.contactNumber) - 1] = '\0';
+    strncpy(newNode->citizen.emailAddress, emailAddress, sizeof(newNode->citizen.emailAddress) - 1);
+    newNode->citizen.emailAddress[sizeof(newNode->citizen.emailAddress) - 1] = '\0';
+    newNode->citizen.address = address;
+}
+
+ResponseCode addCitizenFirst(CitizenList *list, int citizenId, const char *firstName, const char *middleName, const char *lastName,
+                                  Gender gender, const char *birthDate, MaritalStatus maritalStatus, const char *nationality,
+                                  const char *religion, const char *contactNumber, const char *emailAddress, const Address address) {
+    Node *newNode = malloc(sizeof(Node));
     if (newNode == NULL) return Failed;
 
-    strncpy(newNode->citizen.name, name, sizeof(newNode->citizen.name) - 1);
-    newNode->citizen.barangay = barangay;
-    newNode->citizen.age = age;
-    newNode->citizen.citizenId = citizenId;
-    strncpy(newNode->citizen.completeAddr, completeAddr, sizeof(newNode->citizen.completeAddr) - 1);
+    copyCitizens(newNode,  citizenId, firstName, middleName, lastName, gender, birthDate,  maritalStatus, nationality, religion, contactNumber,  emailAddress,  address);
     newNode->next = list->head;
 
     list->head = newNode;
@@ -28,28 +52,26 @@ enum ResponseCode addCitizenFirst(CitizenList *list, const char *name, enum Brgy
     return Success;
 }
 
-enum ResponseCode addCitizenLast(CitizenList *list, const char *name, enum Brgy barangay, int age, int citizenId, const char *completeAddr) {
-    Node *newNode = (Node *)malloc(sizeof(Node));
+ResponseCode addCitizenLast(CitizenList *list, int citizenId, const char *firstName, const char *middleName, const char *lastName,
+                                 Gender gender, const char *birthDate, MaritalStatus maritalStatus, const char *nationality,
+                                 const char *religion, const char *contactNumber, const char *emailAddress, Address address) {
+    Node *newNode = malloc(sizeof(Node));
     if (newNode == NULL) return Failed;
 
-    strncpy(newNode->citizen.name, name, sizeof(newNode->citizen.name) - 1);
-    newNode->citizen.barangay = barangay;
-    newNode->citizen.age = age;
-    newNode->citizen.citizenId = citizenId;
-    strncpy(newNode->citizen.completeAddr, completeAddr, sizeof(newNode->citizen.completeAddr) - 1);
+    copyCitizens(newNode,  citizenId, firstName, middleName, lastName, gender, birthDate,  maritalStatus, nationality, religion, contactNumber,  emailAddress,  address);
     newNode->next = NULL;
 
     if (list->tail != NULL) {
         list->tail->next = newNode;
     } else {
-        list->head = newNode; // List was empty
+        list->head = newNode;
     }
     list->tail = newNode;
 
     return Success;
 }
 
-enum ResponseCode removeCitizen(CitizenList *list, int citizenId) {
+ ResponseCode removeCitizen(CitizenList *list, const int citizenId) {
     Node *current = list->head;
     Node *previous = NULL;
 
@@ -58,12 +80,12 @@ enum ResponseCode removeCitizen(CitizenList *list, int citizenId) {
             if (previous == NULL) {
                 list->head = current->next;
                 if (list->head == NULL) {
-                    list->tail = NULL; // List is now empty
+                    list->tail = NULL;
                 }
             } else {
                 previous->next = current->next;
                 if (previous->next == NULL) {
-                    list->tail = previous; // Removed last node
+                    list->tail = previous;
                 }
             }
             free(current);
@@ -75,12 +97,12 @@ enum ResponseCode removeCitizen(CitizenList *list, int citizenId) {
     return NotFound;
 }
 
-enum ResponseCode countCitizensInBarangay(CitizenList *list, enum Brgy barangay) {
+ResponseCode countCitizensInBarangay(const CitizenList *list, const Address address) {
     int count = 0;
-    Node *current = list->head;
+    const Node *current = list->head;
 
     while (current != NULL) {
-        if (current->citizen.barangay == barangay) {
+        if (current->citizen.address.barangay == address.barangay) {
             count++;
         }
         current = current->next;
@@ -88,9 +110,9 @@ enum ResponseCode countCitizensInBarangay(CitizenList *list, enum Brgy barangay)
     return count;
 }
 
-enum ResponseCode countCitizens(CitizenList *list) {
+ResponseCode countCitizens(const CitizenList *list) {
     int count = 0;
-    Node *current = list->head;
+    const Node *current = list->head;
 
     while (current != NULL) {
         count++;
@@ -99,13 +121,13 @@ enum ResponseCode countCitizens(CitizenList *list) {
     return count;
 }
 
-Citizen* filterCitizens(CitizenList *list, enum Brgy barangay) {
-    int count = countCitizensInBarangay(list, barangay);
-    Node *current = list->head;
+Citizen* filterCitizens(const CitizenList *list, Address address) {
+    int count = countCitizensInBarangay(list, address);
+    const Node *current = list->head;
 
     // First, count how many citizens match the filter
     while (current != NULL) {
-        if (current->citizen.barangay == barangay) {
+        if (current->citizen.address.barangay == address.barangay) {
             count++;
         }
         current = current->next;
@@ -118,7 +140,7 @@ Citizen* filterCitizens(CitizenList *list, enum Brgy barangay) {
     current = list->head;
     int index = 0;
     while (current != NULL) {
-        if (current->citizen.barangay == barangay) {
+        if (current->citizen.address.barangay == address.barangay) {
             result[index++] = current->citizen;
         }
         current = current->next;
@@ -127,27 +149,25 @@ Citizen* filterCitizens(CitizenList *list, enum Brgy barangay) {
     return result;
 }
 
-void displayCitizensNode(CitizenList *list) {
+void displayCitizensNode(const CitizenList *list) {
     Node *current = list->head;
-
+    int i = 1;
     while (current != NULL) {
-        printf("Name: %s, Barangay: %d, Age: %d, ID: %d, Address: %s\n",
-               current->citizen.name,
-               current->citizen.barangay,
-               current->citizen.age,
-               current->citizen.citizenId,
-               current->citizen.completeAddr);
+        printf("\n%d.Name: %s %s %s\n",i++, current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
+        printf("Gender: %s\n", getGender(current->citizen.gender));
+        printf("Birth Date: %s\n", current->citizen.birthDate);
+        printf("Marital Status: %s\n", getMaritalStatus(current->citizen.maritalStatus));
+        printf("Nationality: %s\n", current->citizen.nationality);
+        printf("Religion: %s\n", current->citizen.religion);
+        printf("Contact Number: %s\n", current->citizen.contactNumber);
+        printf("Email Address: %s\n", current->citizen.emailAddress);
+        printf("House Number:%s\n", current->citizen.address.houseNumber);
+        printf("Street:%s\n", current->citizen.address.houseNumber);
+        printf("Purok Zone:%s\n", current->citizen.address.houseNumber);
+        printf("Barangay:%s\n", current->citizen.address.houseNumber);
         current = current->next;
+        printf("\n");
     }
 }
 
-void displayCitizensArray(Citizen *citizens, int count) {
-    for (int i = 0; i < count; i++) {
-        printf("Name: %s, Barangay: %d, Age: %d, ID: %d, Address: %s\n",
-               citizens[i].name,
-               citizens[i].barangay,
-               citizens[i].age,
-               citizens[i].citizenId,
-               citizens[i].completeAddr);
-    }
-}
+

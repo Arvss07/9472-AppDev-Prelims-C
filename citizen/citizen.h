@@ -1,15 +1,46 @@
 #ifndef CITIZEN_H
 #define CITIZEN_H
 
-enum Brgy { BRY1, BRY2, BRY3, BRY4 };
-enum ResponseCode {Success, Failed, NotFound};
+
+typedef enum {
+    Success,
+    Failed,
+    NotFound
+}ResponseCode;
+
+typedef enum {
+    MALE,
+    FEAMLE ,
+    OTHERS
+} Gender;
+
+typedef enum {
+    SINGLE,
+    MARRIED ,
+    DIVORCED ,
+    WIDOWED
+} MaritalStatus;
 
 typedef struct {
-    char name[50];
-    enum Brgy barangay;
-    int age;
+    char *houseNumber;
+    char *street;
+    char *purokZone;
+    char *barangay;
+} Address;
+
+typedef struct {
     int citizenId;
-    char completeAddr[100];
+    char firstName[100];
+    char middleName[100];
+    char lastName[100];
+    Gender gender;
+    char birthDate[100];
+    MaritalStatus maritalStatus;
+    char nationality[100];
+    char religion[100];
+    char contactNumber[100];
+    char emailAddress[100];
+    Address address;
 } Citizen;
 
 typedef struct Node {
@@ -17,37 +48,45 @@ typedef struct Node {
     struct Node *next;
 } Node;
 
-
 typedef struct {
     Node *head;
     Node *tail;
 } CitizenList;
 
+#define getGender(g) \
+((g) == MALE ? "Male" : (g) == FEAMLE ? "Female" : "Others")
+
+#define getMaritalStatus(m) \
+((m) == SINGLE ? "Single" : (m) == MARRIED ? "Married" : (m) == DIVORCED ? "Divorced" : "Widowed")
+
+
 
 void initCitizenList(CitizenList *list);
 
 // first
-enum ResponseCode addCitizenFirst(CitizenList *list, const char *name, enum Brgy barangay, int age, int citizenId, const char *completeAddr);
+ResponseCode addCitizenFirst(CitizenList *list, int citizenId, const char *firstName, const char *middleName, const char *lastName,
+                                  Gender gender, const char *birthDate, MaritalStatus maritalStatus, const char *nationality,
+                                  const char *religion, const char *contactNumber, const char *emailAddress, Address address);
 
 // last
-enum ResponseCode addCitizenLast(CitizenList *list, const char *name, enum Brgy barangay, int age, int citizenId, const char *completeAddr);
+ResponseCode addCitizenLast(CitizenList *list, int citizenId, const char *firstName, const char *middleName, const char *lastName,
+                                  Gender gender, const char *birthDate, MaritalStatus maritalStatus, const char *nationality,
+                                  const char *religion, const char *contactNumber, const char *emailAddress, Address address);
 
 // remove a citizen from the linked list by citizenId
-enum ResponseCode removeCitizen(CitizenList *list, int citizenId);
+ResponseCode removeCitizen(CitizenList *list, int citizenId);
 
-// count the number of citizens in a specific barangay
-enum ResponseCode countCitizensInBarangay(CitizenList *list, enum Brgy barangay);
+// count the number of citizens in a specific address
+ResponseCode countCitizensByAddress(CitizenList *list, Address address);
 
 // count the number of citizens
-enum ResponseCode countCitizens(CitizenList *list);
+ResponseCode countCitizens(const CitizenList *list);
 
-// filter citizens by barangay and return an array
-Citizen* filterCitizens(CitizenList *list, enum Brgy barangay);
-
-// display citizens
-void displayCitizensNode(CitizenList *list);
+// filter citizens by address and return an array
+Citizen* filterCitizens(const CitizenList *list, Address address);
 
 // display citizens
-void displayCitizensArray(Citizen *citizens, int count);
+void displayCitizensNode(const CitizenList *list);
+
 
 #endif

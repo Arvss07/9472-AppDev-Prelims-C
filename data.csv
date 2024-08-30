@@ -1,3 +1,3 @@
-Name,Barangay,Age,CitizenID,CompleteAddress
-John Doe,BRY1,30,1001,123 Elm St
-Jane Smith,BRY2,25,1002,456 Oak St
+CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone,Barangay
+1001,Giovanni,M,Leo,Male,1990-01-01,Single,Filipino,Christian,1234567890,gio.vanni@example.com,101,Monglo,Sablan,Bayabas
+1002,Juderey,A,Padsuyan,Male,1985-05-15,Married,Filipino,Chirstian,0987654321,judrey.12@example.com,202,Tuba,Camp 4, Baguio
