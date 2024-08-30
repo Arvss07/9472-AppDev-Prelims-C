@@ -1,0 +1,3 @@
+C:/Giovanni/C_Language/Citizen/cmake-build-debug/CMakeFiles/Citizen.dir
+C:/Giovanni/C_Language/Citizen/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Giovanni/C_Language/Citizen/cmake-build-debug/CMakeFiles/rebuild_cache.dir
