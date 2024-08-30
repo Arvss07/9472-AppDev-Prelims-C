@@ -75,7 +75,7 @@ enum ResponseCode removeCitizen(CitizenList *list, int citizenId) {
     return NotFound;
 }
 
-enum ResponseCode countCitizens(CitizenList *list, enum Brgy barangay) {
+enum ResponseCode countCitizensInBarangay(CitizenList *list, enum Brgy barangay) {
     int count = 0;
     Node *current = list->head;
 
@@ -88,20 +88,31 @@ enum ResponseCode countCitizens(CitizenList *list, enum Brgy barangay) {
     return count;
 }
 
-Citizen* filterCitizens(CitizenList *list, enum Brgy barangay, int *count) {
-    *count = 0;
+enum ResponseCode countCitizens(CitizenList *list) {
+    int count = 0;
+    Node *current = list->head;
+
+    while (current != NULL) {
+        count++;
+        current = current->next;
+    }
+    return count;
+}
+
+Citizen* filterCitizens(CitizenList *list, enum Brgy barangay) {
+    int count = countCitizensInBarangay(list, barangay);
     Node *current = list->head;
 
     // First, count how many citizens match the filter
     while (current != NULL) {
         if (current->citizen.barangay == barangay) {
-            (*count)++;
+            count++;
         }
         current = current->next;
     }
 
 
-    Citizen *result = malloc(sizeof(Citizen) * *count);
+    Citizen *result = malloc(sizeof(Citizen) * count);
     if (result == NULL) return NULL;
 
     current = list->head;

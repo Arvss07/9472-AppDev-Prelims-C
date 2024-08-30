@@ -36,10 +36,13 @@ enum ResponseCode addCitizenLast(CitizenList *list, const char *name, enum Brgy 
 enum ResponseCode removeCitizen(CitizenList *list, int citizenId);
 
 // count the number of citizens in a specific barangay
-enum ResponseCode countCitizens(CitizenList *list, enum Brgy barangay);
+enum ResponseCode countCitizensInBarangay(CitizenList *list, enum Brgy barangay);
+
+// count the number of citizens
+enum ResponseCode countCitizens(CitizenList *list);
 
 // filter citizens by barangay and return an array
-Citizen* filterCitizens(CitizenList *list, enum Brgy barangay, int *count);
+Citizen* filterCitizens(CitizenList *list, enum Brgy barangay);
 
 // display citizens
 void displayCitizensNode(CitizenList *list);
