@@ -1,4 +1,4 @@
-# Install script for directory: C:/Giovanni/C_Language/Citizen
+# Install script for directory: D:/Main/Documents/(NEW) 2nd Sem Files/3rd Year/9472 - IT 311 [APP DEV]/prelim-project-copy/9472-AppDev-Prelims-C
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Program Files/JetBrains/CLion 2024.2.0.1/bin/mingw/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "D:/Main/APPS/CLion 2024.2/bin/mingw/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Giovanni/C_Language/Citizen/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Main/Documents/(NEW) 2nd Sem Files/3rd Year/9472 - IT 311 [APP DEV]/prelim-project-copy/9472-AppDev-Prelims-C/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

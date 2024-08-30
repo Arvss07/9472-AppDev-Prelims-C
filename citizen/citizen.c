@@ -152,6 +152,7 @@ Citizen* filterCitizens(const CitizenList *list, Address address) {
 void displayCitizensNode(const CitizenList *list) {
     Node *current = list->head;
     int i = 1;
+    printf("List of Citizens\n\n");
     while (current != NULL) {
         printf("\n%d.Name: %s %s %s\n",i++, current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
         printf("Gender: %s\n", getGender(current->citizen.gender));

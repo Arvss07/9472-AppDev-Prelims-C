@@ -7,4 +7,6 @@ add_executable(Citizen main.c
         citizen/citizen.h
         citizen/citizen.c
         file/file.h
-        file/file.c)
+        file/file.c
+        cmd/terminal_utils.c
+        cmd/terminal_utils.h)

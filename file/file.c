@@ -7,12 +7,15 @@
 Gender stringToGender(const char *str) {
     if (strcmp(str, "Male") == 0) return MALE;
     if (strcmp(str, "Female") == 0) return FEAMLE;
+    if (strcmp(str, "Others") == 0) return OTHERS;
     return MALE;
 }
 
 MaritalStatus stringToMaritalStatus(const char *str) {
     if (strcmp(str, "Single") == 0) return SINGLE;
     if (strcmp(str, "Married") == 0) return MARRIED;
+    if (strcmp(str, "Divorced") == 0) return DIVORCED;
+    if (strcmp(str, "Widowed") == 0) return WIDOWED;
     return SINGLE;
 }
 
