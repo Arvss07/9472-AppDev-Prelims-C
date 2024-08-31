@@ -171,4 +171,16 @@ void displayCitizensNode(const CitizenList *list) {
     }
 }
 
+void displayCitizenName(const CitizenList *list) {
+    Node *current = list->head;
+    int i = 1;
+    printf("List of Citizens\n\n");
+    // header
+    printf("%-5s %-20s %-20s %-20s\n", "No.", "First Name", "Middle Name", "Last Name");
+    while (current != NULL) {
+        printf("%-5d %-20s %-20s %-20s\n", i++, current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
+        current = current->next;
+    }
+}
+
 

@@ -1,6 +1,9 @@
+#include <stdio.h>
+
 #include "citizen/citizen.h"
 #include "file/file.h"
 #include "cmd/terminal_utils.h"
+#include "sorting/sort.h"
 
 
 int main(void) {
@@ -11,7 +14,14 @@ int main(void) {
     loadCitizensFromCSV("..\\data.csv", &list);
 
     clearTerminal();
-    displayCitizensNode(&list);
+    printf("Unsorted list of citizens:\n");
+    displayCitizenName(&list);
+    pressAnyKeyToContinue();
+
+    sortCitizens(&list, "firstName");
+
+    printf("Sorted list of citizens:\n");
+    displayCitizenName(&list);
     pressAnyKeyToContinue();
 
 

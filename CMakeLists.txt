@@ -9,4 +9,6 @@ add_executable(Citizen main.c
         file/file.h
         file/file.c
         cmd/terminal_utils.c
-        cmd/terminal_utils.h)
+        cmd/terminal_utils.h
+        sorting/sort.c
+        sorting/sort.h)

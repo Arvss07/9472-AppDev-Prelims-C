@@ -88,5 +88,7 @@ Citizen* filterCitizens(const CitizenList *list, Address address);
 // display citizens
 void displayCitizensNode(const CitizenList *list);
 
+void displayCitizenName(const CitizenList *list);
+
 
 #endif
