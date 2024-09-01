@@ -22,6 +22,7 @@ void addLast(List *list, Citizen citizen);
 void printList(List * list);
 void removeCitizen(List *list, int citizenId);
 List filterByName(List *list, const char *name);
+List sortCitizen(List * list);
 void freeList(List *list);
 
 #endif //LINKEDLIST_H

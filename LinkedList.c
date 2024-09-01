@@ -88,12 +88,64 @@ List filterByName(List *list, const char *name) {
     return filteredList;
 }
 
-void freeList(List *list) {
+List *copyList(List *list) {
+    List *copy = malloc(sizeof(List));
+    if (copy == NULL) {
+        fprintf(stderr, "Failed to allocate memory for copied list\n");
+        return NULL;
+    }
+
+    copy->head = NULL;
+    copy->tail = NULL;
+
     Node *current = list->head;
-    Node *next;
+    while (current != NULL) {
+        addLast(copy, current->citizen);
+        current = current->next;
+    }
+
+    return copy;
+}
+
+
+
+List sortCitizen(List *list) {
+    List sortedList = {NULL, NULL};
+
+    if (list->head == NULL) {
+        return sortedList;
+    }
+
+    List *copy = copyList(list);
+    const Node *current = copy->head;
 
     while (current != NULL) {
-        next = current->next;
+        const Node *min = current;
+        const Node *search = current->next;
+
+        while (search != NULL) {
+            if (strcmp(min->citizen.name, search->citizen.name) > 0) {
+                min = search;
+            }
+            search = search->next;
+        }
+
+        addLast(&sortedList, min->citizen);
+        removeCitizen(copy, min->citizen.id);
+        current = copy->head;
+
+    }
+
+    freeList(copy);
+    return sortedList;
+}
+
+
+void freeList(List *list) {
+    Node *current = list->head;
+
+    while (current != NULL) {
+        Node *next = current->next;
         free(current);
         current = next;
     }
