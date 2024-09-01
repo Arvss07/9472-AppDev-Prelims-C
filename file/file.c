@@ -52,6 +52,7 @@ void loadCitizensFromCSV(const char *filename, List *list) {
 
             citizen.citizenId = atoi(token);
             token = strtok(NULL, ",");
+
             strncpy(citizen.firstName, token ? token : "", sizeof(citizen.firstName) - 1);
             citizen.firstName[sizeof(citizen.firstName) - 1] = '\0';
 

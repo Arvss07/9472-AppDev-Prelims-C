@@ -43,7 +43,8 @@ void printList(List *list) {
     int i = 1;
     printf("List of Citizens\n\n");
     while (current != NULL) {
-        printf("\n%d.Name: %s %s %s\n",i++, current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
+        printf("\n%d.CitizenId: %d\n",i++, current->citizen.citizenId);
+        printf("Name: %s %s %s\n", current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
         printf("Gender: %s\n", getGender(current->citizen.gender));
         printf("Birth Date: %s\n", current->citizen.birthDate);
         printf("Marital Status: %s\n", getMaritalStatus(current->citizen.maritalStatus));
@@ -120,12 +121,33 @@ List *copyList(List *list) {
         current = current->next;
     }
 
+
     return copy;
 }
 
 
+int cmpCtz(const Citizen a, const Citizen b,SortType sort) {
+    if (sort == FirstName) {
+        return strcmp(a.firstName, b.firstName);
+    }
 
-List sortCitizen(List *list) {
+    if (sort == MiddleName) {
+        return strcmp(a.middleName, b.middleName);
+    }
+
+    if (sort == LastName) {
+        return strcmp(a.lastName, b.lastName);
+    }
+
+    if (sort == CitizenId) {
+       return a.citizenId - b.citizenId;
+    }
+
+    return 0;
+}
+
+
+List sortCitizen(List *list, SortType sort) {
     List sortedList = {NULL, NULL};
 
     if (list->head == NULL) {
@@ -133,28 +155,34 @@ List sortCitizen(List *list) {
     }
 
     List *copy = copyList(list);
+    if (copy == NULL) {
+        return sortedList;
+    }
+
     const Node *current = copy->head;
 
     while (current != NULL) {
         const Node *min = current;
         const Node *search = current->next;
 
+
         while (search != NULL) {
-            if (strcmp(min->citizen.firstName, search->citizen.firstName) > 0) {
+            if (cmpCtz(min->citizen, search->citizen, sort) > 0) {
                 min = search;
             }
             search = search->next;
         }
 
+
         addLast(&sortedList, min->citizen);
         removeCitizen(copy, min->citizen.citizenId);
         current = copy->head;
-
     }
 
     freeList(copy);
     return sortedList;
 }
+
 
 
 void freeList(List *list) {

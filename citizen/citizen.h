@@ -1,6 +1,12 @@
 #ifndef CITIZEN_H
 #define CITIZEN_H
 
+typedef enum {
+    FirstName,
+    LastName,
+    MiddleName,
+    CitizenId,
+}SortType;
 
 typedef enum {
     Success,
@@ -66,7 +72,7 @@ ResponseCode addLast(List *list, Citizen citizen);
 void printList(List * list);
 ResponseCode removeCitizen(List *list, int citizenId);
 List filterByName(List *list, const char *name);
-List sortCitizen(List * list);
+List sortCitizen(List *list, SortType sort);
 void freeList(List *list);
 
 

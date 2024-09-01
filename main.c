@@ -10,11 +10,13 @@ int main(void) {
     loadCitizensFromCSV("..\\data.csv", &list);
     printList(&list);
 
+    printf("\n\nSorting citizen by last name\n");
+    List sortedLastName = sortCitizen(&list, LastName);
+    printList(&sortedLastName);
+
     printf("\n\nSorting citizen by first name\n");
-    List sorted = sortCitizen(&list);
-    printList(&sorted);
-
-
+    List sortedFirstName = sortCitizen(&list, FirstName);
+    printList(&sortedFirstName);
 
     return 0;
 }
