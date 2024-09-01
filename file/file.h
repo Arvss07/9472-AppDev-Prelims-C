@@ -4,7 +4,7 @@
 
 #include "..//citizen/citizen.h"
 
-void loadCitizensFromCSV(const char *filename, CitizenList *list);
-void saveListToFile(const char *filename, CitizenList *list);
+void loadCitizensFromCSV(const char *filename, List *list);
+void saveListToFile(const char *filename, List *list);
 
 #endif //FILE_H

@@ -51,7 +51,7 @@ typedef struct Node {
 typedef struct {
     Node *head;
     Node *tail;
-} CitizenList;
+} List;
 
 #define getGender(g) \
 ((g) == MALE ? "Male" : (g) == FEMALE ? "Female" : "Others")
@@ -61,36 +61,13 @@ typedef struct {
 
 
 
-void initCitizenList(CitizenList *list);
-
-// first
-ResponseCode addCitizenFirst(CitizenList *list, int citizenId, const char *firstName, const char *middleName, const char *lastName,
-                                  Gender gender, const char *birthDate, MaritalStatus maritalStatus, const char *nationality,
-                                  const char *religion, const char *contactNumber, const char *emailAddress, Address address);
-
-// last
-ResponseCode addCitizenLast(CitizenList *list, int citizenId, const char *firstName, const char *middleName, const char *lastName,
-                                  Gender gender, const char *birthDate, MaritalStatus maritalStatus, const char *nationality,
-                                  const char *religion, const char *contactNumber, const char *emailAddress, Address address);
-
-// remove a citizen from the linked list by citizenId
-ResponseCode removeCitizen(CitizenList *list, int citizenId);
-
-// count the number of citizens in a specific address
-ResponseCode countCitizensByAddress(CitizenList *list, Address address);
-
-// count the number of citizens
-ResponseCode countCitizens(const CitizenList *list);
-
-// filter citizens by address and return an array
-Citizen* filterCitizens(const CitizenList *list, Address address);
-
-// display citizens
-void displayCitizensNode(const CitizenList *list);
-
-void displayCitizenName(const CitizenList *list);
-
-ResponseCode updateCitizen(CitizenList *list, Citizen *citizen);
+ResponseCode addFirst(List *list,  Citizen citizen);
+ResponseCode addLast(List *list, Citizen citizen);
+void printList(List * list);
+ResponseCode removeCitizen(List *list, int citizenId);
+List filterByName(List *list, const char *name);
+List sortCitizen(List * list);
+void freeList(List *list);
 
 
 #endif

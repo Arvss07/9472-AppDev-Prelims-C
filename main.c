@@ -1,31 +1,10 @@
 #include <stdio.h>
 
 #include "citizen/citizen.h"
-#include "file/file.h"
-#include "cmd/terminal_utils.h"
-#include "sorting/sort.h"
-
 
 int main(void) {
 
-    CitizenList list;
-    initCitizenList(&list);
-
-    loadCitizensFromCSV("..\\data.csv", &list);
-
-    // clearTerminal();
-    // printf("Unsorted list of citizens:\n");
-    // displayCitizenName(&list);
-    // pressAnyKeyToContinue();
-    //
-    // sortCitizens(&list, "firstName");
-    //
-    // printf("Sorted list of citizens:\n");
-    // displayCitizenName(&list);
-    // pressAnyKeyToContinue();
-
-    printf("Default");
-    displayCitizensNode(&list);
+   List list  ={};
 
     Citizen gio = {
         .citizenId = 1001,
@@ -47,14 +26,9 @@ int main(void) {
         }
     };
 
-    ResponseCode result = updateCitizen(&list, &gio);
-    if (result == Success) {
-        printf("Citizen updated successfully.\n");
-        displayCitizensNode(&list);
-    } else {
-        printf("Error updating citizen: %d\n", result);
-    }
-    printf("Whutttt\n");
+    addFirst(&list, gio);
+    printList(&list);
+
 
 
     return 0;

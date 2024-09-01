@@ -4,6 +4,6 @@
 #include "../citizen/citizen.h"
 
 // Function to sort citizens based on a specified field
-void sortCitizens(CitizenList *list, const char *field);
+void sortCitizens(List *list, const char *field);
 
 #endif //SORT_H

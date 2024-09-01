@@ -20,7 +20,7 @@ MaritalStatus stringToMaritalStatus(const char *str) {
 }
 
 
-void loadCitizensFromCSV(const char *filename, CitizenList *list) {
+void loadCitizensFromCSV(const char *filename, List *list) {
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
@@ -65,17 +65,18 @@ void loadCitizensFromCSV(const char *filename, CitizenList *list) {
             address.barangay[sizeof(address.barangay) - 1] = '\0';
 
 
-            const ResponseCode result = addCitizenLast(list, citizenId, firstName, middleName, lastName, gender, birthDate, maritalStatus, nationality, religion, contactNumber, emailAddress, address);
-            if (result != Success) {
-                fprintf(stderr, "Error adding citizen: %d\n", result);
-            }
+
+            // //const ResponseCode result = addLast(list, citizenId, firstName, middleName, lastName, gender, birthDate, maritalStatus, nationality, religion, contactNumber, emailAddress, address);
+            // if (result != Success) {
+            //     fprintf(stderr, "Error adding citizen: %d\n", result);
+            // }
         }
     }
 
     fclose(file);
 }
 
-void saveListToFile(const char *filename, CitizenList *list) {
+void saveListToFile(const char *filename, List *list) {
     FILE *tempFile = fopen("temp.csv", "w"); // Open temp file for writing
     if (tempFile == NULL) {
         fprintf(stderr, "Error: Could not open file temp.csv for writing.\n");

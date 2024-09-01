@@ -16,7 +16,7 @@ int cmpCtz(const
 }
 
 // Insertion sort algorithm to sort the linked list of citizens
-void sortCitizens(CitizenList *list, const char *field) {
+void sortCitizens(List *list, const char *field) {
     if (list->head == NULL) return;
 
     Node *sorted = NULL;
