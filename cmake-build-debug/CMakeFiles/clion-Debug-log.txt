@@ -5,6 +5,6 @@
 -- Check for working C compiler: D:/Main/APPS/CLion 2024.2/bin/mingw/bin/gcc.exe - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
--- Configuring done (1.7s)
+-- Configuring done (0.9s)
 -- Generating done (0.0s)
 -- Build files have been written to: D:/Main/Documents/(NEW) 2nd Sem Files/3rd Year/9472 - IT 311 [APP DEV]/citizen/master/cmake-build-debug

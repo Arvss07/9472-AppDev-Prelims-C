@@ -53,10 +53,16 @@ void loadCitizensFromCSV(const char *filename, CitizenList *list) {
             const char *religion = strtok(NULL, ",");
             const char *contactNumber = strtok(NULL, ",");
             const char *emailAddress = strtok(NULL, ",");
-            address.houseNumber = strtok(NULL, ",");
-            address.street = strtok(NULL, ",");
-            address.purokZone = strtok(NULL, ",");
-            address.barangay = strtok(NULL, "\n");
+
+
+            strncpy(address.houseNumber, strtok(NULL, ","), sizeof(address.houseNumber) - 1);
+            address.houseNumber[sizeof(address.houseNumber) - 1] = '\0';
+            strncpy(address.street, strtok(NULL, ","), sizeof(address.street) - 1);
+            address.street[sizeof(address.street) - 1] = '\0';
+            strncpy(address.purokZone, strtok(NULL, ","), sizeof(address.purokZone) - 1);
+            address.purokZone[sizeof(address.purokZone) - 1] = '\0';
+            strncpy(address.barangay, strtok(NULL, "\n"), sizeof(address.barangay) - 1);
+            address.barangay[sizeof(address.barangay) - 1] = '\0';
 
 
             const ResponseCode result = addCitizenLast(list, citizenId, firstName, middleName, lastName, gender, birthDate, maritalStatus, nationality, religion, contactNumber, emailAddress, address);

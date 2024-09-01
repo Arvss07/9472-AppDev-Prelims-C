@@ -22,10 +22,10 @@ typedef enum {
 } MaritalStatus;
 
 typedef struct {
-    char *houseNumber;
-    char *street;
-    char *purokZone;
-    char *barangay;
+    char houseNumber[100];
+    char street[100];
+    char purokZone[100];
+    char barangay[100];
 } Address;
 
 typedef struct {

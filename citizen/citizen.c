@@ -34,7 +34,16 @@ void copyCitizens(Node *newNode, int citizenId, const char *firstName, const cha
     newNode->citizen.contactNumber[sizeof(newNode->citizen.contactNumber) - 1] = '\0';
     strncpy(newNode->citizen.emailAddress, emailAddress, sizeof(newNode->citizen.emailAddress) - 1);
     newNode->citizen.emailAddress[sizeof(newNode->citizen.emailAddress) - 1] = '\0';
-    newNode->citizen.address = address;
+
+    // Copy address fields
+    strncpy(newNode->citizen.address.houseNumber, address.houseNumber, sizeof(newNode->citizen.address.houseNumber) - 1);
+    newNode->citizen.address.houseNumber[sizeof(newNode->citizen.address.houseNumber) - 1] = '\0';
+    strncpy(newNode->citizen.address.street, address.street, sizeof(newNode->citizen.address.street) - 1);
+    newNode->citizen.address.street[sizeof(newNode->citizen.address.street) - 1] = '\0';
+    strncpy(newNode->citizen.address.purokZone, address.purokZone, sizeof(newNode->citizen.address.purokZone) - 1);
+    newNode->citizen.address.purokZone[sizeof(newNode->citizen.address.purokZone) - 1] = '\0';
+    strncpy(newNode->citizen.address.barangay, address.barangay, sizeof(newNode->citizen.address.barangay) - 1);
+    newNode->citizen.address.barangay[sizeof(newNode->citizen.address.barangay) - 1] = '\0';
 }
 
 ResponseCode addCitizenFirst(CitizenList *list, int citizenId, const char *firstName, const char *middleName, const char *lastName,
@@ -165,9 +174,9 @@ void displayCitizensNode(const CitizenList *list) {
         printf("Contact Number: %s\n", current->citizen.contactNumber);
         printf("Email Address: %s\n", current->citizen.emailAddress);
         printf("House Number:%s\n", current->citizen.address.houseNumber);
-        printf("Street:%s\n", current->citizen.address.houseNumber);
-        printf("Purok Zone:%s\n", current->citizen.address.houseNumber);
-        printf("Barangay:%s\n", current->citizen.address.houseNumber);
+        printf("Street:%s\n", current->citizen.address.street);
+        printf("Purok Zone:%s\n", current->citizen.address.purokZone);
+        printf("Barangay:%s\n", current->citizen.address.barangay);
         current = current->next;
         printf("\n");
     }

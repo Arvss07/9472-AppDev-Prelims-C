@@ -1,11 +1,11 @@
 CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone,Barangay
 1001,Hatdog,Giovanni,Haha,Others,2024-09-01,Widowed,Chinese,Jewish,1234567890,gio.vanni@example.com,101,Monglo,Sablan,Bayabas
-1002,Juderey,A,Padsuyan,Male,1985-05-15,Single,Filipino,Christian,0987654321,judrey.12@example.com,,˚,,(null)
-1003,Marites,L,Ramos,Male,1992-03-20,Single,Filipino,Catholic,0912345678,marites.ramos@example.com,,,(null),(null)
-1004,Michael,D,Santos,Male,1988-07-12,Single,Filipino,Christian,0908765432,michael.santos@example.com,9œåÆ˚,˚,,(null)
-1005,Angelica,K,Reyes,Male,1995-08-25,Single,Filipino,Christian,0998765432,angelica.reyes@example.com,9œåÆ˚,,,ÍèÆ˚
-1006,Roberto,C,Martinez,Male,1983-12-01,Single,Filipino,Christian,0923456789,roberto.martinez@example.com,Æ˚,,,(null)
-1007,Cristina,M,Domingo,Male,1997-05-05,Single,Filipino,Catholic,0911223344,cristina.domingo@example.com,Æ˚,,,(null)
-1008,John,E,De La Cruz,Male,1990-11-11,Single,Filipino,Christian,0933221100,john.delacruz@example.com,,,(null),(null)
-1009,Karen,G,Gutierrez,Male,1991-06-30,Single,Filipino,Christian,0944556677,karen.gutierrez@example.com,Æ˚,,(null),(null)
-1010,Mark,J,Garcia,Male,1989-09-09,Single,Filipino,Christian,0955667788,mark.garcia@example.com,,(null),(null),(null)
+1002,Juderey,A,Padsuyan,Male,1985-05-15,Single,Filipino,Christian,0987654321,judrey.12@example.com,202,Tuba,Camp 4,Baguio
+1003,Marites,L,Ramos,Male,1992-03-20,Single,Filipino,Catholic,0912345678,marites.ramos@example.com,305,Abanao,Burnham Hill,Baguio
+1004,Michael,D,Santos,Male,1988-07-12,Single,Filipino,Christian,0908765432,michael.santos@example.com,408,Session Road,General Luna,Baguio
+1005,Angelica,K,Reyes,Male,1995-08-25,Single,Filipino,Christian,0998765432,angelica.reyes@example.com,509,Legarda Road,Quezon Hill,Baguio
+1006,Roberto,C,Martinez,Male,1983-12-01,Single,Filipino,Christian,0923456789,roberto.martinez@example.com,610,Harrison Road,Camp 7,Baguio
+1007,Cristina,M,Domingo,Male,1997-05-05,Single,Filipino,Catholic,0911223344,cristina.domingo@example.com,711,La Trinidad,Betag,Benguet
+1008,John,E,De La Cruz,Male,1990-11-11,Single,Filipino,Christian,0933221100,john.delacruz@example.com,812,Asin Road,Pinsao,Baguio
+1009,Karen,G,Gutierrez,Male,1991-06-30,Single,Filipino,Christian,0944556677,karen.gutierrez@example.com,913,Marcos Highway,Loakan,Baguio
+1010,Mark,J,Garcia,Male,1989-09-09,Single,Filipino,Christian,0955667788,mark.garcia@example.com,1014,Outlook Drive,Mines View,Baguio
