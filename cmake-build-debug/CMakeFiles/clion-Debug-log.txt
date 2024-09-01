@@ -1,4 +1,10 @@
-"C:\Program Files\JetBrains\CLion 2024.2.0.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2024.2.0.1/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Giovanni\C_Language\Citizen -B C:\Giovanni\C_Language\Citizen\cmake-build-debug
--- Configuring done (0.2s)
+"D:\Main\APPS\CLion 2024.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles" -S "D:\Main\Documents\(NEW) 2nd Sem Files\3rd Year\9472 - IT 311 [APP DEV]\citizen\master" -B "D:\Main\Documents\(NEW) 2nd Sem Files\3rd Year\9472 - IT 311 [APP DEV]\citizen\master\cmake-build-debug"
+-- The C compiler identification is GNU 13.1.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: D:/Main/APPS/CLion 2024.2/bin/mingw/bin/gcc.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done (1.7s)
 -- Generating done (0.0s)
--- Build files have been written to: C:/Giovanni/C_Language/Citizen/cmake-build-debug
+-- Build files have been written to: D:/Main/Documents/(NEW) 2nd Sem Files/3rd Year/9472 - IT 311 [APP DEV]/citizen/master/cmake-build-debug

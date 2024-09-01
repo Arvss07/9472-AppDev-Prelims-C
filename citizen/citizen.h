@@ -9,16 +9,16 @@ typedef enum {
 }ResponseCode;
 
 typedef enum {
-    MALE,
-    FEAMLE ,
-    OTHERS
+    MALE = 0,
+    FEMALE = 1,
+    OTHERS = 3
 } Gender;
 
 typedef enum {
-    SINGLE,
-    MARRIED ,
-    DIVORCED ,
-    WIDOWED
+    SINGLE = 0,
+    MARRIED = 1,
+    DIVORCED = 2,
+    WIDOWED = 3
 } MaritalStatus;
 
 typedef struct {
@@ -54,7 +54,7 @@ typedef struct {
 } CitizenList;
 
 #define getGender(g) \
-((g) == MALE ? "Male" : (g) == FEAMLE ? "Female" : "Others")
+((g) == MALE ? "Male" : (g) == FEMALE ? "Female" : "Others")
 
 #define getMaritalStatus(m) \
 ((m) == SINGLE ? "Single" : (m) == MARRIED ? "Married" : (m) == DIVORCED ? "Divorced" : "Widowed")
@@ -89,6 +89,8 @@ Citizen* filterCitizens(const CitizenList *list, Address address);
 void displayCitizensNode(const CitizenList *list);
 
 void displayCitizenName(const CitizenList *list);
+
+ResponseCode updateCitizen(CitizenList *list, Citizen *citizen);
 
 
 #endif

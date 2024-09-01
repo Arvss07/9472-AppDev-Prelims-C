@@ -6,7 +6,7 @@
 
 Gender stringToGender(const char *str) {
     if (strcmp(str, "Male") == 0) return MALE;
-    if (strcmp(str, "Female") == 0) return FEAMLE;
+    if (strcmp(str, "Female") == 0) return FEMALE;
     if (strcmp(str, "Others") == 0) return OTHERS;
     return MALE;
 }
@@ -67,4 +67,43 @@ void loadCitizensFromCSV(const char *filename, CitizenList *list) {
     }
 
     fclose(file);
+}
+
+void saveListToFile(const char *filename, CitizenList *list) {
+    FILE *tempFile = fopen("temp.csv", "w"); // Open temp file for writing
+    if (tempFile == NULL) {
+        fprintf(stderr, "Error: Could not open file temp.csv for writing.\n");
+        return;
+    }
+
+    // Write header
+    fprintf(tempFile,
+            "CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone,Barangay\n");
+
+    // Iterate through the list and write each citizen's data
+    Node *current = list->head;
+    while (current != NULL) {
+        Citizen *citizen = &current->citizen;
+        fprintf(tempFile, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+                citizen->citizenId,
+                citizen->firstName,
+                citizen->middleName,
+                citizen->lastName,
+                getGender(citizen->gender),
+                citizen->birthDate,
+                getMaritalStatus(citizen->maritalStatus),
+                citizen->nationality,
+                citizen->religion,
+                citizen->contactNumber,
+                citizen->emailAddress,
+                citizen->address.houseNumber,
+                citizen->address.street,
+                citizen->address.purokZone,
+                citizen->address.barangay);
+        current = current->next;
+    }
+
+    fclose(tempFile);
+    remove(filename);
+    rename("temp.csv", filename);
 }

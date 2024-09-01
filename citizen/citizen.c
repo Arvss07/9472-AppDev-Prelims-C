@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../file/file.h"
+
 void initCitizenList(CitizenList *list) {
     list->head = NULL;
     list->tail = NULL;
@@ -180,6 +182,29 @@ void displayCitizenName(const CitizenList *list) {
     while (current != NULL) {
         printf("%-5d %-20s %-20s %-20s\n", i++, current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
         current = current->next;
+    }
+}
+
+ResponseCode updateCitizen(CitizenList *list, Citizen *citizen) {
+    if (list == NULL || citizen == NULL) return Failed;
+
+    Node *current = list->head;
+    int found = 0;
+
+    while (current != NULL) {
+        if (current->citizen.citizenId == citizen->citizenId) {
+            found = 1;
+            current->citizen = *citizen;
+            break;
+        }
+        current = current->next;
+    }
+
+    if (found) {
+        saveListToFile("..\\data.csv", list);
+        return Success;
+    } else {
+        return NotFound;
     }
 }
 

@@ -1,4 +1,4 @@
-# Install script for directory: D:/Main/Documents/(NEW) 2nd Sem Files/3rd Year/9472 - IT 311 [APP DEV]/prelim-project-copy/9472-AppDev-Prelims-C
+# Install script for directory: D:/Main/Documents/(NEW) 2nd Sem Files/3rd Year/9472 - IT 311 [APP DEV]/citizen/master
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/Main/Documents/(NEW) 2nd Sem Files/3rd Year/9472 - IT 311 [APP DEV]/prelim-project-copy/9472-AppDev-Prelims-C/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Main/Documents/(NEW) 2nd Sem Files/3rd Year/9472 - IT 311 [APP DEV]/citizen/master/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
