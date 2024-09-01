@@ -1,33 +1,18 @@
 #include <stdio.h>
 
 #include "citizen/citizen.h"
+#include "file/file.h"
 
 int main(void) {
 
    List list  ={};
 
-    Citizen gio = {
-        .citizenId = 1001,
-        .firstName = "Hatdog",
-        .middleName = "Giovanni",
-        .lastName = "Haha",
-        .gender = OTHERS,
-        .birthDate = "2024-09-01",
-        .maritalStatus = WIDOWED,
-        .nationality = "Chinese",
-        .religion = "Jewish",
-        .contactNumber = "1234567890",
-        .emailAddress = "gio.vanni@example.com",
-        .address = {
-            .houseNumber = "101",
-            .street = "Monglo",
-            .purokZone = "Sablan",
-            .barangay = "Bayabas"
-        }
-    };
-
-    addFirst(&list, gio);
+    loadCitizensFromCSV("..\\data.csv", &list);
     printList(&list);
+
+    printf("\n\nSorting citizen by first name\n");
+    List sorted = sortCitizen(&list);
+    printList(&sorted);
 
 
 

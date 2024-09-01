@@ -38,38 +38,79 @@ void loadCitizensFromCSV(const char *filename, List *list) {
     }
 
     while (fgets(line, sizeof(line), file)) {
+        // Trim the newline character from the end of the line
+        const size_t len = strlen(line);
+        if (len > 0 && line[len - 1] == '\n') {
+            line[len - 1] = '\0';
+        }
+
         const char *token = strtok(line, ",");
 
         if (token != NULL) {
             Address address;
-            const int citizenId = atoi(token);
-            const char *firstName = strtok(NULL, ",");
-            const char *middleName = strtok(NULL, ",");
-            const char *lastName = strtok(NULL, ",");
-            const Gender gender =  strtok(NULL, ",") ? stringToGender(token) : MALE;
-            const char *birthDate = strtok(NULL, ",");
-            const MaritalStatus maritalStatus = strtok(NULL, ",") ? stringToMaritalStatus(token) : SINGLE;
-            const char *nationality = strtok(NULL, ",");
-            const char *religion = strtok(NULL, ",");
-            const char *contactNumber = strtok(NULL, ",");
-            const char *emailAddress = strtok(NULL, ",");
+            Citizen citizen;
 
+            citizen.citizenId = atoi(token);
+            token = strtok(NULL, ",");
+            strncpy(citizen.firstName, token ? token : "", sizeof(citizen.firstName) - 1);
+            citizen.firstName[sizeof(citizen.firstName) - 1] = '\0';
 
-            strncpy(address.houseNumber, strtok(NULL, ","), sizeof(address.houseNumber) - 1);
+            token = strtok(NULL, ",");
+            strncpy(citizen.middleName, token ? token : "", sizeof(citizen.middleName) - 1);
+            citizen.middleName[sizeof(citizen.middleName) - 1] = '\0';
+
+            token = strtok(NULL, ",");
+            strncpy(citizen.lastName, token ? token : "", sizeof(citizen.lastName) - 1);
+            citizen.lastName[sizeof(citizen.lastName) - 1] = '\0';
+
+            token = strtok(NULL, ",");
+            citizen.gender = token ? stringToGender(token) : MALE;
+
+            token = strtok(NULL, ",");
+            strncpy(citizen.birthDate, token ? token : "", sizeof(citizen.birthDate) - 1);
+            citizen.birthDate[sizeof(citizen.birthDate) - 1] = '\0';
+
+            token = strtok(NULL, ",");
+            citizen.maritalStatus = token ? stringToMaritalStatus(token) : SINGLE;
+
+            token = strtok(NULL, ",");
+            strncpy(citizen.nationality, token ? token : "", sizeof(citizen.nationality) - 1);
+            citizen.nationality[sizeof(citizen.nationality) - 1] = '\0';
+
+            token = strtok(NULL, ",");
+            strncpy(citizen.religion, token ? token : "", sizeof(citizen.religion) - 1);
+            citizen.religion[sizeof(citizen.religion) - 1] = '\0';
+
+            token = strtok(NULL, ",");
+            strncpy(citizen.contactNumber, token ? token : "", sizeof(citizen.contactNumber) - 1);
+            citizen.contactNumber[sizeof(citizen.contactNumber) - 1] = '\0';
+
+            token = strtok(NULL, ",");
+            strncpy(citizen.emailAddress, token ? token : "", sizeof(citizen.emailAddress) - 1);
+            citizen.emailAddress[sizeof(citizen.emailAddress) - 1] = '\0';
+
+            token = strtok(NULL, ",");
+            strncpy(address.houseNumber, token ? token : "", sizeof(address.houseNumber) - 1);
             address.houseNumber[sizeof(address.houseNumber) - 1] = '\0';
-            strncpy(address.street, strtok(NULL, ","), sizeof(address.street) - 1);
+
+            token = strtok(NULL, ",");
+            strncpy(address.street, token ? token : "", sizeof(address.street) - 1);
             address.street[sizeof(address.street) - 1] = '\0';
-            strncpy(address.purokZone, strtok(NULL, ","), sizeof(address.purokZone) - 1);
+
+            token = strtok(NULL, ",");
+            strncpy(address.purokZone, token ? token : "", sizeof(address.purokZone) - 1);
             address.purokZone[sizeof(address.purokZone) - 1] = '\0';
-            strncpy(address.barangay, strtok(NULL, "\n"), sizeof(address.barangay) - 1);
+
+            token = strtok(NULL, "\n");
+            strncpy(address.barangay, token ? token : "", sizeof(address.barangay) - 1);
             address.barangay[sizeof(address.barangay) - 1] = '\0';
 
+            citizen.address = address;
+            const ResponseCode result = addLast(list, citizen);
 
-
-            // //const ResponseCode result = addLast(list, citizenId, firstName, middleName, lastName, gender, birthDate, maritalStatus, nationality, religion, contactNumber, emailAddress, address);
-            // if (result != Success) {
-            //     fprintf(stderr, "Error adding citizen: %d\n", result);
-            // }
+            if (result != Success) {
+                fprintf(stderr, "Error adding citizen: %d\n", result);
+            }
         }
     }
 
