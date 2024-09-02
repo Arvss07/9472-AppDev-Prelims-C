@@ -156,3 +156,28 @@ void saveListToFile(const char *filename, List *list) {
     remove(filename);
     rename("temp.csv", filename);
 }
+
+// Create a certificate for a citizen
+char* createCitizenCert(const Citizen *citizen) {
+    char *cert = malloc(1024); // Allocate memory for certificate
+    if (cert == NULL) {
+        fprintf(stderr, "Error: Could not allocate memory for certificate.\n");
+        return NULL;
+    }
+    sprintf(cert, "This is to certify that %s %s of %s, %s, %s, %s is a citizen of the said barangay.\n",
+            citizen->firstName, citizen->lastName, citizen->address.houseNumber, citizen->address.street, citizen->address.purokZone, citizen->address.barangay);
+    return cert;
+}
+
+// Save the citizen certificate to a file
+void saveCitizenCertToFile(const char *filename, const char *cert) {
+    FILE *file = fopen("temp.txt", "w");
+    if (file == NULL) {
+        fprintf(stderr, "Error: Could not open file temp.txt for writing.\n");
+        return;
+    }
+    fprintf(file, "%s", cert); // Write certificate to file
+    fclose(file); // Close file
+    remove(filename); // Remove the old file
+    rename("temp.txt", filename); // Rename the temp file to the desired filename
+}
