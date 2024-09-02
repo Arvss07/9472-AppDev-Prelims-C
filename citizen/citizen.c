@@ -1,4 +1,5 @@
 #include "citizen.h"
+#include "../file/file.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,6 +17,7 @@ ResponseCode addFirst(List *list, Citizen citizen) {
         list->tail = newNode;
     }
     list->head = newNode;
+    saveListToFile(FILENAME, list);
     return Success;
 }
 
@@ -35,6 +37,7 @@ ResponseCode addLast(List *list, Citizen citizen) {
         list->tail->next = newNode;
         list->tail = newNode;
     }
+    saveListToFile(FILENAME, list);
     return Success;
 }
 
@@ -61,6 +64,53 @@ void printList(List *list) {
     }
 }
 
+void printTable(List *list) {
+    Node *current = list->head;
+    int i = 1;
+    printf("List of Citizens\n\n");
+    printf("%-5s %-10s %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s %-15s %-20s %-25s\n",
+           "No.", "CtzId", "Name", "Gender", "BDate", "MStat", "Nat", "Rel", "CNum", "Email", "House#", "St.#", "P/Z", "Brgy");
+    while (current != NULL) {
+        printf("%-5d %-10d %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s %-15s %-20s %-25s\n",
+               i++,
+               current->citizen.citizenId,
+               getFullName(current->citizen.firstName, current->citizen.middleName, current->citizen.lastName),
+               getGender(current->citizen.gender),
+               current->citizen.birthDate,
+               getMaritalStatus(current->citizen.maritalStatus),
+               current->citizen.nationality,
+               current->citizen.religion, current->citizen.contactNumber,
+               current->citizen.emailAddress,
+               current->citizen.address.houseNumber,
+               current->citizen.address.street,
+               current->citizen.address.purokZone,
+                current->citizen.address.barangay);
+        current = current->next;
+    }
+}
+
+void printCitizen(List *list, int citizenId) {
+    Node *current = list->head;
+    while (current != NULL) {
+        if (current->citizen.citizenId == citizenId) {
+            printf("CitizenId: %d\n", current->citizen.citizenId);
+            printf("Full Name: %s %s %s\n", current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
+            printf("Gender: %s\n", getGender(current->citizen.gender));
+            printf("Birth Date: %s\n", current->citizen.birthDate);
+            printf("Marital Status: %s\n", getMaritalStatus(current->citizen.maritalStatus));
+            printf("Nationality: %s\n", current->citizen.nationality);
+            printf("Religion: %s\n", current->citizen.religion);
+            printf("Contact Number: %s\n", current->citizen.contactNumber);
+            printf("Email Address: %s\n", current->citizen.emailAddress);
+            printf("House Number: %s\n", current->citizen.address.houseNumber);
+            printf("Street: %s\n", current->citizen.address.street);
+            printf("Purok Zone: %s\n", current->citizen.address.purokZone);
+            printf("Barangay: %s\n", current->citizen.address.barangay);
+            break;
+        }
+        current = current->next;
+    }
+}
 ResponseCode removeCitizen(List *list, int citizenId) {
     Node *current = list->head;
     Node *previous = NULL;
@@ -89,6 +139,29 @@ ResponseCode removeCitizen(List *list, int citizenId) {
 
     free(current);
     return Success;
+}
+
+ResponseCode updateCitizen(List *list, const Citizen *citizen) {
+    if (list == NULL || citizen == NULL) return Failed;
+
+    Node *current = list->head;
+    int found = 0;
+
+    while (current != NULL) {
+        if (current->citizen.citizenId == citizen->citizenId) {
+            found = 1;
+            current->citizen = *citizen;
+            break;
+        }
+        current = current->next;
+    }
+
+    if (found) {
+        saveListToFile(FILENAME, list);
+        return Success;
+    } else {
+        return NotFound;
+    }
 }
 
 List filterByName(List *list, const char *name) {
