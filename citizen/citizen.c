@@ -270,5 +270,23 @@ void freeList(List *list) {
     list->head = NULL;
     list->tail = NULL;
 }
-
+// Create a certificate for a citizen and save it to a file
+void createAndSaveCitizenCert(List *list, const char *firstName, const char *lastName) {
+    Node *current = list->head; // Start at the head of the list
+    while (current != NULL) { // Iterate through the list
+        if (strcmp(current->citizen.firstName, firstName) == 0 && strcmp(current->citizen.lastName, lastName) == 0) {
+            char *cert = createCitizenCert(&current->citizen); // Create a certificate for the citizen
+            if (cert != NULL) {
+                char filename[256]; // Allocate enough memory for the filename
+                snprintf(filename, sizeof(filename), "%s_%s_%s.txt", FILENAME2, firstName, lastName); // Create the filename
+                saveCitizenCertToFile(filename, cert); // Save the certificate to a file
+                free(cert); // Free the allocated memory for the certificate string
+                printf("Certificate created and saved for %s %s.\n", firstName, lastName); // Print a success message
+            }
+            return; // Exit the function after finding the citizen
+        }
+        current = current->next; // Move to the next node
+    }
+    printf("Citizen %s %s not found in the list.\n", firstName, lastName); // Print an error message if the citizen is not found
+}
 
