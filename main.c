@@ -68,8 +68,8 @@ int main(void) {
         printf("Error updating citizen: %d\n", result);
     }
 
-
-
+    createAndSaveCitizenCert(&list, "Arvs", "Aggabao");
+    createAndSaveCitizenCert(&list, "Giovanni", "Leo");
     pressAnyKeyToContinue();
 
     return 0;
