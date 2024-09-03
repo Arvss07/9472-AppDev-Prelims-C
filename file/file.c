@@ -164,7 +164,11 @@ char* createCitizenCert(const Citizen *citizen) {
         fprintf(stderr, "Error: Could not allocate memory for certificate.\n");
         return NULL;
     }
-    sprintf(cert, "This is to certify that %s %s of %s, %s, %s, %s is a citizen of the said barangay.\n",
+    sprintf(cert, "This is to certify that %s %s, a bona fide resident of %s, %s, %s, %s \n"
+                  "and one of the citizen of our barangay with good moral character and law-abiding citizen in the community.\n"
+                  "That he/she never violated any laws and ordinances of the barangay nor has been"
+                  " involved in any subversive activity.\n"
+                  "This certification is issued upon the request of the above-named person for whatever legal purpose it may serve.\n",
             citizen->firstName, citizen->lastName, citizen->address.houseNumber, citizen->address.street, citizen->address.purokZone, citizen->address.barangay);
     return cert;
 }

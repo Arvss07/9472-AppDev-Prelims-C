@@ -2,7 +2,7 @@
 #define CITIZEN_H
 
 #define FILENAME "../data.csv"
-#define FILENAME2 "../"
+#define FILEPATH "../"
 typedef enum {
     FirstName,
     LastName,
@@ -85,7 +85,7 @@ List filterByName(List *list, const char *name);
 List sortCitizen(List *list, SortType sort);
 ResponseCode updateCitizen(List *list, const Citizen *citizen);
 void freeList(List *list);
-void createAndSaveCitizenCert(List *list, const char *firstName, const char *lastName);
+void createAndSaveCitizenCert(List *list, const Citizen *citizen);
 
 
 #endif
