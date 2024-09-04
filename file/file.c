@@ -161,7 +161,7 @@ void saveListToFile(const char *filename, List *list) {
 char* createCitizenCert(const Citizen *citizen) {
     char *cert = malloc(1024); // Allocate memory for certificate
     if (cert == NULL) {
-        fprintf(stderr, "Error: Could not allocate memory for certificate.\n");
+        perror("Error: Could not allocate memory for certificate.\n");
         return NULL;
     }
     sprintf(cert, "This is to certify that %s %s, a bona fide resident of %s, %s, %s, %s \n"
@@ -177,7 +177,7 @@ char* createCitizenCert(const Citizen *citizen) {
 void saveCitizenCertToFile(const char *filename, const char *cert) {
     FILE *file = fopen("temp.txt", "w");
     if (file == NULL) {
-        fprintf(stderr, "Error: Could not open file temp.txt for writing.\n");
+        perror("Error: Could not open file temp.txt for writing.\n");
         return;
     }
     fprintf(file, "%s", cert); // Write certificate to file

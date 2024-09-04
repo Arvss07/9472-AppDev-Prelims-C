@@ -256,8 +256,6 @@ List sortCitizen(List *list, SortType sort) {
     return sortedList;
 }
 
-
-
 void freeList(List *list) {
     Node *current = list->head;
 
