@@ -4,6 +4,75 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+int cmpCtz(const Citizen a, const Citizen b,Type sort) {
+    if (sort == FirstName) {
+        return strcmp(a.firstName, b.firstName);
+    }
+
+    if (sort == MiddleName) {
+        return strcmp(a.middleName, b.middleName);
+    }
+
+    if (sort == LastName) {
+        return strcmp(a.lastName, b.lastName);
+    }
+
+    if (sort == CitizenId) {
+        return a.citizenId - b.citizenId;
+    }
+
+    if (sort == Barangay) {
+        return strcmp(a.barangay, b.barangay);
+
+    }
+
+    return 0;
+}
+
+#include <string.h>
+
+int com(const Citizen a, const char* keyword, Type type) {
+    if (type == FirstName) {
+        return strstr(a.firstName, keyword) != NULL;
+    }
+
+    if (type == MiddleName) {
+        return strstr(a.middleName, keyword) != NULL;
+    }
+
+    if (type == LastName) {
+        return strstr(a.lastName, keyword) != NULL;
+    }
+
+    if (type == Barangay) {
+        return strstr(a.barangay, keyword) != NULL;
+    }
+
+    return 0;
+}
+
+
+List *copyList(List *list) {
+    List *copy = malloc(sizeof(List));
+    if (copy == NULL) {
+        fprintf(stderr, "Failed to allocate memory for copied list\n");
+        return NULL;
+    }
+
+    copy->head = NULL;
+    copy->tail = NULL;
+
+    Node *current = list->head;
+    while (current != NULL) {
+        addLast(copy, current->citizen);
+        current = current->next;
+    }
+
+
+    return copy;
+}
+
 ResponseCode addFirst(List *list, Citizen citizen) {
     Node *newNode = malloc(sizeof(Node));
     if (newNode == NULL) {
@@ -83,25 +152,19 @@ void printTable(List *list) {
     }
 }
 
-void printCitizen(List *list, int citizenId) {
-    Node *current = list->head;
-    while (current != NULL) {
-        if (current->citizen.citizenId == citizenId) {
-            printf("CitizenId: %d\n", current->citizen.citizenId);
-            printf("Full Name: %s %s %s\n", current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
-            printf("Gender: %s\n", getGender(current->citizen.gender));
-            printf("Birth Date: %s\n", current->citizen.birthDate);
-            printf("Marital Status: %s\n", getMaritalStatus(current->citizen.maritalStatus));
-            printf("Nationality: %s\n", current->citizen.nationality);
-            printf("Religion: %s\n", current->citizen.religion);
-            printf("Contact Number: %s\n", current->citizen.contactNumber);
-            printf("Email Address: %s\n", current->citizen.emailAddress);
-            printf("Barangay: %s\n", current->citizen.barangay);
-            break;
-        }
-        current = current->next;
-    }
+void printCitizen(Citizen citizen) {
+    printf("CitizenId: %d\n", citizen.citizenId);
+    printf("Full Name: %s %s %s\n", citizen.firstName, citizen.middleName,citizen.lastName);
+    printf("Gender: %s\n", getGender(citizen.gender));
+    printf("Birth Date: %s\n", citizen.birthDate);
+    printf("Marital Status: %s\n", getMaritalStatus(citizen.maritalStatus));
+    printf("Nationality: %s\n", citizen.nationality);
+    printf("Religion: %s\n", citizen.religion);
+    printf("Contact Number: %s\n", citizen.contactNumber);
+    printf("Email Address: %s\n", citizen.emailAddress);
+    printf("Barangay: %s\n",citizen.barangay);
 }
+
 ResponseCode removeCitizen(List *list, int citizenId) {
     Node *current = list->head;
     Node *previous = NULL;
@@ -155,63 +218,7 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen) {
     }
 }
 
-List filterByName(List *list, const char *name) {
-    List filteredList = {NULL, NULL};
-    const Node *current = list->head;
-
-    while (current != NULL) {
-        if (strcmp(current->citizen.firstName, name) == 0) {
-            addLast(&filteredList, current->citizen);
-        }
-        current = current->next;
-    }
-
-    return filteredList;
-}
-
-List *copyList(List *list) {
-    List *copy = malloc(sizeof(List));
-    if (copy == NULL) {
-        fprintf(stderr, "Failed to allocate memory for copied list\n");
-        return NULL;
-    }
-
-    copy->head = NULL;
-    copy->tail = NULL;
-
-    Node *current = list->head;
-    while (current != NULL) {
-        addLast(copy, current->citizen);
-        current = current->next;
-    }
-
-
-    return copy;
-}
-
-
-int cmpCtz(const Citizen a, const Citizen b,SortType sort) {
-    if (sort == FirstName) {
-        return strcmp(a.firstName, b.firstName);
-    }
-
-    if (sort == MiddleName) {
-        return strcmp(a.middleName, b.middleName);
-    }
-
-    if (sort == LastName) {
-        return strcmp(a.lastName, b.lastName);
-    }
-
-    if (sort == CitizenId) {
-       return a.citizenId - b.citizenId;
-    }
-
-    return 0;
-}
-
-
-List sortCitizen(List *list, SortType sort) {
+List sortCitizen(List *list, Type sort) {
     List sortedList = {NULL, NULL};
 
     if (list->head == NULL) {
@@ -259,6 +266,37 @@ void freeList(List *list) {
     list->head = NULL;
     list->tail = NULL;
 }
+
+Citizen* searchCitizen(List *list, Type searchType, const char *keyword) {
+    Node *current = list->head;
+
+    while (current != NULL) {
+
+        if (com(current->citizen, keyword, searchType)) {
+            return &current->citizen;
+        }
+        current = current->next;
+    }
+
+    // If no match is found, return NULL
+    return NULL;
+}
+
+Citizen *searchCitizenById(List *list,  int citizenId) {
+    Node *current = list->head;
+
+    while (current != NULL) {
+
+        if (current->citizen.citizenId == citizenId) {
+            return &current->citizen;
+        }
+        current = current->next;
+    }
+
+    // If no match is found, return NULL
+    return NULL;
+}
+
 // Create a certificate for a citizen and save it to a file
 void createAndSaveCitizenCert(List *list, const Citizen *citizen) {
     Node *current = list->head; // Start at the head of the list

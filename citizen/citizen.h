@@ -7,8 +7,10 @@ typedef enum {
     FirstName,
     LastName,
     MiddleName,
+    Barangay,
     CitizenId,
-}SortType;
+}Type;
+
 
 typedef enum {
     Success,
@@ -73,12 +75,13 @@ ResponseCode addFirst(List *list,  Citizen citizen);
 ResponseCode addLast(List *list, Citizen citizen);
 void printList(List * list);
 void printTable(List *list);
-void printCitizen(List *list, int citizenId);
+void printCitizen(Citizen citizen);
 ResponseCode removeCitizen(List *list, int citizenId);
-List filterByName(List *list, const char *name);
-List sortCitizen(List *list, SortType sort);
+List sortCitizen(List *list, Type sort);
 ResponseCode updateCitizen(List *list, const Citizen *citizen);
 void freeList(List *list);
+Citizen *searchCitizen(List *list, Type searchType, const char *keyword);
+Citizen *searchCitizenById(List *list,  int citizenId);
 void createAndSaveCitizenCert(List *list, const Citizen *citizen);
 
 
