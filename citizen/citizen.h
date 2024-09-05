@@ -4,8 +4,8 @@
 #define FILENAME "./data.csv"
 #define FILEPATH "./"
 
-// int c = 0;
-// int *totalCitizen = &c;
+extern int counter;
+extern int *totalCitizen;
 
 typedef enum {
     FirstName,
