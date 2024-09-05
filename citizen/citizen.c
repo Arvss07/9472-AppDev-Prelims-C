@@ -85,6 +85,7 @@ ResponseCode addFirst(List *list, Citizen citizen) {
     if (list->head == NULL) {
         list->tail = newNode;
     }
+    *totalCitizen++;
     list->head = newNode;
     saveListToFile(FILENAME, list);
     return Success;
@@ -106,6 +107,7 @@ ResponseCode addLast(List *list, Citizen citizen) {
         list->tail->next = newNode;
         list->tail = newNode;
     }
+    *totalCitizen++;
     saveListToFile(FILENAME, list);
     return Success;
 }
@@ -190,7 +192,7 @@ ResponseCode removeCitizen(List *list, int citizenId) {
             list->tail = previous;
         }
     }
-
+    *totalCitizen--;
     free(current);
     return Success;
 }
