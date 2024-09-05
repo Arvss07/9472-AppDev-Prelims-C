@@ -1,8 +1,8 @@
 #ifndef CITIZEN_H
 #define CITIZEN_H
 
-#define FILENAME "../data.csv"
-#define FILEPATH "../"
+#define FILENAME "./data.csv"
+#define FILEPATH "./"
 typedef enum {
     FirstName,
     LastName,

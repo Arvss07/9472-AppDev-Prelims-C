@@ -8,7 +8,7 @@ int main(void) {
 
    List list = {NULL, NULL};
 
-    loadCitizensFromCSV("..\\data.csv", &list);
+    loadCitizensFromCSV("./data.csv", &list);
     // printList(&list);
 
     // printf("\n\nSorting citizen by last name\n");
@@ -60,6 +60,7 @@ int main(void) {
     };
 
     ResponseCode result = addFirst(&list, addMe);
+    printList(&list);
 
     if (result == Success) {
         printf("Citizen updated successfully.\n");
