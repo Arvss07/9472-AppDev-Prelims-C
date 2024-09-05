@@ -23,7 +23,7 @@ int cmpCtz(const Citizen a, const Citizen b,Type sort) {
     }
 
     if (sort == Barangay) {
-        return strcmp(a.barangay, b.barangay);
+        return strcmp(a.address.barangay, b.address.barangay);
 
     }
 
@@ -46,7 +46,7 @@ int com(const Citizen a, const char* keyword, Type type) {
     }
 
     if (type == Barangay) {
-        return strstr(a.barangay, keyword) != NULL;
+        return strstr(a.address.barangay, keyword) != NULL;
     }
 
     return 0;
@@ -124,7 +124,7 @@ void printList(List *list) {
         printf("Religion: %s\n", current->citizen.religion);
         printf("Contact Number: %s\n", current->citizen.contactNumber);
         printf("Email Address: %s\n", current->citizen.emailAddress);
-        printf("Barangay:%s\n", current->citizen.barangay);
+        printf("Barangay:%s\n", current->citizen.address.barangay);
         current = current->next;
         printf("\n");
     }
@@ -147,7 +147,7 @@ void printTable(List *list) {
                current->citizen.nationality,
                current->citizen.religion, current->citizen.contactNumber,
                current->citizen.emailAddress,
-                current->citizen.barangay);
+                current->citizen.address.barangay);
         current = current->next;
     }
 }
@@ -162,7 +162,7 @@ void printCitizen(Citizen citizen) {
     printf("Religion: %s\n", citizen.religion);
     printf("Contact Number: %s\n", citizen.contactNumber);
     printf("Email Address: %s\n", citizen.emailAddress);
-    printf("Barangay: %s\n",citizen.barangay);
+    printf("Barangay: %s\n",citizen.address.barangay);
 }
 
 ResponseCode removeCitizen(List *list, int citizenId) {

@@ -48,6 +48,7 @@ void loadCitizensFromCSV(const char *filename, List *list) {
 
         if (token != NULL) {
 
+            Address address;
             Citizen citizen;
 
             citizen.citizenId = atoi(token);
@@ -91,9 +92,10 @@ void loadCitizensFromCSV(const char *filename, List *list) {
             citizen.emailAddress[sizeof(citizen.emailAddress) - 1] = '\0';
 
             token = strtok(NULL, "\n");
-            strncpy(citizen.barangay, token ? token : "", sizeof(citizen.barangay) - 1);
-            citizen.barangay[sizeof(citizen.barangay) - 1] = '\0';
+            strncpy(address.barangay, token ? token : "", sizeof(address.barangay) - 1);
+            address.barangay[sizeof(address.barangay) - 1] = '\0';
 
+            citizen.address = address;
             const ResponseCode result = addLast(list, citizen);
 
             if (result != Success) {
@@ -132,7 +134,7 @@ void saveListToFile(const char *filename, List *list) {
                 citizen->religion,
                 citizen->contactNumber,
                 citizen->emailAddress,
-                citizen->barangay
+                citizen->address.barangay
              );
         current = current->next;
     }
@@ -154,7 +156,7 @@ char* createCitizenCert(const Citizen *citizen) {
                   "That he/she never violated any laws and ordinances of the barangay nor has been"
                   " involved in any subversive activity.\n"
                   "This certification is issued upon the request of the above-named person for whatever legal purpose it may serve.\n",
-            citizen->firstName, citizen->lastName, citizen->barangay);
+            citizen->firstName, citizen->lastName, citizen->address.barangay);
     return cert;
 }
 
