@@ -3,6 +3,10 @@
 
 #define FILENAME "./data.csv"
 #define FILEPATH "./"
+
+int c = 0;
+int *totalCitizen = &c;
+
 typedef enum {
     FirstName,
     LastName,
