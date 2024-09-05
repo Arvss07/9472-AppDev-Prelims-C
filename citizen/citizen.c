@@ -55,10 +55,7 @@ void printList(List *list) {
         printf("Religion: %s\n", current->citizen.religion);
         printf("Contact Number: %s\n", current->citizen.contactNumber);
         printf("Email Address: %s\n", current->citizen.emailAddress);
-        printf("House Number:%s\n", current->citizen.address.houseNumber);
-        printf("Street:%s\n", current->citizen.address.street);
-        printf("Purok Zone:%s\n", current->citizen.address.purokZone);
-        printf("Barangay:%s\n", current->citizen.address.barangay);
+        printf("Barangay:%s\n", current->citizen.barangay);
         current = current->next;
         printf("\n");
     }
@@ -71,7 +68,7 @@ void printTable(List *list) {
     printf("%-5s %-10s %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s %-15s %-20s %-25s\n",
            "No.", "CtzId", "Name", "Gender", "BDate", "MStat", "Nat", "Rel", "CNum", "Email", "House#", "St.#", "P/Z", "Brgy");
     while (current != NULL) {
-        printf("%-5d %-10d %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s %-15s %-20s %-25s\n",
+        printf("%-5d %-10d %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s \n",
                i++,
                current->citizen.citizenId,
                getFullName(current->citizen.firstName, current->citizen.middleName, current->citizen.lastName),
@@ -81,10 +78,7 @@ void printTable(List *list) {
                current->citizen.nationality,
                current->citizen.religion, current->citizen.contactNumber,
                current->citizen.emailAddress,
-               current->citizen.address.houseNumber,
-               current->citizen.address.street,
-               current->citizen.address.purokZone,
-                current->citizen.address.barangay);
+                current->citizen.barangay);
         current = current->next;
     }
 }
@@ -102,10 +96,7 @@ void printCitizen(List *list, int citizenId) {
             printf("Religion: %s\n", current->citizen.religion);
             printf("Contact Number: %s\n", current->citizen.contactNumber);
             printf("Email Address: %s\n", current->citizen.emailAddress);
-            printf("House Number: %s\n", current->citizen.address.houseNumber);
-            printf("Street: %s\n", current->citizen.address.street);
-            printf("Purok Zone: %s\n", current->citizen.address.purokZone);
-            printf("Barangay: %s\n", current->citizen.address.barangay);
+            printf("Barangay: %s\n", current->citizen.barangay);
             break;
         }
         current = current->next;

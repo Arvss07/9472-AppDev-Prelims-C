@@ -8,7 +8,7 @@ int main(void) {
 
    List list = {NULL, NULL};
 
-    loadCitizensFromCSV("./data.csv", &list);
+    loadCitizensFromCSV("..\\data.csv", &list);
     // printList(&list);
 
     // printf("\n\nSorting citizen by last name\n");
@@ -31,12 +31,8 @@ int main(void) {
         .religion = "Catholic",
         .contactNumber = "1234567890",
         .emailAddress = "gio.vanni@example.com",
-        .address = {
-            .houseNumber = "101",
-            .street = "Veni",
-            .purokZone = "Vidi",
             .barangay = "Vici"
-        }
+
     };
 
     Citizen addMe = {
@@ -51,12 +47,8 @@ int main(void) {
         .religion = "Catholic",
         .contactNumber = "1234567890",
         .emailAddress = "arvy.a@example.com",
-        .address = {
-            .houseNumber = "111",
-            .street = "Eagle Lair",
-            .purokZone = "Eagle Crest Phase 1",
             .barangay = "Bakakeng Sur"
-        }
+
     };
 
     ResponseCode result = addFirst(&list, addMe);

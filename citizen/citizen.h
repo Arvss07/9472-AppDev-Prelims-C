@@ -29,12 +29,6 @@ typedef enum {
     WIDOWED = 3
 } MaritalStatus;
 
-typedef struct {
-    char houseNumber[100];
-    char street[100];
-    char purokZone[100];
-    char barangay[100];
-} Address;
 
 typedef struct {
     int citizenId;
@@ -48,7 +42,7 @@ typedef struct {
     char religion[100];
     char contactNumber[100];
     char emailAddress[100];
-    Address address;
+    char barangay[100];
 } Citizen;
 
 typedef struct Node {
