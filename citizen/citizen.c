@@ -5,7 +5,6 @@
 #include <string.h>
 
 int counter = 0;
-int *totalCitizen = &counter;
 
 int cmpCtz(const Citizen a, const Citizen b,Type sort) {
     if (sort == FirstName) {
@@ -32,7 +31,7 @@ int cmpCtz(const Citizen a, const Citizen b,Type sort) {
     return 0;
 }
 
-#include <string.h>
+
 
 int com(const Citizen a, const char* keyword, Type type) {
     if (type == FirstName) {
@@ -87,7 +86,7 @@ ResponseCode addFirst(List *list, Citizen citizen) {
     if (list->head == NULL) {
         list->tail = newNode;
     }
-    *totalCitizen++;
+    counter++;
     list->head = newNode;
     saveListToFile(FILENAME, list);
     return Success;
@@ -109,7 +108,7 @@ ResponseCode addLast(List *list, Citizen citizen) {
         list->tail->next = newNode;
         list->tail = newNode;
     }
-    *totalCitizen++;
+    counter++;
     saveListToFile(FILENAME, list);
     return Success;
 }
@@ -194,7 +193,7 @@ ResponseCode removeCitizen(List *list, int citizenId) {
             list->tail = previous;
         }
     }
-    *totalCitizen--;
+    counter--;
     free(current);
     return Success;
 }

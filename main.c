@@ -28,6 +28,7 @@ int main(void) {
     }
 
 
+    printf("%d", counter);
 
     pressAnyKeyToContinue();
 

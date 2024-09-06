@@ -5,7 +5,6 @@
 #define FILEPATH "./"
 
 extern int counter;
-extern int *totalCitizen;
 
 typedef enum {
     FirstName,
