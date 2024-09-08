@@ -30,91 +30,7 @@ void printMainMenu(List *list) {
     scanf("%d", &choice);
     switch (choice) {
         case 1:
-            printf("\n You are now adding a citizen");
 
-            char firstName[100];
-            printf("\nWhat is the citizen's first name?: ");
-            scanf("%s", &firstName);
-
-            char middleName[100];
-            printf("\nWhat is the citizen's middle name?: ");
-            scanf("%s", &middleName);
-
-            char lastName[100];
-            printf("\nWhat is the citizen's last name?: ");
-            scanf("%s", &lastName);
-
-            char citizenGender[100];
-            printf("\nWhat is the citizen's gender? <MALE, FEMALE, OTHERS>: ");
-            scanf("%s", &citizenGender);
-            Gender gender;
-            strcpy(gender, citizenGender);
-
-            char birthDate[];
-            printf("\nWhat is the citizen's birth date?: ");
-            scanf("%s", &birthDate);
-
-            char citizenMaritalStatus [100];
-            printf("\nWhat is the citizen's marital status? <SINGLE, MARRIED, DIVORCED, WIDOWED>: ");
-            scanf("%s", &citizenMaritalStatus);
-            MaritalStatus maritalStatus;
-            strcpy(maritalStatus, citizenMaritalStatus);
-
-            char nationality[];
-            printf("\nWhat is the citizen's nationality?: ");
-            scanf("%s", &nationality);
-
-            char religion[];
-            printf("\nWhat is the citizen's religion?: ");
-            scanf("%s", &religion);
-
-            char contactNumber[];
-            printf("\nWhat is the citizen's contact number?: ");
-            scanf("%s", &contactNumber);
-
-            char emailAddress[];
-            printf("\nWhat is the citizen's email address?: ");
-            scanf("%s", &emailAddress);
-
-            char houseNumber[];
-            printf("\nWhat is the citizen's house number?: ");
-            scanf("%s", &houseNumber);
-
-            char street[];
-            printf("\nWhat is the citizen's street?: ");
-            scanf("%s", &street);
-
-            char purokZone[];
-            printf("\nWhat is the citizen's purok zone?: ");
-            scanf("%s", &purokZone);
-
-            Address address;
-            strcpy(address.houseNumber, houseNumber);
-            strcpy(address.street, street);
-            strcpy(address.purokZone, purokZone);
-
-            Citizen newCitizen;
-            strcpy(newCitizen.firstName, firstName);
-            strcpy(newCitizen.middleName, middleName);
-            strcpy(newCitizen.lastName, lastName);
-            strcpy(newCitizen.gender, citizenGender);
-            strcpy(newCitizen.birthDate, birthDate);
-            strcpy(newCitizen.maritalStatus, citizenMaritalStatus);
-            strcpy(newCitizen.nationality, nationality);
-            strcpy(newCitizen.religion, religion);
-            strcpy(newCitizen.contactNumber, contactNumber);
-            strcpy(newCitizen.emailAddress, emailAddress);
-            strcpy(newCitizen.address, address);
-
-            addLast(list, newCitizen);
-            char status[10];
-            strcpy(status, addLast(list, newCitizen));
-
-            if (status == "Success") {
-                printf("\n Citizen successfully added.");
-            } else {
-                printf("\n Citizen not added. Please try again.");
-            }
             break;
         case 2:
             char searchKeyword[100];
@@ -192,6 +108,60 @@ void printMainMenu(List *list) {
             }
             break;
         case 3:
+            Citizen citizen;
+            int citizenId;
+            printf("Enter the ID of the citizen to update: ");
+            scanf("%d", &citizenId);
+
+            Citizen *existingCitizen = searchCitizenById(list, citizenId);
+            if (existingCitizen == NULL) {
+                printf("Citizen with ID %d not found.\n", citizenId);
+                break;
+            }
+
+            printf("updating details for citizen ID %d: ", citizenId);
+
+            printf("Enter first name: ");
+            scanf("%s", citizen.firstName);
+            printf("Enter Middle Name: ");
+            scanf("%s", citizen.middleName);
+            printf("Enter last name: ");
+            scanf("%s", citizen.lastName);
+            printf("Enter gender (0 for Male, 1 for Female, 3 for Others): ");
+            int gender;
+            scanf("%d", &gender);
+            citizen.gender = (Gender)gender;
+            printf("Enter birth date (YYYY-MM-DD): ");
+            scanf("%s", citizen.birthDate);
+            printf("Enter marital status (0 for single, 1 for Married, 2 for Divorced, 3 for Widowed): ");
+            int maritalStatus;
+            scanf("%d", &maritalStatus);
+            citizen.maritalStatus = (MaritalStatus)maritalStatus;
+            printf("Enter nationality: ");
+            scanf("%s", &citizen.nationality);
+            printf("Enter religion: ");
+            scanf("%s", &citizen.religion);
+            printf("Enter contact number: ");
+            scanf("%d", &citizen.contactNumber);
+            printf("Enter email address: ");
+            scanf("%s", citizen.emailAddress);
+            printf("Enter house number: ");
+            scanf("%s", citizen.address.houseNumber);
+            printf("Enter street: ");
+            scanf("%s", citizen.address.street);
+            printf("Enter purok/zone: ");
+            scanf("%s", citizen.address.purokZone);
+
+            citizen.citizenId = citizenId;
+
+            ResponseCode result = updateCitizen(list, &citizen);
+            if (result == Success) {
+                printf("Citizen updated successfully.\n");
+            } else if (result == NotFound) {
+                printf("Citizen not found.\n");
+            } else {
+                printf("Failed to update details of the citizen.\n");
+            }
             break;
         case 4:
             break;
