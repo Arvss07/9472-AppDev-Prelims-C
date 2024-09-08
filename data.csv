@@ -1,5 +1,0 @@
-CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone
-1001,Giovanni,M,Leo,Male,2024-09-01,Single,Filipino,Catholic,1234567890,gio.vanni@example.com,101,Veni,Vidi
-1002,Juderey,A,Padsuyan,Male,1985-05-15,Single,Filipino,Christian,0987654321,judrey.12@example.com,202,Tuba,Camp 4
-1003,Marites,L,Ramos,Male,1992-03-20,Single,Filipino,Catholic,0912345678,marites.ramos@example.com,305,Abanao,Burnham Hill
-1004,Michael,D,Santos,Male,1988-07-12,Single,Filipino,Christian,0908765432,michael.santos@example.com,408,Session Road,General Luna
