@@ -117,6 +117,79 @@ void printMainMenu(List *list) {
             }
             break;
         case 2:
+            char searchKeyword[100];
+            int searchOption;
+
+            printf("Search by:\n");
+            printf("1. FirstName\n");
+            printf("2. LastName\n");
+            printf("3. MiddleName\n");
+            printf("4. Citizen ID\n");
+            printf("Enter your choice: ");
+            scanf("%d", &searchOption);
+            getchar();
+
+            switch (searchOption) {
+                case 1:
+                    printf("Enter the name to search: ");
+                    fgets(searchKeyword, sizeof(searchKeyword), stdin);
+                    searchKeyword[strcspn(searchKeyword, "\n")] = '\0';
+
+                    Citizen *givenName = searchCitizen(list, FirstName, searchKeyword);
+                    if (givenName) {
+                        printf("Citizen found:\n");
+                        printCitizen(*givenName);
+                    } else {
+                        printf("There is no citizen named '%s'.\n", searchKeyword);
+                    }
+                    break;
+
+                case 2:
+                    printf("Enter the name to search: ");
+                    fgets(searchKeyword, sizeof(searchKeyword), stdin);
+                    searchKeyword[strcspn(searchKeyword, "\n")] = '\0';
+
+                    Citizen *surname = searchCitizen(list, LastName, searchKeyword);
+                    if (surname) {
+                        printf("Citizen found:\n");
+                        printCitizen(*surname);
+                    } else {
+                        printf("There is no citizen named '%s'.\n", searchKeyword);
+                    }
+                    break;
+
+                case 3:
+                    printf("Enter the name to search: ");
+                fgets(searchKeyword, sizeof(searchKeyword), stdin);
+                searchKeyword[strcspn(searchKeyword, "\n")] = '\0';
+
+                Citizen *middle = searchCitizen(list, MiddleName, searchKeyword);
+                if (middle) {
+                    printf("Citizen found:\n");
+                    printCitizen(*middle);
+                } else {
+                    printf("There is no citizen named '%s'.\n", searchKeyword);
+                }
+                break;
+
+                case 4:
+                    int searchId;
+                    printf("Enter the ID to search: ");
+                    scanf("%d", &searchId);
+                    getchar();
+
+                    Citizen *resultId = searchCitizenById(list, searchId);
+                    if (resultId) {
+                        printf("Citizen found:\n");
+                        printCitizen(*resultId);
+                    } else {
+                        printf("There is no citizen found with the ID '%d'.\n", searchId);
+                    }
+                    break;
+
+                default:
+                    printf("Invalid choice.");
+            }
             break;
         case 3:
             break;
