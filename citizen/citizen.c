@@ -422,13 +422,13 @@ int getFemalePopulation(List *list) {
 
 Citizen getOldestCitizen(List *list) {
     Node *current = list->head;
-    Citizen c = current->citizen;
-    Citizen c2 = current->next->citizen;
-    Citizen oldestCitizen = c;
+
+    Citizen oldestCitizen = current->citizen;
 
     while (current != NULL) {
-        if (getCitizenAge(list, c2.citizenId) > getCitizenAge(list, c.citizenId)) {
-            oldestCitizen = c2;
+        Citizen c = current->citizen;
+        if (getCitizenAge(list, c.citizenId) > getCitizenAge(list, oldestCitizen.citizenId)) {
+            oldestCitizen = c;
         }
         current = current->next;
     }
@@ -437,13 +437,13 @@ Citizen getOldestCitizen(List *list) {
 
 Citizen getYoungestCitizen(List *list) {
     Node *current = list->head;
-    Citizen c = current->citizen;
-    Citizen c2 = current->next->citizen;
-    Citizen youngestCitizen = c;
+
+    Citizen youngestCitizen = current->citizen;
 
     while (current != NULL) {
-        if (getCitizenAge(list, c2.citizenId) < getCitizenAge(list, c.citizenId)) {
-            youngestCitizen = c2;
+        Citizen c = current->citizen;
+        if (getCitizenAge(list, c.citizenId) < getCitizenAge(list, youngestCitizen.citizenId)) {
+            youngestCitizen = c;
         }
         current = current->next;
     }
