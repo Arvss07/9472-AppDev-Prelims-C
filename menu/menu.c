@@ -2,10 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main() {
-    int choice;
-    printf("Welcome to <name> Application\n");
-}
 
 void printMainMenu() {
     printf("\nMENU:\n");

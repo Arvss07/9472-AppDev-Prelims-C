@@ -14,7 +14,6 @@ int main(void) {
    Citizen *b = searchCitizen(&list, FirstName, "Gio");
     Citizen *d = searchCitizen(&list, LastName, "Le");
     Citizen *e = searchCitizen(&list, MiddleName, "M");
-    Citizen *f = searchCitizen(&list, Barangay, "B");
 
 
 

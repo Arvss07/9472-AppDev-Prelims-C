@@ -1,11 +1,5 @@
-CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,Barangay
-1001,Giovanni,M,Leo,Male,2024-09-01,Single,Filipino,Catholic,1234567890,gio.vanni@example.com,Vidi
-1002,Juderey,A,Padsuyan,Male,1985-05-15,Single,Filipino,Christian,0987654321,judrey.12@example.com,Camp 4
-1003,Marites,L,Ramos,Male,1992-03-20,Single,Filipino,Catholic,0912345678,marites.ramos@example.com, Burnham Hill
-1004,Michael,D,Santos,Male,1988-07-12,Single,Filipino,Christian,0908765432,michael.santos@example.com,General Luna
-1005,Angelica,K,Reyes,Male,1995-08-25,Single,Filipino,Christian,0998765432,angelica.reyes@example.com,Quezon Hill
-1006,Roberto,C,Martinez,Male,1983-12-01,Single,Filipino,Christian,0923456789,roberto.martinez@example.com,Camp 7
-1007,Cristina,M,Domingo,Male,1997-05-05,Single,Filipino,Catholic,0911223344,cristina.domingo@example.com,Betag
-1008,John,E,De La Cruz,Male,1990-11-11,Single,Filipino,Christian,0933221100,john.delacruz@example.com,Pinsao
-1009,Karen,G,Gutierrez,Male,1991-06-30,Single,Filipino,Christian,0944556677,karen.gutierrez@example.com,Loakan
-1010,Mark,J,Garcia,Male,1989-09-09,Single,Filipino,Christian,0955667788,mark.garcia@example.com,Mines View
+CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone
+1001,Giovanni,M,Leo,Male,2024-09-01,Single,Filipino,Catholic,1234567890,gio.vanni@example.com,101,Veni,Vidi
+1002,Juderey,A,Padsuyan,Male,1985-05-15,Single,Filipino,Christian,0987654321,judrey.12@example.com,202,Tuba,Camp 4
+1003,Marites,L,Ramos,Male,1992-03-20,Single,Filipino,Catholic,0912345678,marites.ramos@example.com,305,Abanao,Burnham Hill
+1004,Michael,D,Santos,Male,1988-07-12,Single,Filipino,Christian,0908765432,michael.santos@example.com,408,Session Road,General Luna
