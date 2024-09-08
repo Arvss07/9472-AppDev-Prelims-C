@@ -435,6 +435,21 @@ Citizen getOldestCitizen(List *list) {
     return oldestCitizen;
 }
 
+Citizen getYoungestCitizen(List *list) {
+    Node *current = list->head;
+    Citizen c = current->citizen;
+    Citizen c2 = current->next->citizen;
+    Citizen youngestCitizen = c;
+
+    while (current != NULL) {
+        if (getCitizenAge(list, c2.citizenId) < getCitizenAge(list, c.citizenId)) {
+            youngestCitizen = c2;
+        }
+        current = current->next;
+    }
+    return youngestCitizen;
+}
+
 
 
 
