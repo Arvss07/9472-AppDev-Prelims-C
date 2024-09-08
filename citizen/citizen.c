@@ -392,6 +392,32 @@ int getCitizenAge(List *list) {
     return 0;
 }
 
+int getMalePopulation(List *list) {
+    Node *current = list->head;
+
+    int malePopulation = 0;
+
+    while (current != NULL) {
+        if (current->citizen.gender == MALE) {
+            malePopulation++;
+        }
+    }
+    return malePopulation;
+}
+
+int getFemalePopulation(List *list) {
+    Node *current = list->head;
+
+    int femalePopulation = 0;
+
+    while (current != NULL) {
+        if (current->citizen.gender == FEMALE) {
+            femalePopulation++;
+        }
+    }
+    return femalePopulation;
+}
+
 
 
 
