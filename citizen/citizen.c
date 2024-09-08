@@ -23,10 +23,6 @@ int cmpCtz(const Citizen a, const Citizen b,Type sort) {
         return a.citizenId - b.citizenId;
     }
 
-    if (sort == Barangay) {
-        return strcmp(a.address.barangay, b.address.barangay);
-
-    }
 
     return 0;
 }
@@ -46,9 +42,6 @@ int com(const Citizen a, const char* keyword, Type type) {
         return strstr(a.lastName, keyword) != NULL;
     }
 
-    if (type == Barangay) {
-        return strstr(a.address.barangay, keyword) != NULL;
-    }
 
     return 0;
 }
@@ -127,7 +120,9 @@ void printList(List *list) {
         printf("Religion: %s\n", current->citizen.religion);
         printf("Contact Number: %s\n", current->citizen.contactNumber);
         printf("Email Address: %s\n", current->citizen.emailAddress);
-        printf("Barangay:%s\n", current->citizen.address.barangay);
+        printf("House Number: %s\n", current->citizen.address.houseNumber);
+        printf("Street: %s\n", current->citizen.address.street);
+        printf("Purok Zone: %s\n", current->citizen.address.purokZone);
         current = current->next;
         printf("\n");
     }
@@ -137,10 +132,10 @@ void printTable(List *list) {
     Node *current = list->head;
     int i = 1;
     printf("List of Citizens\n\n");
-    printf("%-5s %-10s %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s %-15s %-20s %-25s\n",
-           "No.", "CtzId", "Name", "Gender", "BDate", "MStat", "Nat", "Rel", "CNum", "Email", "House#", "St.#", "P/Z", "Brgy");
+    printf("%-5s %-10s %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s %-15s %-20s \n",
+           "No.", "CtzId", "Name", "Gender", "BDate", "MStat", "Nat", "Rel", "CNum", "Email", "House#", "St.#", "P/Z");
     while (current != NULL) {
-        printf("%-5d %-10d %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s \n",
+        printf("%-5d %-10d %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s %-15s %-20s %-25s\n",
                i++,
                current->citizen.citizenId,
                getFullName(current->citizen.firstName, current->citizen.middleName, current->citizen.lastName),
@@ -150,7 +145,9 @@ void printTable(List *list) {
                current->citizen.nationality,
                current->citizen.religion, current->citizen.contactNumber,
                current->citizen.emailAddress,
-                current->citizen.address.barangay);
+               current->citizen.address.houseNumber,
+               current->citizen.address.street,
+               current->citizen.address.purokZone);
         current = current->next;
     }
 }
@@ -165,7 +162,9 @@ void printCitizen(Citizen citizen) {
     printf("Religion: %s\n", citizen.religion);
     printf("Contact Number: %s\n", citizen.contactNumber);
     printf("Email Address: %s\n", citizen.emailAddress);
-    printf("Barangay: %s\n",citizen.address.barangay);
+    printf("House Number: %s\n", citizen.address.houseNumber);
+    printf("Street: %s\n", citizen.address.street);
+    printf("Purok Zone: %s\n", citizen.address.purokZone);
 }
 
 ResponseCode removeCitizen(List *list, int citizenId) {

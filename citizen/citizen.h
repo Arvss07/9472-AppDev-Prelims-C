@@ -10,7 +10,6 @@ typedef enum {
     FirstName,
     LastName,
     MiddleName,
-    Barangay,
     CitizenId,
 }Type;
 
@@ -35,8 +34,11 @@ typedef enum {
 } MaritalStatus;
 
 typedef struct {
-    char barangay[100];
+    char houseNumber[100];
+    char street[100];
+    char purokZone[100];
 } Address;
+
 
 typedef struct {
     int citizenId;
