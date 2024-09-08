@@ -4,22 +4,6 @@
 #include <string.h>
 
 
-Gender stringToGender(const char *str) {
-    if (strcmp(str, "Male") == 0) return MALE;
-    if (strcmp(str, "Female") == 0) return FEMALE;
-    if (strcmp(str, "Others") == 0) return OTHERS;
-    return MALE;
-}
-
-MaritalStatus stringToMaritalStatus(const char *str) {
-    if (strcmp(str, "Single") == 0) return SINGLE;
-    if (strcmp(str, "Married") == 0) return MARRIED;
-    if (strcmp(str, "Divorced") == 0) return DIVORCED;
-    if (strcmp(str, "Widowed") == 0) return WIDOWED;
-    return SINGLE;
-}
-
-
 void loadCitizensFromCSV(const char *filename, List *list) {
     FILE *file = fopen(filename, "r");
 
@@ -66,14 +50,14 @@ void loadCitizensFromCSV(const char *filename, List *list) {
             citizen.lastName[sizeof(citizen.lastName) - 1] = '\0';
 
             token = strtok(NULL, ",");
-            citizen.gender = token ? stringToGender(token) : MALE;
+            citizen.gender = token ? getGenderStr(token) : MALE;
 
             token = strtok(NULL, ",");
             strncpy(citizen.birthDate, token ? token : "", sizeof(citizen.birthDate) - 1);
             citizen.birthDate[sizeof(citizen.birthDate) - 1] = '\0';
 
             token = strtok(NULL, ",");
-            citizen.maritalStatus = token ? stringToMaritalStatus(token) : SINGLE;
+            citizen.maritalStatus = token ? getMaritalStatusStr(token) : SINGLE;
 
             token = strtok(NULL, ",");
             strncpy(citizen.nationality, token ? token : "", sizeof(citizen.nationality) - 1);
