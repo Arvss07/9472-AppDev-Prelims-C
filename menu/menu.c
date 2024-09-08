@@ -1,13 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../citizen/citizen.h"
+#include "../file/file.h"
 
-int main() {
-    int choice;
+void welcome() {
     printf("Welcome to <name> Application\n");
+    List list = {NULL, NULL};
+    loadCitizensFromCSV("..//data.csv", &list);
+
+    printTable(&list);
 }
 
+
 void printMainMenu() {
+    int choice;
     printf("\nMENU:\n");
     printf("1. Add Citizen\n");
     printf("2. Search\n");
@@ -17,6 +24,27 @@ void printMainMenu() {
     printf("6. Create Brgy. Certificate\n");
     printf("7. Demographics\n");
     printf("8. Exit\n");
+
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        default: ;
+    }
  }
 
 void subMenu1() {
