@@ -350,7 +350,7 @@ void createAndSaveCitizenCert(List *list, const Citizen *citizen) {
 }
 
 //Get the age of the citizen
-int getCitizenAge(List *list) {
+int getCitizenAge(List *list, int citizenId) {
     Node *current = list->head;
 
     // Get the current date
@@ -360,7 +360,7 @@ int getCitizenAge(List *list) {
     int currentMonth = current_time->tm_mon + 1;
     int currentDay = current_time->tm_mday;
 
-    while (current != NULL) {
+    while (current != NULL && current->citizen.citizenId == citizenId) {
         char *token;
         char delimiter[] = "-";
         char birthYear[5];
@@ -418,6 +418,21 @@ int getFemalePopulation(List *list) {
         current = current->next;
     }
     return femalePopulation;
+}
+
+Citizen getOldestCitizen(List *list) {
+    Node *current = list->head;
+    Citizen c = current->citizen;
+    Citizen c2 = current->next->citizen;
+    Citizen oldestCitizen = c;
+
+    while (current != NULL) {
+        if (getCitizenAge(list, c2.citizenId) > getCitizenAge(list, c.citizenId)) {
+            oldestCitizen = c2;
+        }
+        current = current->next;
+    }
+    return oldestCitizen;
 }
 
 
