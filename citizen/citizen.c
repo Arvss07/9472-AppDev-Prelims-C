@@ -401,6 +401,7 @@ int getMalePopulation(List *list) {
         if (current->citizen.gender == MALE) {
             malePopulation++;
         }
+        current = current->next;
     }
     return malePopulation;
 }
@@ -414,6 +415,7 @@ int getFemalePopulation(List *list) {
         if (current->citizen.gender == FEMALE) {
             femalePopulation++;
         }
+        current = current->next;
     }
     return femalePopulation;
 }
