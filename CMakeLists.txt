@@ -12,4 +12,6 @@ add_executable(Citizen main.c
         cmd/terminal_utils.h
         menu/menu.c
         menu/menu.h
+        utils/util.c
+        utils/util.h
 )
