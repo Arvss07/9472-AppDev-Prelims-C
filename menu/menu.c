@@ -13,6 +13,13 @@ void welcome() {
     printTable(&list);
 }
 
+void getStringInput(char *destination, const int size, char *prompt)
+{
+    printf("%s", prompt);
+    fgets(destination, size, stdin);
+    destination[strcspn(destination, "\n")] = 0;
+}
+
 
 void printMainMenu(List *list) {
     int choice;
@@ -29,96 +36,83 @@ void printMainMenu(List *list) {
 
     scanf("%d", &choice);
     switch (choice) {
-        case 1:
-            printf("\n You are now adding a citizen");
+    case 1:
+        printf("\n You are now adding a citizen");
 
-            char firstName[100];
-            printf("\nWhat is the citizen's first name?: ");
-            scanf("%s", &firstName);
+        char firstName[100];
+        getStringInput(firstName, 100, "\nWhat is the citizen's first name?: ");
 
-            char middleName[100];
-            printf("\nWhat is the citizen's middle name?: ");
-            scanf("%s", &middleName);
+        char middleName[100];
+        getStringInput(middleName, 100, "\nWhat is the citizen's middle name?: ");
 
-            char lastName[100];
-            printf("\nWhat is the citizen's last name?: ");
-            scanf("%s", &lastName);
+        char lastName[100];
+        getStringInput(lastName, 100, "\nWhat is the citizen's last name?: ");
 
-            char citizenGender[100];
-            printf("\nWhat is the citizen's gender? <MALE, FEMALE, OTHERS>: ");
-            scanf("%s", &citizenGender);
-            Gender gender;
-            strcpy(gender, citizenGender);
+        char citizenGender[100];
+        getStringInput(citizenGender, 100, "\nWhat is the citizen's gender? <MALE, FEMALE, OTHERS>: ");
+        Gender gender;
+        stringToGender(citizenGender, &gender);
 
-            char birthDate[];
-            printf("\nWhat is the citizen's birth date?: ");
-            scanf("%s", &birthDate);
+        char birthDate[100];
+        getStringInput(birthDate, 100, "\nWhat is the citizen's birth date?: ");
 
-            char citizenMaritalStatus [100];
-            printf("\nWhat is the citizen's marital status? <SINGLE, MARRIED, DIVORCED, WIDOWED>: ");
-            scanf("%s", &citizenMaritalStatus);
-            MaritalStatus maritalStatus;
-            strcpy(maritalStatus, citizenMaritalStatus);
+        char citizenMaritalStatus [100];
+        getStringInput(citizenMaritalStatus, 100, "\nWhat is the citizen's marital status? <SINGLE, MARRIED, DIVORCED, WIDOWED>: ");
+        MaritalStatus maritalStatus;
+        strcpy(maritalStatus, citizenMaritalStatus);
 
-            char nationality[];
-            printf("\nWhat is the citizen's nationality?: ");
-            scanf("%s", &nationality);
+        char nationality[100];
+        getStringInput(nationality, 100, "\nWhat is the citizen's nationality?: ");
 
-            char religion[];
-            printf("\nWhat is the citizen's religion?: ");
-            scanf("%s", &religion);
+        char religion[100];
+        getStringInput(religion, 100, "\nWhat is the citizen's religion?: ");
 
-            char contactNumber[];
-            printf("\nWhat is the citizen's contact number?: ");
-            scanf("%s", &contactNumber);
+        char contactNumber[100];
+        getStringInput(contactNumber, 100, "\nWhat is the citizen's contact number?: ");
 
-            char emailAddress[];
-            printf("\nWhat is the citizen's email address?: ");
-            scanf("%s", &emailAddress);
+        char emailAddress[100];
+        getStringInput(emailAddress, 100, "\nWhat is the citizen's email address?: ");
 
-            char houseNumber[];
-            printf("\nWhat is the citizen's house number?: ");
-            scanf("%s", &houseNumber);
+        char houseNumber[100];
+        getStringInput(houseNumber, 100, "\nWhat is the citizen's house number?: ");
 
-            char street[];
-            printf("\nWhat is the citizen's street?: ");
-            scanf("%s", &street);
+        char street[100];
+        getStringInput(street, 100, "\nWhat is the citizen's street?: ");
 
-            char purokZone[];
-            printf("\nWhat is the citizen's purok zone?: ");
-            scanf("%s", &purokZone);
+        char purokZone[100];
+        getStringInput(purokZone, 100, "\nWhat is the citizen's purok zone?: ");
 
-            Address address;
-            strcpy(address.houseNumber, houseNumber);
-            strcpy(address.street, street);
-            strcpy(address.purokZone, purokZone);
+        Address address;
+        strcpy(address.houseNumber, houseNumber);
+        strcpy(address.street, street);
+        strcpy(address.purokZone, purokZone);
 
-            Citizen newCitizen;
-            strcpy(newCitizen.firstName, firstName);
-            strcpy(newCitizen.middleName, middleName);
-            strcpy(newCitizen.lastName, lastName);
-            strcpy(newCitizen.gender, citizenGender);
-            strcpy(newCitizen.birthDate, birthDate);
-            strcpy(newCitizen.maritalStatus, citizenMaritalStatus);
-            strcpy(newCitizen.nationality, nationality);
-            strcpy(newCitizen.religion, religion);
-            strcpy(newCitizen.contactNumber, contactNumber);
-            strcpy(newCitizen.emailAddress, emailAddress);
-            strcpy(newCitizen.address, address);
+        Citizen newCitizen;
+        strcpy(newCitizen.firstName, firstName);
+        strcpy(newCitizen.middleName, middleName);
+        strcpy(newCitizen.lastName, lastName);
+        strcpy(newCitizen.gender, citizenGender);
+        strcpy(newCitizen.birthDate, birthDate);
+        strcpy(newCitizen.maritalStatus, citizenMaritalStatus);
+        strcpy(newCitizen.nationality, nationality);
+        strcpy(newCitizen.religion, religion);
+        strcpy(newCitizen.contactNumber, contactNumber);
+        strcpy(newCitizen.emailAddress, emailAddress);
+        strcpy(newCitizen.address, address);
 
-            addLast(list, newCitizen);
-            char status[10];
-            strcpy(status, addLast(list, newCitizen));
+        addLast(list, newCitizen);
+        char status[10];
+        strcpy(status, addLast(list, newCitizen));
 
-            if (status == "Success") {
-                printf("\n Citizen successfully added.");
-            } else {
-                printf("\n Citizen not added. Please try again.");
-            }
+        if (status == "Success") {
+            printf("\n Citizen successfully added.");
+        } else {
+            printf("\n Citizen not added. Please try again.");
+        }
+        break;
+    case 2:
             break;
-        case 2:
-            break;
-        case 3:
+    case 3:
             break;
         case 4:
             break;
