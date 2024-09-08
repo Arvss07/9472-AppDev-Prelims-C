@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 // Counter for the number of citizens in the list
 int counter = 0;
@@ -347,4 +348,51 @@ void createAndSaveCitizenCert(List *list, const Citizen *citizen) {
     }
     printf("Citizen %s %s not found in the list.\n", citizen->firstName, citizen->lastName); // Print an error message if the citizen is not found
 }
+
+//Get the age of the citizen
+int getCitizenAge(List *list) {
+    Node *current = list->head;
+
+    // Get the current date
+    time_t now = time(NULL);
+    struct tm *current_time = localtime(&now);
+    int currentYear = current_time->tm_year + 1900;
+    int currentMonth = current_time->tm_mon + 1;
+    int currentDay = current_time->tm_mday;
+
+    while (current != NULL) {
+        char *token;
+        char delimiter[] = "-";
+        char birthYear[5];
+        char birthMonth[3];
+        char birthDay[3];
+
+        token = strtok(current->citizen.birthDate, delimiter);
+        strcpy(birthYear, token);
+
+        token = strtok(NULL, delimiter);
+        strcpy(birthMonth, token);
+
+        token = strtok(NULL, delimiter);
+        strcpy(birthDay, token);
+
+        int birth_year = atoi(birthYear);
+        int birth_month = atoi(birthMonth);
+        int birth_day = atoi(birthDay);
+
+        int age = currentYear - birth_year;
+
+        if (currentMonth < birth_month || (currentMonth == birth_month && currentDay < birth_day)) {
+            age--;
+        }
+
+        return age;
+
+    }
+    return 0;
+}
+
+
+
+
 
