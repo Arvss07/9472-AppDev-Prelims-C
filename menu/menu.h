@@ -4,7 +4,7 @@
 #include "../citizen/citizen.h"
 #include "../cmd/terminal_utils.h"
 
-void welcome();
+void welcome(List list);
 void getStringInput(char *destination, const int size, char *prompt);
 void printMainMenu(List *list);
 void subMenu1();

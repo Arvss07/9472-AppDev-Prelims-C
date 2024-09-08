@@ -1,15 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <stdbool.h>
 #include "../citizen/citizen.h"
-#include "../file/file.h"
-
-void welcome() {
+#include "menu.h"
+#include "../utils/util.h"
+void welcome(List list) {
     printf("Welcome to <name> Application\n");
-    List list = {NULL, NULL};
-    loadCitizensFromCSV("..\\data.csv", &list);
-
     printTable(&list);
 }
 
@@ -49,17 +47,15 @@ void printMainMenu(List *list) {
         getStringInput(lastName, 100, "\nWhat is the citizen's last name?: ");
 
         char citizenGender[100];
-        getStringInput(citizenGender, 100, "\nWhat is the citizen's gender? <MALE, FEMALE, OTHERS>: ");
-        Gender gender;
-        stringToGender(citizenGender, &gender);
+        getStringInput(citizenGender, 100, "\nWhat is the citizen's gender? <Male, Female, Others>: ");
+        Gender gender = stringToGender(citizenGender);
 
         char birthDate[100];
         getStringInput(birthDate, 100, "\nWhat is the citizen's birth date?: ");
 
         char citizenMaritalStatus [100];
-        getStringInput(citizenMaritalStatus, 100, "\nWhat is the citizen's marital status? <SINGLE, MARRIED, DIVORCED, WIDOWED>: ");
-        MaritalStatus maritalStatus;
-        strcpy(maritalStatus, citizenMaritalStatus);
+        getStringInput(citizenMaritalStatus, 100, "\nWhat is the citizen's marital status? <Single, Married, Divorced, Widowed>: ");
+        MaritalStatus maritalStatus = stringToMaritalStatus(citizenMaritalStatus);
 
         char nationality[100];
         getStringInput(nationality, 100, "\nWhat is the citizen's nationality?: ");
@@ -91,9 +87,9 @@ void printMainMenu(List *list) {
         strcpy(newCitizen.firstName, firstName);
         strcpy(newCitizen.middleName, middleName);
         strcpy(newCitizen.lastName, lastName);
-        strcpy(newCitizen.gender, citizenGender);
+        strcpy(newCitizen.gender, gender);
         strcpy(newCitizen.birthDate, birthDate);
-        strcpy(newCitizen.maritalStatus, citizenMaritalStatus);
+        strcpy(newCitizen.maritalStatus, maritalStatus);
         strcpy(newCitizen.nationality, nationality);
         strcpy(newCitizen.religion, religion);
         strcpy(newCitizen.contactNumber, contactNumber);
@@ -101,14 +97,13 @@ void printMainMenu(List *list) {
         strcpy(newCitizen.address, address);
 
         addLast(list, newCitizen);
-        char status[10];
-        strcpy(status, addLast(list, newCitizen));
+        ResponseCode status = addLast(list, newCitizen);
 
-        if (status == "Success") {
-            printf("\n Citizen successfully added.");
-        } else {
-            printf("\n Citizen not added. Please try again.");
-        }
+        // if (status == "Success") {
+        //     printf("\n Citizen successfully added.");
+        // } else {
+        //     printf("\n Citizen not added. Please try again.");
+        // }
         break;
     case 2:
             break;
