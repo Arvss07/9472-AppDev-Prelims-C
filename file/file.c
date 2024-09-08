@@ -91,9 +91,17 @@ void loadCitizensFromCSV(const char *filename, List *list) {
             strncpy(citizen.emailAddress, token ? token : "", sizeof(citizen.emailAddress) - 1);
             citizen.emailAddress[sizeof(citizen.emailAddress) - 1] = '\0';
 
+            token = strtok(NULL, ",");
+            strncpy(address.houseNumber, token ? token : "", sizeof(address.houseNumber) - 1);
+            address.houseNumber[sizeof(address.houseNumber) - 1] = '\0';
+
+            token = strtok(NULL, ",");
+            strncpy(address.street, token ? token : "", sizeof(address.street) - 1);
+            address.street[sizeof(address.street) - 1] = '\0';
+
             token = strtok(NULL, "\n");
-            strncpy(address.barangay, token ? token : "", sizeof(address.barangay) - 1);
-            address.barangay[sizeof(address.barangay) - 1] = '\0';
+            strncpy(address.purokZone, token ? token : "", sizeof(address.purokZone) - 1);
+            address.purokZone[sizeof(address.purokZone) - 1] = '\0';
 
             citizen.address = address;
             const ResponseCode result = addLast(list, citizen);
@@ -122,7 +130,7 @@ void saveListToFile(const char *filename, List *list) {
     Node *current = list->head;
     while (current != NULL) {
         Citizen *citizen = &current->citizen;
-        fprintf(tempFile, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+        fprintf(tempFile, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
                 citizen->citizenId,
                 citizen->firstName,
                 citizen->middleName,
@@ -134,7 +142,9 @@ void saveListToFile(const char *filename, List *list) {
                 citizen->religion,
                 citizen->contactNumber,
                 citizen->emailAddress,
-                citizen->address.barangay
+                citizen->address.houseNumber,
+                citizen->address.street,
+                citizen->address.purokZone
              );
         current = current->next;
     }
@@ -151,12 +161,12 @@ char* createCitizenCert(const Citizen *citizen) {
         perror("Error: Could not allocate memory for certificate.\n");
         return NULL;
     }
-    sprintf(cert, "This is to certify that %s %s, a bona fide resident of %s \n"
-                  "and one of the citizen of our barangay with good moral character and law-abiding citizen in the community.\n"
-                  "That he/she never violated any laws and ordinances of the barangay nor has been"
-                  " involved in any subversive activity.\n"
-                  "This certification is issued upon the request of the above-named person for whatever legal purpose it may serve.\n",
-            citizen->firstName, citizen->lastName, citizen->address.barangay);
+    sprintf(cert, "This is to certify that %s %s, a bona fide resident of %s, %s, %s\n"
+                 "and one of the citizen of our barangay with good moral character and law-abiding citizen in the community.\n"
+                 "That he/she never violated any laws and ordinances of the barangay nor has been"
+                 " involved in any subversive activity.\n"
+                 "This certification is issued upon the request of the above-named person for whatever legal purpose it may serve.\n",
+           citizen->firstName, citizen->lastName, citizen->address.houseNumber, citizen->address.street, citizen->address.purokZone);
     return cert;
 }
 
