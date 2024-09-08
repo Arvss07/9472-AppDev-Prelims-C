@@ -354,42 +354,45 @@ int getCitizenAge(List *list, int citizenId) {
     Node *current = list->head;
 
     // Get the current date
+    int age = 0;
     time_t now = time(NULL);
     struct tm *current_time = localtime(&now);
     int currentYear = current_time->tm_year + 1900;
     int currentMonth = current_time->tm_mon + 1;
     int currentDay = current_time->tm_mday;
 
-    while (current != NULL && current->citizen.citizenId == citizenId) {
-        char *token;
-        char delimiter[] = "-";
-        char birthYear[5];
-        char birthMonth[3];
-        char birthDay[3];
+    while (current != NULL) {
+        if (current->citizen.citizenId == citizenId) {
+            char *token;
+            char delimiter[] = "-";
+            char birthYear[5];
+            char birthMonth[3];
+            char birthDay[3];
 
-        token = strtok(current->citizen.birthDate, delimiter);
-        strcpy(birthYear, token);
+            token = strtok(current->citizen.birthDate, delimiter);
+            strcpy(birthYear, token);
 
-        token = strtok(NULL, delimiter);
-        strcpy(birthMonth, token);
+            token = strtok(NULL, delimiter);
+            strcpy(birthMonth, token);
 
-        token = strtok(NULL, delimiter);
-        strcpy(birthDay, token);
+            token = strtok(NULL, delimiter);
+            strcpy(birthDay, token);
 
-        int birth_year = atoi(birthYear);
-        int birth_month = atoi(birthMonth);
-        int birth_day = atoi(birthDay);
+            int birth_year = atoi(birthYear);
+            int birth_month = atoi(birthMonth);
+            int birth_day = atoi(birthDay);
 
-        int age = currentYear - birth_year;
+            age = currentYear - birth_year;
 
-        if (currentMonth < birth_month || (currentMonth == birth_month && currentDay < birth_day)) {
-            age--;
+            if (currentMonth < birth_month || (currentMonth == birth_month && currentDay < birth_day)) {
+                age--;
+            }
+            return age;
         }
-
-        return age;
+        current = current->next;
 
     }
-    return 0;
+    return age;
 }
 
 int getMalePopulation(List *list) {
@@ -424,14 +427,20 @@ Citizen getOldestCitizen(List *list) {
     Node *current = list->head;
 
     Citizen oldestCitizen = current->citizen;
+    int oldestAge = getCitizenAge(list, oldestCitizen.citizenId);
 
     while (current != NULL) {
-        Citizen c = current->citizen;
-        if (getCitizenAge(list, c.citizenId) > getCitizenAge(list, oldestCitizen.citizenId)) {
-            oldestCitizen = c;
+        Citizen currentCitizen = current->citizen;
+        int currentAge = getCitizenAge(list, currentCitizen.citizenId);
+
+        if (currentAge > oldestAge) {
+            oldestCitizen = currentCitizen;
+            oldestAge = currentAge;
         }
+
         current = current->next;
     }
+
     return oldestCitizen;
 }
 
@@ -439,38 +448,42 @@ Citizen getYoungestCitizen(List *list) {
     Node *current = list->head;
 
     Citizen youngestCitizen = current->citizen;
+    int youngestAge = getCitizenAge(list, youngestCitizen.citizenId);
 
     while (current != NULL) {
-        Citizen c = current->citizen;
-        if (getCitizenAge(list, c.citizenId) < getCitizenAge(list, youngestCitizen.citizenId)) {
-            youngestCitizen = c;
+        Citizen currentCitizen = current->citizen;
+        int currentAge = getCitizenAge(list, currentCitizen.citizenId);
+
+        if (currentAge < youngestAge) {
+            youngestCitizen = currentCitizen;
+            youngestAge = currentAge;
         }
+
         current = current->next;
     }
+
     return youngestCitizen;
 }
 
 void viewDemographics(List *list) {
-    Node *current = list->head;
-    while (current != NULL) {
 
-        printf("Total Population: %d\n", counter);
-        printf("Total Male Population: %d\n", getMalePopulation(list));
-        printf("Total Female Population: %d\n", getFemalePopulation(list));
+    printf("Demographic Information\n");
+    printf("Total Population: %d\n", counter);
+    printf("Total Male Population: %d\n", getMalePopulation(list));
+    printf("Total Female Population: %d\n", getFemalePopulation(list));
 
-        char oldestName[100];
-        strcpy(oldestName, getOldestCitizen(list).firstName);
-        strcat(oldestName, " ");
-        strcat(oldestName, getOldestCitizen(list).lastName);
-        printf("The Oldest Citizen: %s\n", oldestName);
+    char oldestName[100];
+    strcpy(oldestName, getOldestCitizen(list).firstName);
+    strcat(oldestName, " ");
+    strcat(oldestName, getOldestCitizen(list).lastName);
+    printf("The Oldest Citizen: %s\n", oldestName);
 
-        char youngestName[100];
-        strcpy(youngestName, getYoungestCitizen(list).firstName);
-        strcat(youngestName, " ");
-        strcat(youngestName, getYoungestCitizen(list).lastName);
-        printf("The Youngest Citizen: %s\n", youngestName);
+    char youngestName[100];
+    strcpy(youngestName, getYoungestCitizen(list).firstName);
+    strcat(youngestName, " ");
+    strcat(youngestName, getYoungestCitizen(list).lastName);
+    printf("The Youngest Citizen: %s\n", youngestName);
 
-    }
 }
 
 
