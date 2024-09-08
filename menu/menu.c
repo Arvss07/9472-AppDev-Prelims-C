@@ -199,17 +199,15 @@ void printMainMenu(List *list) {
         getStringInput(citizen.middleName, sizeof(citizen.middleName), "Enter middle name: ");
         getStringInput(citizen.lastName, sizeof(citizen.lastName), "Enter last name: ");
 
-        printf("Enter gender (0 for Male, 1 for Female, 3 for Others): ");
-        int genderUpdate;
-        scanf("%d", &genderUpdate);
-        citizen.gender = (Gender)genderUpdate;
+        char genderUpdate[100];
+        getStringInput(genderUpdate, sizeof(genderUpdate), "Enter your gender (Male, Female, Others): ");
+        citizen.gender = stringToGender(genderUpdate);
 
         getStringInput(citizen.birthDate, sizeof(citizen.birthDate), "Enter birth date (YYYY-MM-DD): ");
 
-        printf("Enter marital status (0 for single, 1 for Married, 2 for Divorced, 3 for Widowed): ");
-        int maritalStatusUpdate;
-        scanf("%d", &maritalStatusUpdate);
-        citizen.maritalStatus = (MaritalStatus)maritalStatusUpdate;
+        char maritalStatusUpdate[100];
+        getStringInput(maritalStatusUpdate, sizeof(citizen.maritalStatus), "Enter marital status (Single, Married, Divorced, Widowed): ");
+        citizen.maritalStatus = stringToMaritalStatus(maritalStatusUpdate);
 
         getStringInput(citizen.nationality, sizeof(citizen.nationality), "Enter nationality: ");
         getStringInput(citizen.religion, sizeof(citizen.religion), "Enter religion: ");
