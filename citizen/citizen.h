@@ -91,6 +91,6 @@ void freeList(List *list);
 Citizen *searchCitizen(List *list, Type searchType, const char *keyword);
 Citizen *searchCitizenById(List *list,  int citizenId);
 void createAndSaveCitizenCert(List *list, const Citizen *citizen);
-
+void viewDemographics(List *list);
 
 #endif

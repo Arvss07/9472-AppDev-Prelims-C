@@ -450,6 +450,29 @@ Citizen getYoungestCitizen(List *list) {
     return youngestCitizen;
 }
 
+void viewDemographics(List *list) {
+    Node *current = list->head;
+    while (current != NULL) {
+
+        printf("Total Population: %d\n", counter);
+        printf("Total Male Population: %d\n", getMalePopulation(list));
+        printf("Total Female Population: %d\n", getFemalePopulation(list));
+
+        char oldestName[100];
+        strcpy(oldestName, getOldestCitizen(list).firstName);
+        strcat(oldestName, " ");
+        strcat(oldestName, getOldestCitizen(list).lastName);
+        printf("The Oldest Citizen: %s\n", oldestName);
+
+        char youngestName[100];
+        strcpy(youngestName, getYoungestCitizen(list).firstName);
+        strcat(youngestName, " ");
+        strcat(youngestName, getYoungestCitizen(list).lastName);
+        printf("The Youngest Citizen: %s\n", youngestName);
+
+    }
+}
+
 
 
 
