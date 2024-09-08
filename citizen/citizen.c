@@ -354,7 +354,6 @@ int getCitizenAge(List *list, int citizenId) {
     Node *current = list->head;
 
     // Get the current date
-    int age = 0;
     time_t now = time(NULL);
     struct tm *current_time = localtime(&now);
     int currentYear = current_time->tm_year + 1900;
@@ -382,7 +381,7 @@ int getCitizenAge(List *list, int citizenId) {
             int birth_month = atoi(birthMonth);
             int birth_day = atoi(birthDay);
 
-            age = currentYear - birth_year;
+            int age = currentYear - birth_year;
 
             if (currentMonth < birth_month || (currentMonth == birth_month && currentDay < birth_day)) {
                 age--;
@@ -392,7 +391,7 @@ int getCitizenAge(List *list, int citizenId) {
         current = current->next;
 
     }
-    return age;
+    return -1;
 }
 
 int getMalePopulation(List *list) {
