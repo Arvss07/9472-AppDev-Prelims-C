@@ -195,36 +195,27 @@ void printMainMenu(List *list) {
 
         printf("updating details for citizen ID %d: ", citizenId);
 
-        printf("Enter first name: ");
-        scanf("%s", citizen.firstName);
-        printf("Enter Middle Name: ");
-        scanf("%s", citizen.middleName);
-        printf("Enter last name: ");
-        scanf("%s", citizen.lastName);
-        printf("Enter gender (0 for Male, 1 for Female, 3 for Others): ");
-        int gender;
-        scanf("%d", &gender);
-        citizen.gender = (Gender)gender;
-        printf("Enter birth date (YYYY-MM-DD): ");
-        scanf("%s", citizen.birthDate);
-        printf("Enter marital status (0 for single, 1 for Married, 2 for Divorced, 3 for Widowed): ");
-        int maritalStatus;
-        scanf("%d", &maritalStatus);
-        citizen.maritalStatus = (MaritalStatus)maritalStatus;
-        printf("Enter nationality: ");
-        scanf("%s", &citizen.nationality);
-        printf("Enter religion: ");
-        scanf("%s", &citizen.religion);
-        printf("Enter contact number: ");
-        scanf("%d", &citizen.contactNumber);
-        printf("Enter email address: ");
-        scanf("%s", citizen.emailAddress);
-        printf("Enter house number: ");
-        scanf("%s", citizen.address.houseNumber);
-        printf("Enter street: ");
-        scanf("%s", citizen.address.street);
-        printf("Enter purok/zone: ");
-        scanf("%s", citizen.address.purokZone);
+        getStringInput(citizen.firstName, sizeof(citizen.firstName), "Enter first name: ");
+        getStringInput(citizen.middleName, sizeof(citizen.middleName), "Enter middle name: ");
+        getStringInput(citizen.lastName, sizeof(citizen.lastName), "Enter last name: ");
+
+        char genderUpdate[100];
+        getStringInput(genderUpdate, sizeof(genderUpdate), "Enter your gender (Male, Female, Others): ");
+        citizen.gender = stringToGender(genderUpdate);
+
+        getStringInput(citizen.birthDate, sizeof(citizen.birthDate), "Enter birth date (YYYY-MM-DD): ");
+
+        char maritalStatusUpdate[100];
+        getStringInput(maritalStatusUpdate, sizeof(citizen.maritalStatus), "Enter marital status (Single, Married, Divorced, Widowed): ");
+        citizen.maritalStatus = stringToMaritalStatus(maritalStatusUpdate);
+
+        getStringInput(citizen.nationality, sizeof(citizen.nationality), "Enter nationality: ");
+        getStringInput(citizen.religion, sizeof(citizen.religion), "Enter religion: ");
+        getStringInput(citizen.contactNumber, sizeof(citizen.contactNumber), "Enter contact number: ");
+        getStringInput(citizen.emailAddress, sizeof(citizen.emailAddress), "Enter email address: ");
+        getStringInput(citizen.address.houseNumber, sizeof(citizen.address.houseNumber), "Enter house number: ");
+        getStringInput(citizen.address.street, sizeof(citizen.address.street), "Enter street: ");
+        getStringInput(citizen.address.purokZone, sizeof(citizen.address.purokZone), "Enter purok/zone: ");
 
         citizen.citizenId = citizenId;
 
