@@ -259,7 +259,7 @@ void printMainMenu(List *list) {
             break;
                 break;
             case 6:
-                subMenu1();
+                subMenu1(list);
                 break;
             case 7:
                 printf("Thank you for using the application");
@@ -270,17 +270,33 @@ void printMainMenu(List *list) {
     } while (choice != 8);
 }
 
-void subMenu1() {
+void subMenu1(List *list) {
     int choice;
     do {
         printf("\nDemographics\n");
-        printf("1. Average Age\n");
-        printf("2. Total\n");
-        printf("3. GO BACK\n");
+        printf("1. Get Citizen Age\n");
+        printf("2. Get Male Population\n");
+        printf("3. Get Female Population\n");
+        printf("4. Get Oldest Citizen\n");
+        printf("5. Get Youngest Citizen\n");
+        printf("6. View Demographics\n");
+        printf("7. Exit\n");
         printf("Enter your choice: ");
+
+        scanf("%d", &choice);
 
         switch (choice) {
             case 1:
+                int citizenId;
+                printf("Enter Citizen ID: ");
+                scanf("%d", &citizenId);
+
+                int age = getCitizenAge(list, citizenId);
+                if (age != -1) {
+                    printf("Citizen ID %d is %d years old.\n", citizenId, age);
+                } else {
+                    printf("Citizen ID %d not found.\n", citizenId);
+                }
                 break;
             case 2:
                 break;
