@@ -13,11 +13,10 @@ void welcome(List list) {
 
 void getStringInput(char *destination, const int size, char *prompt, int isUpdate)
 {
-
     do {
         printf("%s", prompt);
         fgets(destination, size, stdin);
-    }while(isUpdate >= 0 || strcmp(destination, "\n") == 0);
+    }while(isUpdate < 0 && strcmp(destination, "\n") == 0);
 
     destination[strcspn(destination, "\n")] = 0;
 }
@@ -227,7 +226,7 @@ void printMainMenu(List *list) {
                 printf("Enter the ID of the citizen you want to delete: ");
                 scanf("%d", &citizenID);
 
-                while ((getchar()) != '\n');
+                while (getchar() != '\n');
 
                 printf("Are you sure you want to delete citizen %d? (y/n): ", citizenID);
                 scanf("%c", &confirm);
@@ -244,10 +243,12 @@ void printMainMenu(List *list) {
                 }
                 break;
             case 5:
+                subMenu1();
                 break;
             case 6:
                 break;
             case 7:
+                subMenu2();
                 break;
             case 8:
                 break;
