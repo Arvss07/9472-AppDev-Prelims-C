@@ -2,7 +2,7 @@
 #define CITIZEN_H
 
 #define FILENAME "../output/data.csv"
-#define FILEPATH "./"
+#define CERT_FILEPATH "../output/"
 
 extern int counter;
 

@@ -339,7 +339,7 @@ void createAndSaveCitizenCert(List *list, const Citizen *citizen) {
             char *cert = createCitizenCert(&current->citizen); // Create a certificate for the citizen
             if (cert != NULL) {
                 char filename[256]; // Allocate enough memory for the filename
-                snprintf(filename, sizeof(filename), "%s%s_%s_Certificate.txt", FILEPATH, citizen->firstName, citizen->lastName); // Create the filename
+                snprintf(filename, sizeof(filename), "%s%s_%s_Certificate.txt", CERT_FILEPATH, citizen->firstName, citizen->lastName); // Create the filename
                 saveCitizenCertToFile(filename, cert); // Save the certificate to a file
                 free(cert); // Free the allocated memory for the certificate string
                 printf("Certificate created and saved for %s %s.\n", citizen->firstName, citizen->lastName); // Print a success message
