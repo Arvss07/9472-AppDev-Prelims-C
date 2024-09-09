@@ -100,7 +100,7 @@ void loadCitizensFromCSV(const char *filename, List *list) {
 }
 
 void saveListToFile(const char *filename, List *list) {
-    FILE *tempFile = fopen("temp.csv", "w"); // Open temp file for writing
+    FILE *tempFile = fopen("../output/temp.csv", "w"); // Open temp file for writing
     if (tempFile == NULL) {
         fprintf(stderr, "Error: Could not open file temp.csv for writing.\n");
         return;
@@ -108,7 +108,7 @@ void saveListToFile(const char *filename, List *list) {
 
     // Write header
     fprintf(tempFile,
-            "CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone,Barangay\n");
+            "CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone\n");
 
     // Iterate through the list and write each citizen's data
     Node *current = list->head;
@@ -135,7 +135,7 @@ void saveListToFile(const char *filename, List *list) {
 
     fclose(tempFile);
     remove(filename);
-    rename("temp.csv", filename);
+    rename("../output/temp.csv", filename);
 }
 
 // Create a certificate for a citizen

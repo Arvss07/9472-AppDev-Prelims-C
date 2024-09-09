@@ -1,7 +1,7 @@
 #ifndef CITIZEN_H
 #define CITIZEN_H
 
-#define FILENAME "./data.csv"
+#define FILENAME "../output/data.csv"
 #define FILEPATH "./"
 
 extern int counter;
@@ -13,7 +13,6 @@ typedef enum {
     CitizenId,
     BirthDate
 }Type;
-
 
 typedef enum {
     Success,
