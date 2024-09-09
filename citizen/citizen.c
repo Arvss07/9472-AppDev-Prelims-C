@@ -450,12 +450,14 @@ void viewDemographics(List *list) {
     strcat(oldestName, " ");
     strcat(oldestName, getOldestCitizen(list).lastName);
     printf("The Oldest Citizen: %s\n", oldestName);
+    printf("Age: %d\n", getCitizenAge(list, getOldestCitizen(list).citizenId));
 
     char youngestName[100];
     strcpy(youngestName, getYoungestCitizen(list).firstName);
     strcat(youngestName, " ");
     strcat(youngestName, getYoungestCitizen(list).lastName);
     printf("The Youngest Citizen: %s\n", youngestName);
+    printf("Age: %d\n", getCitizenAge(list, getYoungestCitizen(list).citizenId));
 
 }
 
