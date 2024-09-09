@@ -6,7 +6,7 @@
 #include "../utils/util.h"
 
 void welcome(List list);
-void getStringInput(char *destination, const int size, char *prompt);
+void getStringInput(char *destination, const int size, char *prompt, int isUpdate);
 void printMainMenu(List *list);
 void subMenu1();
 void subMenu2();
