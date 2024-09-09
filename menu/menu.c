@@ -11,10 +11,14 @@ void welcome(List list) {
     printTable(&list);
 }
 
-void getStringInput(char *destination, const int size, char *prompt)
+void getStringInput(char *destination, const int size, char *prompt, int isUpdate)
 {
-    printf("%s", prompt);
-    fgets(destination, size, stdin);
+
+    do {
+        printf("%s", prompt);
+        fgets(destination, size, stdin);
+    }while(isUpdate >= 0 || strcmp(destination, "\n") == 0);
+
     destination[strcspn(destination, "\n")] = 0;
 }
 
@@ -38,7 +42,7 @@ void printMainMenu(List *list) {
         printf("\n You are now adding a citizen");
 
         char firstName[100];
-        getStringInput(firstName, 100, "\nWhat is the citizen's first name?: ");
+        getStringInput(firstName, 100, "\nWhat is the citizen's first name?: ", -1);
 
         char middleName[100];
         getStringInput(middleName, 100, "\nWhat is the citizen's middle name?: ");
