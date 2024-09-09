@@ -198,64 +198,23 @@ void printMainMenu(List *list) {
 
         printf("updating details for citizen ID %d:\n", citizenId);
 
-        char input[100];
-
         getStringInput(citizen.firstName, sizeof(citizen.firstName), "Enter first name: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->firstName, input);
-        }
         getStringInput(citizen.middleName, sizeof(citizen.middleName), "Enter middle name: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->middleName, input);
-        }
         getStringInput(citizen.lastName, sizeof(citizen.lastName), "Enter last name: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->lastName, input);
-        }
         char genderUpdate[100];
         getStringInput(genderUpdate, sizeof(genderUpdate), "Enter your gender (Male, Female, Others): ", 1);
         citizen.gender = getGenderStr(genderUpdate);
-        if (strlen(input) > 0) {
-            existingCitizen->gender = getGenderStr(input);
-        }
         getStringInput(citizen.birthDate, sizeof(citizen.birthDate), "Enter birth date (YYYY-MM-DD): ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->birthDate, input);
-        }
         char maritalStatusUpdate[100];
         getStringInput(maritalStatusUpdate, sizeof(citizen.maritalStatus), "Enter marital status (Single, Married, Divorced, Widowed): ", 1);
         citizen.maritalStatus = getMaritalStatusStr(maritalStatusUpdate);
-        if (strlen(input) > 0) {
-            existingCitizen->maritalStatus = getMaritalStatusStr(input);
-        }
         getStringInput(citizen.nationality, sizeof(citizen.nationality), "Enter nationality: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->nationality, input);
-        }
         getStringInput(citizen.religion, sizeof(citizen.religion), "Enter religion: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->religion, input);
-        }
         getStringInput(citizen.contactNumber, sizeof(citizen.contactNumber), "Enter contact number: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->contactNumber, input);
-        }
         getStringInput(citizen.emailAddress, sizeof(citizen.emailAddress), "Enter email address: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->emailAddress, input);
-        }
         getStringInput(citizen.address.houseNumber, sizeof(citizen.address.houseNumber), "Enter house number: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->address.houseNumber, input);
-        }
         getStringInput(citizen.address.street, sizeof(citizen.address.street), "Enter street: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->address.street, input);
-        }
         getStringInput(citizen.address.purokZone, sizeof(citizen.address.purokZone), "Enter purok/zone: ", 1);
-        if (strlen(input) > 0) {
-            strcpy(existingCitizen->address.purokZone, input);
-        }
 
         citizen.citizenId = citizenId;
 
@@ -269,6 +228,24 @@ void printMainMenu(List *list) {
         }
         break;
         case 4:
+            int citizenID;
+            char confirm;
+            printf("Enter the ID of the citizen you want to delete: ");
+            scanf("%d", &citizenID);
+
+            printf("Are you sure you want to delete citizen %d? (y/n): ", citizenID);
+            scanf("%c", &confirm);
+
+            if (confirm == 'y' || confirm == 'Y') {
+                const ResponseCode deleteResult = removeCitizen(list, citizenID);
+                if (deleteResult == Success) {
+                    printf("Citizen with  the ID %d has deleted successfully.\n", citizenID);
+                } else if (deleteResult == Failed) {
+                    printf("Failed to delete citizen %d", citizenID);
+                }
+            } else {
+                printf("Deletion of Citizen %d has been cancelled.\n", citizenID);
+            }
             break;
         case 5:
             break;
@@ -278,7 +255,8 @@ void printMainMenu(List *list) {
             break;
         case 8:
             break;
-        default: ;
+        default:
+            printf("Invalid choice. Please enter a number between 1 and 8\n");
     }
  }
 
