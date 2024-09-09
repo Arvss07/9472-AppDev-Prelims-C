@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include "../citizen/citizen.h"
 #include "menu.h"
+
+#include "../file/file.h"
 #include "../utils/util.h"
 void welcome(List list) {
     printf("Welcome to <name> Application\n");
@@ -246,6 +248,17 @@ void printMainMenu(List *list) {
             case 5:
                 break;
             case 6:
+                int citizenIdToPrint;
+                Citizen *citizenToPrint = NULL;
+                do {
+                    printf("Enter the ID of the citizen to print the Brgy. Certificate: ");
+                    scanf("%d", &citizenIdToPrint);
+                    citizenToPrint = searchCitizenById(list, citizenIdToPrint);
+                    if (citizenToPrint == NULL) {
+                        printf("Citizen with ID %d not found.\n", citizenIdToPrint);
+                    }
+                }while (citizenToPrint == NULL);
+                    createAndSaveCitizenCert(list, citizenToPrint);
                 break;
             case 7:
                 break;
