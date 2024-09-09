@@ -214,6 +214,7 @@ ResponseCode removeCitizen(List *list, int citizenId) {
             list->tail = previous;
         }
     }
+    saveListToFile(FILENAME, list);
     counter--;
     free(current);
     return Success;
