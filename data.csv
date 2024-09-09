@@ -1,5 +1,5 @@
 CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone
-1000,Karen,Frost,Stewart,Female,2002-06-07,Single,Filipino,Catholic,+633294057568,karen.stewart@example.com,400,Saint Vincent Street,Purok 6
+1000,Karen,Frost,Stewart,Female,1924-06-07,Single,Filipino,Catholic,+633294057568,karen.stewart@example.com,400,Saint Vincent Street,Purok 6
 1001,Mathew,Davis,West,Male,1943-01-02,Married,Filipino,Catholic,+636429806742,mathew.west@example.com,374,Angelo Salinas Street,Purok 5
 1002,James,Sloan,Andrade,Male,2002-12-01,Single,Filipino,Catholic,+632077198509,james.andrade@example.com,302,Bakakeng North Drive,Purok 8
 1003,Brianna,Scott,Carter,Female,1960-09-07,Widowed,Filipino,Catholic,+630345476552,brianna.carter@example.com,441,Lower Bakakeng Road,Purok 2

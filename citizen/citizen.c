@@ -28,8 +28,9 @@ int cmpCtz(const Citizen a, const Citizen b,Type sort) {
     if (sort == CitizenId) {
         return a.citizenId - b.citizenId;
     }
-
-
+    if (sort == BirthDate) {
+        return strcmp(a.birthDate, b.birthDate);
+    }
     return 0;
 }
 
@@ -423,45 +424,17 @@ int getFemalePopulation(List *list) {
 }
 
 Citizen getOldestCitizen(List *list) {
-    Node *current = list->head;
-
-    Citizen oldestCitizen = current->citizen;
-    int oldestAge = getCitizenAge(list, oldestCitizen.citizenId);
-
-    while (current != NULL) {
-        Citizen currentCitizen = current->citizen;
-        int currentAge = getCitizenAge(list, currentCitizen.citizenId);
-
-        if (currentAge > oldestAge) {
-            oldestCitizen = currentCitizen;
-            oldestAge = currentAge;
-        }
-
-        current = current->next;
-    }
-
+    // sort by age
+    List sortedBdate = sortCitizen(list, BirthDate);
+    Citizen oldestCitizen = sortedBdate.head->citizen;
     return oldestCitizen;
 }
 
 Citizen getYoungestCitizen(List *list) {
-    Node *current = list->head;
-
-    Citizen youngestCitizen = current->citizen;
-    int youngestAge = getCitizenAge(list, youngestCitizen.citizenId);
-
-    while (current != NULL) {
-        Citizen currentCitizen = current->citizen;
-        int currentAge = getCitizenAge(list, currentCitizen.citizenId);
-
-        if (currentAge < youngestAge) {
-            youngestCitizen = currentCitizen;
-            youngestAge = currentAge;
-        }
-
-        current = current->next;
-    }
-
-    return youngestCitizen;
+    // sort by age
+    List sortedBdate = sortCitizen(list, BirthDate);
+    Citizen oldestCitizen = sortedBdate.tail->citizen;
+    return oldestCitizen;
 }
 
 void viewDemographics(List *list) {
