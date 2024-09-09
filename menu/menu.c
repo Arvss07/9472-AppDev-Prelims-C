@@ -45,42 +45,42 @@ void printMainMenu(List *list) {
         getStringInput(firstName, 100, "\nWhat is the citizen's first name?: ", -1);
 
         char middleName[100];
-        getStringInput(middleName, 100, "\nWhat is the citizen's middle name?: ");
+        getStringInput(middleName, 100, "\nWhat is the citizen's middle name?: ", -1);
 
         char lastName[100];
-        getStringInput(lastName, 100, "\nWhat is the citizen's last name?: ");
+        getStringInput(lastName, 100, "\nWhat is the citizen's last name?: ", -1);
 
         char citizenGender[100];
-        getStringInput(citizenGender, 100, "\nWhat is the citizen's gender? <Male, Female, Others>: ");
+        getStringInput(citizenGender, 100, "\nWhat is the citizen's gender? <Male, Female, Others>: ", -1);
         Gender gender = getGenderStr(citizenGender);
 
         char birthDate[100];
-        getStringInput(birthDate, 100, "\nWhat is the citizen's birth date?: ");
+        getStringInput(birthDate, 100, "\nWhat is the citizen's birth date?: ", -1);
 
         char citizenMaritalStatus [100];
-        getStringInput(citizenMaritalStatus, 100, "\nWhat is the citizen's marital status? <Single, Married, Divorced, Widowed>: ");
+        getStringInput(citizenMaritalStatus, 100, "\nWhat is the citizen's marital status? <Single, Married, Divorced, Widowed>: ", -1);
         MaritalStatus maritalStatus = getMaritalStatusStr(citizenMaritalStatus);
 
         char nationality[100];
-        getStringInput(nationality, 100, "\nWhat is the citizen's nationality?: ");
+        getStringInput(nationality, 100, "\nWhat is the citizen's nationality?: ", -1);
 
         char religion[100];
-        getStringInput(religion, 100, "\nWhat is the citizen's religion?: ");
+        getStringInput(religion, 100, "\nWhat is the citizen's religion?: ", -1);
 
         char contactNumber[100];
-        getStringInput(contactNumber, 100, "\nWhat is the citizen's contact number?: ");
+        getStringInput(contactNumber, 100, "\nWhat is the citizen's contact number?: ", -1);
 
         char emailAddress[100];
-        getStringInput(emailAddress, 100, "\nWhat is the citizen's email address?: ");
+        getStringInput(emailAddress, 100, "\nWhat is the citizen's email address?: ", -1);
 
         char houseNumber[100];
-        getStringInput(houseNumber, 100, "\nWhat is the citizen's house number?: ");
+        getStringInput(houseNumber, 100, "\nWhat is the citizen's house number?: ", -1);
 
         char street[100];
-        getStringInput(street, 100, "\nWhat is the citizen's street?: ");
+        getStringInput(street, 100, "\nWhat is the citizen's street?: ", -1);
 
         char purokZone[100];
-        getStringInput(purokZone, 100, "\nWhat is the citizen's purok zone?: ");
+        getStringInput(purokZone, 100, "\nWhat is the citizen's purok zone?: ", -1);
 
         Address address;
         strcpy(address.houseNumber, houseNumber);
@@ -196,29 +196,66 @@ void printMainMenu(List *list) {
             break;
         }
 
-        printf("updating details for citizen ID %d: ", citizenId);
+        printf("updating details for citizen ID %d:\n", citizenId);
 
-        getStringInput(citizen.firstName, sizeof(citizen.firstName), "Enter first name: ");
-        getStringInput(citizen.middleName, sizeof(citizen.middleName), "Enter middle name: ");
-        getStringInput(citizen.lastName, sizeof(citizen.lastName), "Enter last name: ");
+        char input[100];
 
+        getStringInput(citizen.firstName, sizeof(citizen.firstName), "Enter first name: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->firstName, input);
+        }
+        getStringInput(citizen.middleName, sizeof(citizen.middleName), "Enter middle name: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->middleName, input);
+        }
+        getStringInput(citizen.lastName, sizeof(citizen.lastName), "Enter last name: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->lastName, input);
+        }
         char genderUpdate[100];
-        getStringInput(genderUpdate, sizeof(genderUpdate), "Enter your gender (Male, Female, Others): ");
+        getStringInput(genderUpdate, sizeof(genderUpdate), "Enter your gender (Male, Female, Others): ", 1);
         citizen.gender = getGenderStr(genderUpdate);
-
-        getStringInput(citizen.birthDate, sizeof(citizen.birthDate), "Enter birth date (YYYY-MM-DD): ");
-
+        if (strlen(input) > 0) {
+            existingCitizen->gender = getGenderStr(input);
+        }
+        getStringInput(citizen.birthDate, sizeof(citizen.birthDate), "Enter birth date (YYYY-MM-DD): ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->birthDate, input);
+        }
         char maritalStatusUpdate[100];
-        getStringInput(maritalStatusUpdate, sizeof(citizen.maritalStatus), "Enter marital status (Single, Married, Divorced, Widowed): ");
+        getStringInput(maritalStatusUpdate, sizeof(citizen.maritalStatus), "Enter marital status (Single, Married, Divorced, Widowed): ", 1);
         citizen.maritalStatus = getMaritalStatusStr(maritalStatusUpdate);
-
-        getStringInput(citizen.nationality, sizeof(citizen.nationality), "Enter nationality: ");
-        getStringInput(citizen.religion, sizeof(citizen.religion), "Enter religion: ");
-        getStringInput(citizen.contactNumber, sizeof(citizen.contactNumber), "Enter contact number: ");
-        getStringInput(citizen.emailAddress, sizeof(citizen.emailAddress), "Enter email address: ");
-        getStringInput(citizen.address.houseNumber, sizeof(citizen.address.houseNumber), "Enter house number: ");
-        getStringInput(citizen.address.street, sizeof(citizen.address.street), "Enter street: ");
-        getStringInput(citizen.address.purokZone, sizeof(citizen.address.purokZone), "Enter purok/zone: ");
+        if (strlen(input) > 0) {
+            existingCitizen->maritalStatus = getMaritalStatusStr(input);
+        }
+        getStringInput(citizen.nationality, sizeof(citizen.nationality), "Enter nationality: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->nationality, input);
+        }
+        getStringInput(citizen.religion, sizeof(citizen.religion), "Enter religion: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->religion, input);
+        }
+        getStringInput(citizen.contactNumber, sizeof(citizen.contactNumber), "Enter contact number: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->contactNumber, input);
+        }
+        getStringInput(citizen.emailAddress, sizeof(citizen.emailAddress), "Enter email address: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->emailAddress, input);
+        }
+        getStringInput(citizen.address.houseNumber, sizeof(citizen.address.houseNumber), "Enter house number: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->address.houseNumber, input);
+        }
+        getStringInput(citizen.address.street, sizeof(citizen.address.street), "Enter street: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->address.street, input);
+        }
+        getStringInput(citizen.address.purokZone, sizeof(citizen.address.purokZone), "Enter purok/zone: ", 1);
+        if (strlen(input) > 0) {
+            strcpy(existingCitizen->address.purokZone, input);
+        }
 
         citizen.citizenId = citizenId;
 
