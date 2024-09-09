@@ -92,7 +92,6 @@ ResponseCode addFirst(List *list, Citizen citizen) {
     }
     counter++;
     list->head = newNode;
-    saveListToFile(FILENAME, list);
     return Success;
 }
 
@@ -114,7 +113,6 @@ ResponseCode addLast(List *list, Citizen citizen) {
         list->tail = newNode;
     }
     counter++;
-    saveListToFile(FILENAME, list);
     return Success;
 }
 
@@ -214,7 +212,6 @@ ResponseCode removeCitizen(List *list, int citizenId) {
             list->tail = previous;
         }
     }
-    saveListToFile(FILENAME, list);
     counter--;
     free(current);
     return Success;
@@ -238,7 +235,6 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen) {
     }
 
     if (found) {
-        saveListToFile(FILENAME, list);
         return Success;
     } else {
         return NotFound;

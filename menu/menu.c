@@ -10,7 +10,9 @@
 #include "../utils/util.h"
 void welcome(List list) {
     printf("Welcome to <name> Application\n");
-    printTable(&list);
+    //printTable(&list);
+    pressAnyKeyToContinue();
+    printMainMenu(&list);
 }
 
 void getStringInput(char *destination, const int size, char *prompt, int isUpdate)
@@ -38,6 +40,7 @@ void printMainMenu(List *list) {
         printf("Enter your choice: ");
 
         scanf("%d", &choice);
+        getchar();
         switch (choice) {
             case 1:
                 printf("\n You are now adding a citizen");
@@ -105,6 +108,8 @@ void printMainMenu(List *list) {
 
                 if (status == Success) {
                     printf("\n Citizen successfully added.");
+                    saveListToFile(FILENAME, list);
+                    pressAnyKeyToContinue();
                 } else {
                     printf("\n Citizen not added. Please try again.");
                 }
@@ -178,10 +183,11 @@ void printMainMenu(List *list) {
                 break;
             case 3:
                 Citizen citizen;
-                int citizenId;
+                char uid[100];
 
-                getStringInput(citizenId, sizeof(citizenId), "Enter the ID of the citizen to update: ", 1);
+                getStringInput(uid, sizeof(uid), "Enter the ID of the citizen to update: ", 1);
 
+                int citizenId = atoi(uid);
 
                 Citizen *existingCitizen = searchCitizenById(list, citizenId);
                 if (existingCitizen == NULL) {
@@ -213,6 +219,7 @@ void printMainMenu(List *list) {
 
                 ResponseCode result = updateCitizen(list, &citizen);
                 if (result == Success) {
+                    saveListToFile(FILENAME, list);
                     printf("Citizen updated successfully.\n");
                 } else if (result == NotFound) {
                     printf("Citizen not found.\n");
@@ -235,6 +242,7 @@ void printMainMenu(List *list) {
                 if (confirm == 'y' || confirm == 'Y') {
                     const ResponseCode deleteResult = removeCitizen(list, citizenID);
                     if (deleteResult == Success) {
+                        saveListToFile(FILENAME, list);
                         printf("Citizen with  the ID %d has deleted successfully.", citizenID);
                     } else if (deleteResult == Failed) {
                         printf("Failed to delete citizen %d", citizenID);
@@ -254,7 +262,7 @@ void printMainMenu(List *list) {
                 if (citizenToPrint == NULL) {
                     printf("Citizen with ID %d not found.\n", citizenIdToPrint);
                 }
-            }while (citizenToPrint == NULL);
+            } while (citizenToPrint == NULL);
             createAndSaveCitizenCert(list, citizenToPrint);
             break;
                 break;

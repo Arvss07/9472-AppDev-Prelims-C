@@ -95,7 +95,6 @@ void loadCitizensFromCSV(const char *filename, List *list) {
             }
         }
     }
-
     fclose(file);
 }
 
@@ -134,8 +133,20 @@ void saveListToFile(const char *filename, List *list) {
     }
 
     fclose(tempFile);
-    remove(filename);
-    rename("../output/temp.csv", filename);
+
+    // remove original file
+    if (remove(filename) != 0) {
+        fprintf(stderr, "Error: Could not remove file %s\n", filename);
+        remove("../output/temp.csv");
+        return;
+    }
+
+    // rename temp file to original file
+    if (rename("../output/temp.csv", filename) != 0) {
+        fprintf(stderr, "Error: Could not rename file temp.csv to %s\n", filename);
+        remove("../output/temp.csv");
+        return;
+    }
 }
 
 // Create a certificate for a citizen
