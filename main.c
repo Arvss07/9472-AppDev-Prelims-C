@@ -10,7 +10,12 @@ int main(void) {
    List list = {NULL, NULL};
     loadCitizensFromCSV("..\\data.csv", &list);
 
-    printTable(&list);
+    // print the oldest citizen
+    Citizen oldest = getOldestCitizen(&list);
+    printCitizen(oldest);
+    printf("Age: %d\n", getCitizenAge(&list, oldest.citizenId));
+
+    //printTable(&list);
     //printMainMenu(&list);
 
     pressAnyKeyToContinue();
