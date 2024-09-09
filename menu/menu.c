@@ -48,14 +48,14 @@ void printMainMenu(List *list) {
 
         char citizenGender[100];
         getStringInput(citizenGender, 100, "\nWhat is the citizen's gender? <Male, Female, Others>: ");
-        Gender gender = stringToGender(citizenGender);
+        Gender gender = getGenderStr(citizenGender);
 
         char birthDate[100];
         getStringInput(birthDate, 100, "\nWhat is the citizen's birth date?: ");
 
         char citizenMaritalStatus [100];
         getStringInput(citizenMaritalStatus, 100, "\nWhat is the citizen's marital status? <Single, Married, Divorced, Widowed>: ");
-        MaritalStatus maritalStatus = stringToMaritalStatus(citizenMaritalStatus);
+        MaritalStatus maritalStatus = getMaritalStatusStr(citizenMaritalStatus);
 
         char nationality[100];
         getStringInput(nationality, 100, "\nWhat is the citizen's nationality?: ");
@@ -87,23 +87,22 @@ void printMainMenu(List *list) {
         strcpy(newCitizen.firstName, firstName);
         strcpy(newCitizen.middleName, middleName);
         strcpy(newCitizen.lastName, lastName);
-        strcpy(newCitizen.gender, gender);
+        newCitizen.gender = gender;
         strcpy(newCitizen.birthDate, birthDate);
-        strcpy(newCitizen.maritalStatus, maritalStatus);
+        newCitizen.maritalStatus = maritalStatus;
         strcpy(newCitizen.nationality, nationality);
         strcpy(newCitizen.religion, religion);
         strcpy(newCitizen.contactNumber, contactNumber);
         strcpy(newCitizen.emailAddress, emailAddress);
-        strcpy(newCitizen.address, address);
+        newCitizen.address = address;
 
-        addLast(list, newCitizen);
         ResponseCode status = addLast(list, newCitizen);
 
-        // if (status == "Success") {
-        //     printf("\n Citizen successfully added.");
-        // } else {
-        //     printf("\n Citizen not added. Please try again.");
-        // }
+        if (status == Success) {
+            printf("\n Citizen successfully added.");
+        } else {
+            printf("\n Citizen not added. Please try again.");
+        }
         break;
     case 2:
 
@@ -201,13 +200,13 @@ void printMainMenu(List *list) {
 
         char genderUpdate[100];
         getStringInput(genderUpdate, sizeof(genderUpdate), "Enter your gender (Male, Female, Others): ");
-        citizen.gender = stringToGender(genderUpdate);
+        citizen.gender = getGenderStr(genderUpdate);
 
         getStringInput(citizen.birthDate, sizeof(citizen.birthDate), "Enter birth date (YYYY-MM-DD): ");
 
         char maritalStatusUpdate[100];
         getStringInput(maritalStatusUpdate, sizeof(citizen.maritalStatus), "Enter marital status (Single, Married, Divorced, Widowed): ");
-        citizen.maritalStatus = stringToMaritalStatus(maritalStatusUpdate);
+        citizen.maritalStatus = getMaritalStatusStr(maritalStatusUpdate);
 
         getStringInput(citizen.nationality, sizeof(citizen.nationality), "Enter nationality: ");
         getStringInput(citizen.religion, sizeof(citizen.religion), "Enter religion: ");
