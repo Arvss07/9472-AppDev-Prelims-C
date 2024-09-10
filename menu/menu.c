@@ -113,6 +113,7 @@ void printMainMenu(List *list) {
                 } else {
                     printf("\n Citizen not added. Please try again.");
                 }
+                pressAnyKeyToContinue();
                 break;
             case 2:
                 int searchOption;
@@ -180,6 +181,7 @@ void printMainMenu(List *list) {
                         printf("Citizen not found.\n");
                     }
                 } while (searchOption != 5);
+                pressAnyKeyToContinue();
                 break;
             case 3:
                 Citizen citizen;
@@ -226,8 +228,8 @@ void printMainMenu(List *list) {
                 } else {
                     printf("Failed to update details of the citizen.\n");
                 }
+                pressAnyKeyToContinue();
                 break;
-
             case 4:
                 int citizenID;
                 char confirm;
@@ -250,6 +252,7 @@ void printMainMenu(List *list) {
                 } else {
                     printf("Deletion of Citizen %d has been cancelled.\n", citizenID);
                 }
+                pressAnyKeyToContinue();
                 break;
             case 5:
                 printf("Creating barangay certificate for a citizen.");
@@ -264,6 +267,7 @@ void printMainMenu(List *list) {
                     }
                 } while (citizenToPrint == NULL);
                 createAndSaveCitizenCert(list, citizenToPrint);
+                pressAnyKeyToContinue();
                 break;
             case 6:
                 subMenu1(list);
@@ -274,7 +278,7 @@ void printMainMenu(List *list) {
             default:
                 printf("Invalid choice. Please enter a number between 1 and 8\n");
         }
-    } while (choice != 8);
+    } while (choice != 7);
 }
 
 void subMenu1(List *list) {
@@ -284,7 +288,7 @@ void subMenu1(List *list) {
         printf("\nDemographics\n");
         printf("1. View Demographics\n");
         printf("2. Get Citizen Age\n");
-        printf("3. GO BACK\n");
+        printf("3. Go Back\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
         getchar();
@@ -292,6 +296,7 @@ void subMenu1(List *list) {
         switch (choice) {
             case 1:
                 viewDemographics(list);
+                pressAnyKeyToContinue();
                 break;
             case 2:
                 do {
@@ -313,7 +318,7 @@ void subMenu1(List *list) {
                 } while (tolower(continueChoice) == 'y');
                 break;
             case 3:
-                printf("Going back to main menu...\n");
+                printf("Going back to the main menu...\n");
                 break;
             default:
                 printf("Invalid Choice\n");
