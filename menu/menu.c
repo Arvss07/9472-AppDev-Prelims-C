@@ -179,7 +179,7 @@ void printMainMenu(List *list) {
                     } else {
                         printf("Citizen not found.\n");
                     }
-                } while (searchOption != 5);  // Continue looping until the user chooses to exit
+                } while (searchOption != 5);
                 break;
             case 3:
                 Citizen citizen;
@@ -253,18 +253,17 @@ void printMainMenu(List *list) {
                 break;
             case 5:
                 printf("Creating barangay certificate for a citizen.");
-            int citizenIdToPrint;
-            Citizen *citizenToPrint = NULL;
-            do {
-                printf("Enter the ID of the citizen to print the Brgy. Certificate: ");
-                scanf("%d", &citizenIdToPrint);
-                citizenToPrint = searchCitizenById(list, citizenIdToPrint);
-                if (citizenToPrint == NULL) {
-                    printf("Citizen with ID %d not found.\n", citizenIdToPrint);
-                }
-            } while (citizenToPrint == NULL);
-            createAndSaveCitizenCert(list, citizenToPrint);
-            break;
+                int citizenIdToPrint;
+                Citizen *citizenToPrint = NULL;
+                do {
+                    printf("Enter the ID of the citizen to print the Brgy. Certificate: ");
+                    scanf("%d", &citizenIdToPrint);
+                    citizenToPrint = searchCitizenById(list, citizenIdToPrint);
+                    if (citizenToPrint == NULL) {
+                        printf("Citizen with ID %d not found.\n", citizenIdToPrint);
+                    }
+                } while (citizenToPrint == NULL);
+                createAndSaveCitizenCert(list, citizenToPrint);
                 break;
             case 6:
                 subMenu1(list);
@@ -280,39 +279,44 @@ void printMainMenu(List *list) {
 
 void subMenu1(List *list) {
     int choice;
+    char continueChoice;
     do {
         printf("\nDemographics\n");
-        printf("1. Get Citizen Age\n");
-        printf("2. Get Male Population\n");
-        printf("3. Get Female Population\n");
-        printf("4. Get Oldest Citizen\n");
-        printf("5. Get Youngest Citizen\n");
-        printf("6. View Demographics\n");
-        printf("7. Exit\n");
+        printf("1. View Demographics\n");
+        printf("2. Get Citizen Age\n");
+        printf("3. GO BACK\n");
         printf("Enter your choice: ");
-
         scanf("%d", &choice);
+        getchar();
 
         switch (choice) {
             case 1:
-                int citizenId;
-                printf("Enter Citizen ID: ");
-                scanf("%d", &citizenId);
-
-                int age = getCitizenAge(list, citizenId);
-                if (age != -1) {
-                    printf("Citizen ID %d is %d years old.\n", citizenId, age);
-                } else {
-                    printf("Citizen ID %d not found.\n", citizenId);
-                }
+                viewDemographics(list);
                 break;
             case 2:
+                do {
+                    int citizenId;
+                    printf("Enter Citizen ID: ");
+                    scanf("%d", &citizenId);
+                    getchar();
+
+                    int age = getCitizenAge(list, citizenId);
+                    if (age != -1) {
+                        printf("Citizen ID %d is %d years old.\n", citizenId, age);
+                    } else {
+                        printf("Citizen ID %d not found.\n", citizenId);
+                    }
+
+                    printf("Do you want to know the age of another citizen (y/n)?" );
+                    scanf("%c", &continueChoice);
+                    getchar();
+                } while (tolower(continueChoice) == 'y');
                 break;
             case 3:
+                printf("Going back to main menu...\n");
                 break;
             default:
                 printf("Invalid Choice\n");
-            break;
         }
     } while (choice != 3);
 }
