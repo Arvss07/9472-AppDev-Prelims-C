@@ -10,7 +10,7 @@
 #include "../utils/util.h"
 void welcome(List list) {
     printf("Welcome to <name> Application\n");
-    //printTable(&list);
+    printTable(&list);
     pressAnyKeyToContinue();
     printMainMenu(&list);
 }
@@ -177,8 +177,10 @@ void printMainMenu(List *list) {
                     if (foundCitizen) {
                         printf("Citizen found.\n");
                         printCitizen(*foundCitizen);
+                        pressAnyKeyToContinue();
                     } else {
                         printf("Citizen not found.\n");
+                        pressAnyKeyToContinue();
                     }
                 } while (searchOption != 5);
                 pressAnyKeyToContinue();
@@ -223,6 +225,8 @@ void printMainMenu(List *list) {
                 if (result == Success) {
                     saveListToFile(FILENAME, list);
                     printf("Citizen updated successfully.\n");
+                    printCitizen(citizen);
+                    pressAnyKeyToContinue();
                 } else if (result == NotFound) {
                     printf("Citizen not found.\n");
                 } else {
@@ -246,8 +250,10 @@ void printMainMenu(List *list) {
                     if (deleteResult == Success) {
                         saveListToFile(FILENAME, list);
                         printf("Citizen with  the ID %d has deleted successfully.", citizenID);
+                        pressAnyKeyToContinue();
                     } else if (deleteResult == Failed) {
                         printf("Failed to delete citizen %d", citizenID);
+                        pressAnyKeyToContinue();
                     }
                 } else {
                     printf("Deletion of Citizen %d has been cancelled.\n", citizenID);
