@@ -147,11 +147,11 @@ void printTable(List *list) {
     int i = 1;
     printf("List of Citizens\n\n");
     // Print table headers
-    printf("%-5s %-10s %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s %-15s %-20s \n",
-           "No.", "CtzId", "Name", "Gender", "BDate", "MStat", "Nat", "Rel", "CNum", "Email", "House#", "St.#", "P/Z");
+    printf("%-3s %-5s %-40s %-10s %-10s %-10s %-10s %-15s %-15s %-30s %-7s %-25s %-10s \n",
+           "No.", "CtzId", "Name", "Gender", "BDate", "MStat", "Nat", "Rel", "CNum", "Email", "House#", "St", "P/Z");
     // Traverse the list and print each citizen's data in tabular format
     while (current != NULL) {
-        printf("%-5d %-10d %-25s %-15s %-15s %-15s %-15s %-20s %-15s %-30s %-15s %-15s %-20s \n",
+        printf("%-3d %-5d %-40s %-10s %-10s %-10s %-10s %-15s %-15s %-30s %-7s %-25s %-10s \n",
                i++,
                current->citizen.citizenId,
                getFullName(current->citizen.firstName, current->citizen.middleName, current->citizen.lastName),

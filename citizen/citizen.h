@@ -1,8 +1,8 @@
 #ifndef CITIZEN_H
 #define CITIZEN_H
 
-#define FILENAME "../output/data.csv"
-#define CERT_FILEPATH "../output/"
+#define FILENAME "./output/data.csv"
+#define CERT_FILEPATH "./output/"
 
 extern int counter;
 

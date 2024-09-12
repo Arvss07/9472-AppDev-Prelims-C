@@ -2,17 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <stdbool.h>
 #include "../citizen/citizen.h"
 #include "menu.h"
-
 #include "../file/file.h"
-#include "../utils/util.h"
 void welcome(List list) {
     printf("Welcome to <name> Application\n");
     printTable(&list);
-    pressAnyKeyToContinue();
     printMainMenu(&list);
+    printf("\n\n\n\n\n");
 }
 
 void getStringInput(char *destination, const int size, char *prompt, int isUpdate)
@@ -27,7 +24,11 @@ void getStringInput(char *destination, const int size, char *prompt, int isUpdat
 
 
 void printMainMenu(List *list) {
-    int choice;
+    int choice, searchOption, searchId;
+    Citizen citizen;
+    char uid[100];
+    int citizenID;
+    char confirm;
     do {
         printf("\nMENU:\n");
         printf("1. Add Citizen\n");
@@ -116,7 +117,7 @@ void printMainMenu(List *list) {
                 pressAnyKeyToContinue();
                 break;
             case 2:
-                int searchOption;
+
                 do {
                     printf("Search by:\n");
                     printf("1. FirstName\n");
@@ -161,7 +162,7 @@ void printMainMenu(List *list) {
                         break;
 
                         case 4:
-                            int searchId;
+
                         printf("Enter the ID to search: ");
                         scanf("%d", &searchId);
                         getchar();
@@ -186,9 +187,6 @@ void printMainMenu(List *list) {
                 pressAnyKeyToContinue();
                 break;
             case 3:
-                Citizen citizen;
-                char uid[100];
-
                 getStringInput(uid, sizeof(uid), "Enter the ID of the citizen to update: ", 1);
 
                 int citizenId = atoi(uid);
@@ -235,8 +233,6 @@ void printMainMenu(List *list) {
                 pressAnyKeyToContinue();
                 break;
             case 4:
-                int citizenID;
-                char confirm;
                 printf("Enter the ID of the citizen you want to delete: ");
                 scanf("%d", &citizenID);
 

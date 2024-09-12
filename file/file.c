@@ -99,7 +99,7 @@ void loadCitizensFromCSV(const char *filename, List *list) {
 }
 
 void saveListToFile(const char *filename, List *list) {
-    FILE *tempFile = fopen("../output/temp.csv", "w"); // Open temp file for writing
+    FILE *tempFile = fopen("./output/temp.csv", "w"); // Open temp file for writing
     if (tempFile == NULL) {
         fprintf(stderr, "Error: Could not open file temp.csv for writing.\n");
         return;
@@ -137,14 +137,14 @@ void saveListToFile(const char *filename, List *list) {
     // remove original file
     if (remove(filename) != 0) {
         fprintf(stderr, "Error: Could not remove file %s\n", filename);
-        remove("../output/temp.csv");
+        remove("./output/temp.csv");
         return;
     }
 
     // rename temp file to original file
-    if (rename("../output/temp.csv", filename) != 0) {
+    if (rename("./output/temp.csv", filename) != 0) {
         fprintf(stderr, "Error: Could not rename file temp.csv to %s\n", filename);
-        remove("../output/temp.csv");
+        remove("./output/temp.csv");
         return;
     }
 }
