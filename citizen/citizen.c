@@ -393,74 +393,119 @@ int getCitizenAge(List *list, int citizenId) {
     return -1;
 }
 
+/**
+ * @brief Get the male population from the citizen list.
+ *
+ * This function iterates through the list of citizens and counts how many are male.
+ *
+ * @param list A pointer to the list of citizens.
+ * @return The number of male citizens in the list.
+ */
 int getMalePopulation(List *list) {
-    Node *current = list->head;
+    Node *current = list->head;  // Start from the head of the list
+    int malePopulation = 0;      // Counter for male population
 
-    int malePopulation = 0;
-
+    // Traverse the list and count males
     while (current != NULL) {
         if (current->citizen.gender == MALE) {
             malePopulation++;
         }
-        current = current->next;
+        current = current->next; // Move to the next citizen in the list
     }
     return malePopulation;
 }
 
+/**
+ * @brief Get the female population from the citizen list.
+ *
+ * This function iterates through the list of citizens and counts how many are female.
+ *
+ * @param list A pointer to the list of citizens.
+ * @return The number of female citizens in the list.
+ */
 int getFemalePopulation(List *list) {
-    Node *current = list->head;
+    Node *current = list->head;   // Start from the head of the list
+    int femalePopulation = 0;     // Counter for female population
 
-    int femalePopulation = 0;
-
+    // Traverse the list and count females
     while (current != NULL) {
         if (current->citizen.gender == FEMALE) {
             femalePopulation++;
         }
-        current = current->next;
+        current = current->next; // Move to the next citizen in the list
     }
     return femalePopulation;
 }
 
+/**
+ * @brief Get the oldest citizen from the list.
+ *
+ * This function sorts the citizens by birthdate and returns the oldest citizen.
+ *
+ * @param list A pointer to the list of citizens.
+ * @return The oldest citizen in the list.
+ */
 Citizen getOldestCitizen(List *list) {
-    // sort by age
+    // Sort the list by birthdate in ascending order
     List sortedBdate = sortCitizen(list, BirthDate);
-    Citizen oldestCitizen = sortedBdate.head->citizen;
+    Citizen oldestCitizen = sortedBdate.head->citizen; // First citizen in sorted list is the oldest
     return oldestCitizen;
 }
 
+/**
+ * @brief Get the youngest citizen from the list.
+ *
+ * This function sorts the citizens by birth date and returns the youngest citizen.
+ *
+ * @param list A pointer to the list of citizens.
+ * @return The youngest citizen in the list.
+ */
 Citizen getYoungestCitizen(List *list) {
-    // sort by age
+    // Sort the list by birth date in ascending order
     List sortedBdate = sortCitizen(list, BirthDate);
-    Citizen oldestCitizen = sortedBdate.tail->citizen;
-    return oldestCitizen;
+    Citizen youngestCitizen = sortedBdate.tail->citizen; // Last citizen in sorted list is the youngest
+    return youngestCitizen;
 }
 
-
+/**
+ * @brief View demographic information of the citizen list.
+ *
+ * This function prints the total population, male population, female population, the oldest citizen, and the youngest citizen.
+ *
+ * @param list A pointer to the list of citizens.
+ */
 void viewDemographics(List *list) {
+    // Check if the list is empty
     if (list == NULL || list->head == NULL) {
         printf("No demographic information available. The list is empty.\n");
         return;
     }
 
-    int totalPopulation = counter;
+    // Get demographic details
+    int totalPopulation = counter; // Assuming 'counter' holds total number of citizens
     int totalMalePopulation = getMalePopulation(list);
     int totalFemalePopulation = getFemalePopulation(list);
 
+    // Get oldest and youngest citizens
     Citizen oldestCitizen = getOldestCitizen(list);
     Citizen youngestCitizen = getYoungestCitizen(list);
 
+    // Display the demographic information
     printf("Demographic Information\n");
     printf("Total Population: %d\n", totalPopulation);
     printf("Total Male Population: %d\n", totalMalePopulation);
     printf("Total Female Population: %d\n", totalFemalePopulation);
 
+    // Print details of the oldest citizen
     char oldestName[200];
     snprintf(oldestName, sizeof(oldestName), "%s %s", oldestCitizen.firstName, oldestCitizen.lastName);
     printf("The Oldest Citizen: %s\n", oldestName);
     printf("Age: %d\n", getCitizenAge(list, oldestCitizen.citizenId));
 
+    // Print details of the youngest citizen
     char youngestName[200];
     snprintf(youngestName, sizeof(youngestName), "%s %s", youngestCitizen.firstName, youngestCitizen.lastName);
     printf("The Youngest Citizen: %s\n", youngestName);
     printf("Age: %d\n", getCitizenAge(list, youngestCitizen.citizenId));
 }
+
