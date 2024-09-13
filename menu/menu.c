@@ -253,6 +253,7 @@ void printMainMenu(List *list) {
                 break;
             }
             case 5: {
+                char continueChoice;
                 printf("Creating barangay certificate for a citizen.\n");
                 int citizenIdToPrint;
                 Citizen *citizenToPrint = NULL;
@@ -267,7 +268,10 @@ void printMainMenu(List *list) {
                         createAndSaveCitizenCert(list, citizenToPrint);
                         printf("Certificate created and saved for %s %s.\n", citizenToPrint->firstName, citizenToPrint->lastName);
                     }
-                } while (citizenToPrint == NULL);
+                    printf("Do you want to create barangay certificate of another citizen (y/n)?");
+                    scanf("%c", &continueChoice);
+                    getchar();
+                } while (tolower(continueChoice) == 'y');
                 pressAnyKeyToContinue();
                 break;
             }
