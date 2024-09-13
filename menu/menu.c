@@ -5,6 +5,7 @@
 #include "../citizen/citizen.h"
 #include "menu.h"
 #include "../file/file.h"
+
 void welcome(List list) {
     printf("Welcome to <name> Application\n");
     printTable(&list);
@@ -12,12 +13,11 @@ void welcome(List list) {
     printf("\n\n\n\n\n");
 }
 
-void getStringInput(char *destination, const int size, char *prompt, int isUpdate)
-{
+void getStringInput(char *destination, const int size, char *prompt, int isUpdate) {
     do {
         printf("%s", prompt);
         fgets(destination, size, stdin);
-    }while(isUpdate < 0 && strcmp(destination, "\n") == 0);
+    } while (isUpdate < 0 && strcmp(destination, "\n") == 0);
 
     destination[strcspn(destination, "\n")] = 0;
 }
@@ -60,8 +60,9 @@ void printMainMenu(List *list) {
                 char birthDate[100];
                 getStringInput(birthDate, 100, "\nWhat is the citizen's birth date?: ", -1);
 
-                char citizenMaritalStatus [100];
-                getStringInput(citizenMaritalStatus, 100, "\nWhat is the citizen's marital status? <Single, Married, Divorced, Widowed>: ", -1);
+                char citizenMaritalStatus[100];
+                getStringInput(citizenMaritalStatus, 100,
+                               "\nWhat is the citizen's marital status? <Single, Married, Divorced, Widowed>: ", -1);
                 MaritalStatus maritalStatus = getMaritalStatusStr(citizenMaritalStatus);
 
                 char nationality[100];
@@ -118,72 +119,60 @@ void printMainMenu(List *list) {
             }
             case 2: {
                 int searchOption, searchId;
-                   do {
-                    printf("Search by:\n");
-                    printf("1. FirstName\n");
-                    printf("2. LastName\n");
-                    printf("3. MiddleName\n");
-                    printf("4. Citizen ID\n");
-                    printf("5. Exit\n");
-                    printf("Enter your choice: ");
-                    scanf("%d", &searchOption);
-                    getchar();
 
-                    if (searchOption == 5) {
-                        break;
-                    }
+                printf("Search by:\n");
+                printf("1. FirstName\n");
+                printf("2. LastName\n");
+                printf("3. MiddleName\n");
+                printf("4. Citizen ID\n");
+                printf("Enter your choice: ");
+                scanf("%d", &searchOption);
+                getchar();
 
-                    char searchKeyword[100];
-                    Citizen *foundCitizen = NULL;
+                char searchKeyword[100];
+                Citizen *foundCitizen = NULL;
 
-                    switch (searchOption) {
-                        case 1:
-                            printf("Enter the name to search: ");
+                switch (searchOption) {
+                    case 1: {
+                        printf("Enter the name to search: ");
                         fgets(searchKeyword, sizeof(searchKeyword), stdin);
                         searchKeyword[strcspn(searchKeyword, "\n")] = '\0';
 
                         foundCitizen = searchCitizen(list, FirstName, searchKeyword);
                         break;
-
-                        case 2:
-                            printf("Enter the name to search: ");
+                    }
+                    case 2: {
+                        printf("Enter the name to search: ");
                         fgets(searchKeyword, sizeof(searchKeyword), stdin);
                         searchKeyword[strcspn(searchKeyword, "\n")] = '\0';
 
                         foundCitizen = searchCitizen(list, LastName, searchKeyword);
                         break;
-
-                        case 3:
-                            printf("Enter the name to search: ");
+                    }
+                    case 3: {
+                        printf("Enter the name to search: ");
                         fgets(searchKeyword, sizeof(searchKeyword), stdin);
                         searchKeyword[strcspn(searchKeyword, "\n")] = '\0';
-
                         foundCitizen = searchCitizen(list, MiddleName, searchKeyword);
                         break;
+                    }
 
-                        case 4:
-
+                    case 4: {
                         printf("Enter the ID to search: ");
                         scanf("%d", &searchId);
                         getchar();
-
                         foundCitizen = searchCitizenById(list, searchId);
                         break;
-
-                        default:
-                            printf("Invalid choice. Please enter a number between 1 and 5.\n");
-                        continue;
                     }
+                    default: printf("Invalid choice. Please enter a number between 1 and 5.\n");
+                }
 
-                    if (foundCitizen) {
-                        printf("Citizen found.\n");
-                        printCitizen(*foundCitizen);
-                        pressAnyKeyToContinue();
-                    } else {
-                        printf("Citizen not found.\n");
-                        pressAnyKeyToContinue();
-                    }
-                } while (searchOption != 5);
+                if (foundCitizen) {
+                    printf("Citizen found.\n");
+                    printCitizen(*foundCitizen);
+                } else {
+                    printf("Citizen not found.\n");
+                }
                 pressAnyKeyToContinue();
                 break;
             }
@@ -208,13 +197,15 @@ void printMainMenu(List *list) {
                 citizen.gender = getGenderStr(genderUpdate);
                 getStringInput(citizen.birthDate, sizeof(citizen.birthDate), "Enter birth date (YYYY-MM-DD): ", 1);
                 char maritalStatusUpdate[100];
-                getStringInput(maritalStatusUpdate, sizeof(citizen.maritalStatus), "Enter marital status (Single, Married, Divorced, Widowed): ", 1);
+                getStringInput(maritalStatusUpdate, sizeof(citizen.maritalStatus),
+                               "Enter marital status (Single, Married, Divorced, Widowed): ", 1);
                 citizen.maritalStatus = getMaritalStatusStr(maritalStatusUpdate);
                 getStringInput(citizen.nationality, sizeof(citizen.nationality), "Enter nationality: ", 1);
                 getStringInput(citizen.religion, sizeof(citizen.religion), "Enter religion: ", 1);
                 getStringInput(citizen.contactNumber, sizeof(citizen.contactNumber), "Enter contact number: ", 1);
                 getStringInput(citizen.emailAddress, sizeof(citizen.emailAddress), "Enter email address: ", 1);
-                getStringInput(citizen.address.houseNumber, sizeof(citizen.address.houseNumber), "Enter house number: ", 1);
+                getStringInput(citizen.address.houseNumber, sizeof(citizen.address.houseNumber), "Enter house number: ",
+                               1);
                 getStringInput(citizen.address.street, sizeof(citizen.address.street), "Enter street: ", 1);
                 getStringInput(citizen.address.purokZone, sizeof(citizen.address.purokZone), "Enter purok/zone: ", 1);
 
@@ -326,7 +317,7 @@ void subMenu1(List *list) {
                         printf("Citizen ID %d not found.\n", citizenId);
                     }
 
-                    printf("Do you want to know the age of another citizen (y/n)?" );
+                    printf("Do you want to know the age of another citizen (y/n)?");
                     scanf("%c", &continueChoice);
                     getchar();
                 } while (tolower(continueChoice) == 'y');
@@ -336,7 +327,7 @@ void subMenu1(List *list) {
                 printf("Going back to the main menu...\n");
                 break;
             }
-            default:printf("Invalid Choice\n");
+            default: printf("Invalid Choice\n");
         }
     } while (choice != 3);
 }

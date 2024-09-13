@@ -11,7 +11,7 @@ int counter = 0;
 
 // compare two Citizen objects based on the specified sort type.
 // Returns the result of the comparison.
-int cmpCtz(const Citizen a, const Citizen b,Type sort) {
+int cmpCtz(const Citizen a, const Citizen b, Type sort) {
     // Compare based on the sorting type provided
     if (sort == FirstName) {
         return strcmp(a.firstName, b.firstName);
@@ -36,7 +36,7 @@ int cmpCtz(const Citizen a, const Citizen b,Type sort) {
 
 
 // check if a Citizen's attribute contains a keyword.
-int com(const Citizen a, const char* keyword, Type type) {
+int com(const Citizen a, const char *keyword, Type type) {
     // Search in the citizen's specified attribute based on the type
     if (type == FirstName) {
         return strstr(a.firstName, keyword) != NULL;
@@ -49,7 +49,6 @@ int com(const Citizen a, const char* keyword, Type type) {
     if (type == LastName) {
         return strstr(a.lastName, keyword) != NULL;
     }
-
 
 
     return 0;
@@ -124,7 +123,7 @@ void printList(List *list) {
 
     // Traverse the list and print each citizen's information
     while (current != NULL) {
-        printf("\n%d.CitizenId: %d\n",i++, current->citizen.citizenId);
+        printf("\n%d.CitizenId: %d\n", i++, current->citizen.citizenId);
         printf("Name: %s %s %s\n", current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
         printf("Gender: %s\n", getGender(current->citizen.gender));
         printf("Birth Date: %s\n", current->citizen.birthDate);
@@ -162,8 +161,8 @@ void printTable(List *list) {
                current->citizen.religion, current->citizen.contactNumber,
                current->citizen.emailAddress,
                current->citizen.address.houseNumber,
-          current->citizen.address.street,
-          current->citizen.address.purokZone);
+               current->citizen.address.street,
+               current->citizen.address.purokZone);
         current = current->next;
     }
 }
@@ -171,7 +170,7 @@ void printTable(List *list) {
 // print detailed information of a single citizen.
 void printCitizen(Citizen citizen) {
     printf("CitizenId: %d\n", citizen.citizenId);
-    printf("Full Name: %s %s %s\n", citizen.firstName, citizen.middleName,citizen.lastName);
+    printf("Full Name: %s %s %s\n", citizen.firstName, citizen.middleName, citizen.lastName);
     printf("Gender: %s\n", getGender(citizen.gender));
     printf("Birth Date: %s\n", citizen.birthDate);
     printf("Marital Status: %s\n", getMaritalStatus(citizen.maritalStatus));
@@ -294,13 +293,13 @@ void freeList(List *list) {
     list->head = NULL;
     list->tail = NULL;
 }
+
 // search for a citizen in the list by a specific attribute and keyword.
-Citizen* searchCitizen(List *list, Type searchType, const char *keyword) {
+Citizen *searchCitizen(List *list, Type searchType, const char *keyword) {
     Node *current = list->head;
 
     // Traverse the list to search for a citizen that matches the keyword
     while (current != NULL) {
-
         if (com(current->citizen, keyword, searchType)) {
             return &current->citizen;
         }
@@ -310,13 +309,13 @@ Citizen* searchCitizen(List *list, Type searchType, const char *keyword) {
     // If no match is found, return NULL
     return NULL;
 }
+
 // search for a citizen in the list by citizenId.
-Citizen *searchCitizenById(List *list,  int citizenId) {
+Citizen *searchCitizenById(List *list, int citizenId) {
     Node *current = list->head;
 
     // Traverse the list to find the citizen with the specified citizenId
     while (current != NULL) {
-
         if (current->citizen.citizenId == citizenId) {
             return &current->citizen;
         }
@@ -330,21 +329,26 @@ Citizen *searchCitizenById(List *list,  int citizenId) {
 // Create a certificate for a citizen and save it to a file
 void createAndSaveCitizenCert(List *list, const Citizen *citizen) {
     Node *current = list->head; // Start at the head of the list
-    while (current != NULL) { // Iterate through the list
-        if (strcmp(current->citizen.firstName, citizen->firstName) == 0 && strcmp(current->citizen.lastName, citizen->lastName) == 0) {
+    while (current != NULL) {
+        // Iterate through the list
+        if (strcmp(current->citizen.firstName, citizen->firstName) == 0 && strcmp(
+                current->citizen.lastName, citizen->lastName) == 0) {
             char *cert = createCitizenCert(&current->citizen); // Create a certificate for the citizen
             if (cert != NULL) {
                 char filename[256]; // Allocate enough memory for the filename
-                snprintf(filename, sizeof(filename), "%s%s_%s_Certificate.txt", CERT_FILEPATH, citizen->firstName, citizen->lastName); // Create the filename
+                snprintf(filename, sizeof(filename), "%s%s_%s_Certificate.txt", CERT_FILEPATH, citizen->firstName,
+                         citizen->lastName); // Create the filename
                 saveCitizenCertToFile(filename, cert); // Save the certificate to a file
                 free(cert); // Free the allocated memory for the certificate string
-                printf("Certificate created and saved for %s %s.\n", citizen->firstName, citizen->lastName); // Print a success message
+                printf("Certificate created and saved for %s %s.\n", citizen->firstName, citizen->lastName);
+                // Print a success message
             }
             return; // Exit the function after finding the citizen
         }
         current = current->next; // Move to the next node
     }
-    printf("Citizen %s %s not found in the list.\n", citizen->firstName, citizen->lastName); // Print an error message if the citizen is not found
+    printf("Citizen %s %s not found in the list.\n", citizen->firstName, citizen->lastName);
+    // Print an error message if the citizen is not found
 }
 
 //Get the age of the citizen
@@ -387,7 +391,6 @@ int getCitizenAge(List *list, int citizenId) {
             return age;
         }
         current = current->next;
-
     }
     return -1;
 }
@@ -434,30 +437,32 @@ Citizen getYoungestCitizen(List *list) {
     return oldestCitizen;
 }
 
+
 void viewDemographics(List *list) {
+    if (list == NULL || list->head == NULL) {
+        printf("No demographic information available. The list is empty.\n");
+        return;
+    }
+
+    int totalPopulation = counter;
+    int totalMalePopulation = getMalePopulation(list);
+    int totalFemalePopulation = getFemalePopulation(list);
+
+    Citizen oldestCitizen = getOldestCitizen(list);
+    Citizen youngestCitizen = getYoungestCitizen(list);
 
     printf("Demographic Information\n");
-    printf("Total Population: %d\n", counter);
-    printf("Total Male Population: %d\n", getMalePopulation(list));
-    printf("Total Female Population: %d\n", getFemalePopulation(list));
+    printf("Total Population: %d\n", totalPopulation);
+    printf("Total Male Population: %d\n", totalMalePopulation);
+    printf("Total Female Population: %d\n", totalFemalePopulation);
 
-    char oldestName[100];
-    strcpy(oldestName, getOldestCitizen(list).firstName);
-    strcat(oldestName, " ");
-    strcat(oldestName, getOldestCitizen(list).lastName);
+    char oldestName[200];
+    snprintf(oldestName, sizeof(oldestName), "%s %s", oldestCitizen.firstName, oldestCitizen.lastName);
     printf("The Oldest Citizen: %s\n", oldestName);
-    printf("Age: %d\n", getCitizenAge(list, getOldestCitizen(list).citizenId));
+    printf("Age: %d\n", getCitizenAge(list, oldestCitizen.citizenId));
 
-    char youngestName[100];
-    strcpy(youngestName, getYoungestCitizen(list).firstName);
-    strcat(youngestName, " ");
-    strcat(youngestName, getYoungestCitizen(list).lastName);
+    char youngestName[200];
+    snprintf(youngestName, sizeof(youngestName), "%s %s", youngestCitizen.firstName, youngestCitizen.lastName);
     printf("The Youngest Citizen: %s\n", youngestName);
-    printf("Age: %d\n", getCitizenAge(list, getYoungestCitizen(list).citizenId));
-
+    printf("Age: %d\n", getCitizenAge(list, youngestCitizen.citizenId));
 }
-
-
-
-
-
