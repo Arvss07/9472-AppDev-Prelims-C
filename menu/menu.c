@@ -253,18 +253,21 @@ void printMainMenu(List *list) {
                 break;
             }
             case 5: {
-                printf("Creating barangay certificate for a citizen.");
+                printf("Creating barangay certificate for a citizen.\n");
                 int citizenIdToPrint;
                 Citizen *citizenToPrint = NULL;
                 do {
                     printf("Enter the ID of the citizen to print the Brgy. Certificate: ");
                     scanf("%d", &citizenIdToPrint);
+                    getchar(); // Consume the leftover newline character
                     citizenToPrint = searchCitizenById(list, citizenIdToPrint);
                     if (citizenToPrint == NULL) {
                         printf("Citizen with ID %d not found.\n", citizenIdToPrint);
+                    }else{
+                        createAndSaveCitizenCert(list, citizenToPrint);
+                        printf("Certificate created and saved for %s %s.\n", citizenToPrint->firstName, citizenToPrint->lastName);
                     }
                 } while (citizenToPrint == NULL);
-                createAndSaveCitizenCert(list, citizenToPrint);
                 pressAnyKeyToContinue();
                 break;
             }

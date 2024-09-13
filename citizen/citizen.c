@@ -340,8 +340,6 @@ void createAndSaveCitizenCert(List *list, const Citizen *citizen) {
                          citizen->lastName); // Create the filename
                 saveCitizenCertToFile(filename, cert); // Save the certificate to a file
                 free(cert); // Free the allocated memory for the certificate string
-                printf("Certificate created and saved for %s %s.\n", citizen->firstName, citizen->lastName);
-                // Print a success message
             }
             return; // Exit the function after finding the citizen
         }
