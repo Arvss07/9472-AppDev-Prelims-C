@@ -4,15 +4,25 @@
 #include <string.h>
 
 
+/**
+ * @brief Loads citizens from a CSV file and populates the given list.
+ *
+ * This function reads data from a CSV file line by line, parses the data,
+ * and adds each citizen to the provided linked list.
+ *
+ * @param filename The name of the CSV file.
+ * @param list The list where the citizens will be stored.
+ */
 void loadCitizensFromCSV(const char *filename, List *list) {
-    FILE *file = fopen(filename, "r");
+    FILE *file = fopen(filename, "r"); // Open the CSV file in read mode
 
-    if (file == NULL) {
+    if (file == NULL) { // Check if the file could not be opened
         perror("Error opening file");
         return;
     }
 
-    char line[MAX_LINE_LENGTH];
+    char line[MAX_LINE_LENGTH]; // Buffer to store each line of the file
+
 
     // Skip the header line
     if (fgets(line, sizeof(line), file) == NULL) {
@@ -21,6 +31,7 @@ void loadCitizensFromCSV(const char *filename, List *list) {
         return;
     }
 
+    // Read each line and process it
     while (fgets(line, sizeof(line), file)) {
         // Trim the newline character from the end of the line
         const size_t len = strlen(line);
@@ -28,6 +39,7 @@ void loadCitizensFromCSV(const char *filename, List *list) {
             line[len - 1] = '\0';
         }
 
+        // Tokenize the line using comma as a delimiter
         const char *token = strtok(line, ",");
 
         if (token != NULL) {
@@ -35,6 +47,7 @@ void loadCitizensFromCSV(const char *filename, List *list) {
             Address address;
             Citizen citizen;
 
+            // Parse each field from the CSV and assign values to the citizen struct
             citizen.citizenId = atoi(token);
             token = strtok(NULL, ",");
 
@@ -88,16 +101,25 @@ void loadCitizensFromCSV(const char *filename, List *list) {
             address.purokZone[sizeof(address.purokZone) - 1] = '\0';
 
             citizen.address = address;
-            const ResponseCode result = addLast(list, citizen);
+            const ResponseCode result = addLast(list, citizen); // Add the citizen to the list
 
             if (result != Success) {
                 fprintf(stderr, "Error adding citizen: %d\n", result);
             }
         }
     }
-    fclose(file);
+    fclose(file);// Close the file
 }
 
+/**
+ * @brief Saves the list of citizens to a CSV file.
+ *
+ * This function writes all citizens from the provided list into a CSV file.
+ * It temporarily writes to a file and then renames it to the desired filename to avoid corruption.
+ *
+ * @param filename The target CSV file where the list will be saved.
+ * @param list The list of citizens to save.
+ */
 void saveListToFile(const char *filename, List *list) {
     FILE *tempFile = fopen(TEMP_FILEPATH, "w"); // Open temp file for writing
     if (tempFile == NULL) {
@@ -132,7 +154,7 @@ void saveListToFile(const char *filename, List *list) {
         current = current->next;
     }
 
-    fclose(tempFile);
+    fclose(tempFile); // Close the temporary file
 
     // remove original file
     if (remove(filename) != 0) {
@@ -149,13 +171,22 @@ void saveListToFile(const char *filename, List *list) {
     }
 }
 
-// Create a certificate for a citizen
+/**
+ * @brief Creates a barangay certificate for a citizen.
+ *
+ * This function generates a certificate for the provided citizen, stating their good moral character
+ * and their contribution to the community.
+ *
+ * @param citizen The citizen for whom the certificate is created.
+ * @return A dynamically allocated string containing the certificate.
+ */
 char* createCitizenCert(const Citizen *citizen) {
     char *cert = malloc(1024); // Allocate memory for certificate
     if (cert == NULL) {
         perror("Error: Could not allocate memory for certificate.\n");
         return NULL;
     }
+    // Format the certificate with citizen's details
     sprintf(cert, "This is to certify that %s %s, a bona fide resident of %s, %s, %s\n"
                  "and one of the citizen of our barangay with good moral character and law-abiding citizen in the community.\n"
                  "That he/she never violated any laws and ordinances of the barangay nor has been"
@@ -165,7 +196,15 @@ char* createCitizenCert(const Citizen *citizen) {
     return cert;
 }
 
-// Save the citizen certificate to a file
+/**
+ * @brief Saves a citizen's certificate to a file.
+ *
+ * This function saves the given certificate string into a file, ensuring that
+ * it renames a temporary file to avoid corruption.
+ *
+ * @param filename The name of the file to save the certificate to.
+ * @param cert The certificate content to be saved.
+ */
 void saveCitizenCertToFile(const char *filename, const char *cert) {
     FILE *file = fopen("temp.txt", "w");
     if (file == NULL) {

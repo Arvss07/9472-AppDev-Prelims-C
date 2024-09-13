@@ -6,27 +6,46 @@
 #include "menu.h"
 #include "../file/file.h"
 
+/**
+ * @brief Welcomes the user to the application and displays the initial table and main menu.
+ *
+ * @param list The list of citizens to be displayed in the table.
+ */
 void welcome(List list) {
     printf("Welcome to <name> Application\n");
-    printTable(&list);
-    printMainMenu(&list);
+    printTable(&list);// Display the list of citizens in a table format
+    printMainMenu(&list); // Display the main menu
     printf("\n\n\n\n\n");
 }
 
+/**
+ * @brief Gets user input as a string and stores it in the destination array.
+ *
+ * @param destination The array where the user input will be stored.
+ * @param size The maximum size of the input string.
+ * @param prompt The prompt message to be displayed to the user.
+ * @param isUpdate If it's an update (non-zero), allows blank input; otherwise, requires non-empty input.
+ */
 void getStringInput(char *destination, const int size, char *prompt, int isUpdate) {
     do {
         printf("%s", prompt);
-        fgets(destination, size, stdin);
-    } while (isUpdate < 0 && strcmp(destination, "\n") == 0);
+        fgets(destination, size, stdin); // Get input from the user
+    } while (isUpdate < 0 && strcmp(destination, "\n") == 0); // Repeat if input is empty and it's not an update
 
-    destination[strcspn(destination, "\n")] = 0;
+    destination[strcspn(destination, "\n")] = 0; // Remove the trailing newline character.
 }
 
 
+/**
+ * @brief Displays the main menu and handles user choices for different actions.
+ *
+ * @param list Pointer to the list of citizens to be managed by the application.
+ */
 void printMainMenu(List *list) {
     int choice;
 
     do {
+        // Display the menu options.
         printf("\nMENU:\n");
         printf("1. Add Citizen\n");
         printf("2. Search\n");
@@ -39,9 +58,10 @@ void printMainMenu(List *list) {
         printf("Enter your choice: ");
 
         scanf("%d", &choice);
-        getchar();
+        getchar(); // Consume the leftover newling character from scanf.
         switch (choice) {
             case 1: {
+                // Add new citizen
                 printf("\n You are now adding a citizen");
 
                 char firstName[100];
@@ -86,6 +106,8 @@ void printMainMenu(List *list) {
                 char purokZone[100];
                 getStringInput(purokZone, 100, "\nWhat is the citizen's purok zone?: ", -1);
 
+
+                // Create and populate the citizen struct
                 Address address;
                 strcpy(address.houseNumber, houseNumber);
                 strcpy(address.street, street);
@@ -105,7 +127,7 @@ void printMainMenu(List *list) {
                 strcpy(newCitizen.emailAddress, emailAddress);
                 newCitizen.address = address;
 
-                ResponseCode status = addLast(list, newCitizen);
+                ResponseCode status = addLast(list, newCitizen); // Add citizen to the list
 
                 if (status == Success) {
                     printf("\n Citizen successfully added.");
@@ -118,6 +140,7 @@ void printMainMenu(List *list) {
                 break;
             }
             case 2: {
+                // search for a citizen based on different criteria
                 int searchOption, searchId;
 
                 printf("Search by:\n");
@@ -169,7 +192,7 @@ void printMainMenu(List *list) {
 
                 if (foundCitizen) {
                     printf("Citizen found.\n");
-                    printCitizen(*foundCitizen);
+                    printCitizen(*foundCitizen); // Print details of the found citizen
                 } else {
                     printf("Citizen not found.\n");
                 }
@@ -177,6 +200,7 @@ void printMainMenu(List *list) {
                 break;
             }
             case 3: {
+                // Update the citizen details base on their ID.
                 Citizen citizen;
                 char uid[100];
                 getStringInput(uid, sizeof(uid), "Enter the ID of the citizen to update: ", 1);
@@ -187,6 +211,7 @@ void printMainMenu(List *list) {
                     break;
                 }
 
+                // update citizen details
                 printf("updating details for citizen ID %d:\n", citizenId);
 
                 getStringInput(citizen.firstName, sizeof(citizen.firstName), "Enter first name: ", 1);
@@ -211,6 +236,7 @@ void printMainMenu(List *list) {
 
                 citizen.citizenId = citizenId;
 
+                // Save the updated details back to the citizen list
                 ResponseCode result = updateCitizen(list, &citizen);
                 if (result == Success) {
                     saveListToFile(FILENAME, list);
@@ -226,68 +252,90 @@ void printMainMenu(List *list) {
                 break;
             }
             case 4: {
+                // Delete a citizen based on their ID.
                 int citizenID;
                 char confirm;
+
+                // Prompt for the citizen ID to delete.
                 printf("Enter the ID of the citizen you want to delete: ");
                 scanf("%d", &citizenID);
 
+                // Clear the input buffer to avoid issues with further inputs.
                 while (getchar() != '\n');
 
+                // Confirm deletion from the user.
                 printf("Are you sure you want to delete citizen %d? (y/n): ", citizenID);
                 scanf("%c", &confirm);
 
+                // If user confirms, attempt to delete the citizen.
                 if (confirm == 'y' || confirm == 'Y') {
-                    const ResponseCode deleteResult = removeCitizen(list, citizenID);
+                    const ResponseCode deleteResult = removeCitizen(list, citizenID);  // Attempt to remove the citizen.
+
+                    // Check if the deletion was successful.
                     if (deleteResult == Success) {
-                        saveListToFile(FILENAME, list);
-                        printf("Citizen with  the ID %d has deleted successfully.", citizenID);
-                        pressAnyKeyToContinue();
+                        saveListToFile(FILENAME, list);  // Save changes to file.
+                        printf("Citizen with the ID %d has been deleted successfully.\n", citizenID);
                     } else if (deleteResult == Failed) {
-                        printf("Failed to delete citizen %d", citizenID);
-                        pressAnyKeyToContinue();
+                        printf("Failed to delete citizen with ID %d.\n", citizenID);  // If deletion fails, notify the user.
                     }
                 } else {
+                    // If user cancels the deletion.
                     printf("Deletion of Citizen %d has been cancelled.\n", citizenID);
                 }
-                pressAnyKeyToContinue();
+                pressAnyKeyToContinue();  // Wait for user input before continuing.
                 break;
             }
+
             case 5: {
                 char continueChoice;
-                printf("Creating barangay certificate for a citizen.\n");
+                printf("Creating Barangay certificate for a citizen.\n");
                 int citizenIdToPrint;
                 Citizen *citizenToPrint = NULL;
+
+                // Loop for generating Barangay certificates for multiple citizens.
                 do {
+                    // Get the citizen ID to print the certificate.
                     printf("Enter the ID of the citizen to print the Brgy. Certificate: ");
                     scanf("%d", &citizenIdToPrint);
-                    getchar(); // Consume the leftover newline character
+                    getchar();  // Consume the leftover newline character.
+
+                    // Search for the citizen by ID.
                     citizenToPrint = searchCitizenById(list, citizenIdToPrint);
+
+                    // Check if the citizen exists.
                     if (citizenToPrint == NULL) {
                         printf("Citizen with ID %d not found.\n", citizenIdToPrint);
-                    }else{
+                    } else {
+                        // Create and save the Barangay certificate for the found citizen.
                         createAndSaveCitizenCert(list, citizenToPrint);
                         printf("Certificate created and saved for %s %s.\n", citizenToPrint->firstName, citizenToPrint->lastName);
                     }
-                    printf("Do you want to create barangay certificate of another citizen (y/n)?");
+
+                    // Ask the user if they want to create another certificate.
+                    printf("Do you want to create Barangay certificate of another citizen (y/n)? ");
                     scanf("%c", &continueChoice);
-                    getchar();
-                } while (tolower(continueChoice) == 'y');
+                    getchar();  // Consume the newline character.
+
+                } while (tolower(continueChoice) == 'y');  // Continue if the user wants to generate another certificate.
                 pressAnyKeyToContinue();
                 break;
             }
             case 6: {
+                // Display the demographic's submenu.
                 subMenu1(list);
                 break;
             }
             case 7: {
+                // Display the list of citizens in a table format.
                 printTable(list);
                 break;
             }
             case 8: {
+                // Exit the application.
                 printf("Thank you for using the application");
                 break;
             }
-            default: printf("Invalid choice. Please enter a number between 1 and 8\n");
+            default: printf("Invalid choice. Please enter a number between 1 and 8\n");// Handle invalid menu choices.
         }
     } while (choice != 8);
 }
