@@ -314,8 +314,9 @@ void subMenu1(List *list) {
                     getchar();
 
                     int age = getCitizenAge(list, citizenId);
-                    if (age != -1) {
-                        printf("Citizen ID %d is %d years old.\n", citizenId, age);
+                    Citizen *citizen = searchCitizenById(list, citizenId);
+                    if (citizen != NULL && age != -1) {
+                        printf("Citizen %s %s %s is %d years old.\n",citizen->firstName, citizen->middleName, citizen->lastName, age);
                     } else {
                         printf("Citizen ID %d not found.\n", citizenId);
                     }
