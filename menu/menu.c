@@ -24,11 +24,8 @@ void getStringInput(char *destination, const int size, char *prompt, int isUpdat
 
 
 void printMainMenu(List *list) {
-    int choice, searchOption, searchId;
-    Citizen citizen;
-    char uid[100];
-    int citizenID;
-    char confirm;
+    int choice;
+
     do {
         printf("\nMENU:\n");
         printf("1. Add Citizen\n");
@@ -37,13 +34,14 @@ void printMainMenu(List *list) {
         printf("4. Delete\n");
         printf("5. Create Brgy. Certificate\n");
         printf("6. Demographics\n");
-        printf("7. Exit\n");
+        printf("7. Display Citizens\n");
+        printf("8. Exit\n");
         printf("Enter your choice: ");
 
         scanf("%d", &choice);
         getchar();
         switch (choice) {
-            case 1:
+            case 1: {
                 printf("\n You are now adding a citizen");
 
                 char firstName[100];
@@ -92,7 +90,8 @@ void printMainMenu(List *list) {
                 strcpy(address.street, street);
                 strcpy(address.purokZone, purokZone);
 
-                Citizen newCitizen;
+                Citizen newCitizen = {};
+                newCitizen.citizenId = list->tail->citizen.citizenId + 1 + counter;
                 strcpy(newCitizen.firstName, firstName);
                 strcpy(newCitizen.middleName, middleName);
                 strcpy(newCitizen.lastName, lastName);
@@ -116,9 +115,10 @@ void printMainMenu(List *list) {
                 }
                 pressAnyKeyToContinue();
                 break;
-            case 2:
-
-                do {
+            }
+            case 2: {
+                int searchOption, searchId;
+                   do {
                     printf("Search by:\n");
                     printf("1. FirstName\n");
                     printf("2. LastName\n");
@@ -186,11 +186,12 @@ void printMainMenu(List *list) {
                 } while (searchOption != 5);
                 pressAnyKeyToContinue();
                 break;
-            case 3:
+            }
+            case 3: {
+                Citizen citizen;
+                char uid[100];
                 getStringInput(uid, sizeof(uid), "Enter the ID of the citizen to update: ", 1);
-
                 int citizenId = atoi(uid);
-
                 Citizen *existingCitizen = searchCitizenById(list, citizenId);
                 if (existingCitizen == NULL) {
                     printf("Citizen with ID %d not found.\n", citizenId);
@@ -232,7 +233,10 @@ void printMainMenu(List *list) {
                 }
                 pressAnyKeyToContinue();
                 break;
-            case 4:
+            }
+            case 4: {
+                int citizenID;
+                char confirm;
                 printf("Enter the ID of the citizen you want to delete: ");
                 scanf("%d", &citizenID);
 
@@ -256,7 +260,8 @@ void printMainMenu(List *list) {
                 }
                 pressAnyKeyToContinue();
                 break;
-            case 5:
+            }
+            case 5: {
                 printf("Creating barangay certificate for a citizen.");
                 int citizenIdToPrint;
                 Citizen *citizenToPrint = NULL;
@@ -271,16 +276,22 @@ void printMainMenu(List *list) {
                 createAndSaveCitizenCert(list, citizenToPrint);
                 pressAnyKeyToContinue();
                 break;
-            case 6:
+            }
+            case 6: {
                 subMenu1(list);
                 break;
-            case 7:
+            }
+            case 7: {
+                printTable(list);
+                break;
+            }
+            case 8: {
                 printf("Thank you for using the application");
                 break;
-            default:
-                printf("Invalid choice. Please enter a number between 1 and 8\n");
+            }
+            default: printf("Invalid choice. Please enter a number between 1 and 8\n");
         }
-    } while (choice != 7);
+    } while (choice != 8);
 }
 
 void subMenu1(List *list) {
@@ -296,11 +307,12 @@ void subMenu1(List *list) {
         getchar();
 
         switch (choice) {
-            case 1:
+            case 1: {
                 viewDemographics(list);
                 pressAnyKeyToContinue();
                 break;
-            case 2:
+            }
+            case 2: {
                 do {
                     int citizenId;
                     printf("Enter Citizen ID: ");
@@ -319,11 +331,12 @@ void subMenu1(List *list) {
                     getchar();
                 } while (tolower(continueChoice) == 'y');
                 break;
-            case 3:
+            }
+            case 3: {
                 printf("Going back to the main menu...\n");
                 break;
-            default:
-                printf("Invalid Choice\n");
+            }
+            default:printf("Invalid Choice\n");
         }
     } while (choice != 3);
 }
