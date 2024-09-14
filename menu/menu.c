@@ -12,7 +12,7 @@
  * @param list The list of citizens to be displayed in the table.
  */
 void welcome(List list) {
-    printf("Barangay Information Management System\n");
+    printf("Barangay Management Information System\n");
     printTable(&list);// Display the list of citizens in a table format
     printMainMenu(&list); // Display the main menu
     printf("\n\n\n\n\n");
