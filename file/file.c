@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 /**
  * @brief Loads citizens from a CSV file and populates the given list.
  *
@@ -171,48 +170,3 @@ void saveListToFile(const char *filename, List *list) {
     }
 }
 
-/**
- * @brief Creates a barangay certificate for a citizen.
- *
- * This function generates a certificate for the provided citizen, stating their good moral character
- * and their contribution to the community.
- *
- * @param citizen The citizen for whom the certificate is created.
- * @return A dynamically allocated string containing the certificate.
- */
-char* createCitizenCert(const Citizen *citizen) {
-    char *cert = malloc(1024); // Allocate memory for certificate
-    if (cert == NULL) {
-        perror("Error: Could not allocate memory for certificate.\n");
-        return NULL;
-    }
-    // Format the certificate with citizen's details
-    sprintf(cert, "This is to certify that %s %s, a bona fide resident of %s, %s, %s\n"
-                 "and one of the citizen of our barangay with good moral character and law-abiding citizen in the community.\n"
-                 "That he/she never violated any laws and ordinances of the barangay nor has been"
-                 " involved in any subversive activity.\n"
-                 "This certification is issued upon the request of the above-named person for whatever legal purpose it may serve.\n",
-           citizen->firstName, citizen->lastName, citizen->address.houseNumber, citizen->address.street, citizen->address.purokZone);
-    return cert;
-}
-
-/**
- * @brief Saves a citizen's certificate to a file.
- *
- * This function saves the given certificate string into a file, ensuring that
- * it renames a temporary file to avoid corruption.
- *
- * @param filename The name of the file to save the certificate to.
- * @param cert The certificate content to be saved.
- */
-void saveCitizenCertToFile(const char *filename, const char *cert) {
-    FILE *file = fopen("temp.txt", "w");
-    if (file == NULL) {
-        perror("Error: Could not open file temp.txt for writing.\n");
-        return;
-    }
-    fprintf(file, "%s", cert); // Write certificate to file
-    fclose(file); // Close file
-    remove(filename); // Remove the old file
-    rename("temp.txt", filename); // Rename the temp file to the desired filename
-}
