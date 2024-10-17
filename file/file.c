@@ -120,21 +120,15 @@ void loadCitizensFromCSV(const char *filename, List *list) {
  * @param list The list of citizens to save.
  */
 void saveListToFile(const char *filename, List *list) {
-    FILE *tempFile = fopen(TEMP_FILEPATH, "w"); // Open temp file for writing
-    if (tempFile == NULL) {
-        fprintf(stderr, "Error: Could not open file temp.csv for writing.\n");
-        return;
-    }
+    FILE *file = fopen(filename, "w"); // Open temp file for writing
 
-    // Write header
-    fprintf(tempFile,
+    fprintf(file,
             "CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone\n");
 
-    // Iterate through the list and write each citizen's data
     Node *current = list->head;
     while (current != NULL) {
         Citizen *citizen = &current->citizen;
-        fprintf(tempFile, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+        fprintf(file, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
                 citizen->citizenId,
                 citizen->firstName,
                 citizen->middleName,
@@ -153,20 +147,7 @@ void saveListToFile(const char *filename, List *list) {
         current = current->next;
     }
 
-    fclose(tempFile); // Close the temporary file
+    fclose(file);
 
-    // remove original file
-    if (remove(filename) != 0) {
-        fprintf(stderr, "Error: Could not remove file %s\n", filename);
-        remove("TEMP_FILEPATH");
-        return;
-    }
-
-    // rename temp file to original file
-    if (rename("./output/temp.csv", filename) != 0) {
-        fprintf(stderr, "Error: Could not rename file temp.csv to %s\n", filename);
-        remove("TEMP_FILEPATH");
-        return;
-    }
 }
 
