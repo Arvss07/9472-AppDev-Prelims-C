@@ -12,7 +12,7 @@ int main(void) {
 
 
     List list = {NULL, NULL};
-    loadCitizensFromCSV(FILENAME, &list);
+    loadCitizensFromCSV("../data.csv", &list);
 
     int play = 1;
     while(play == 1) {
