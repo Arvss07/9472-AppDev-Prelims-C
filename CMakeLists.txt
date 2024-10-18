@@ -49,18 +49,5 @@ target_include_directories(Citizen PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/utils
         ${CMAKE_CURRENT_SOURCE_DIR}/raylib_sample
 )
-
-# Optional: Set compile options for the target
-target_compile_options(Citizen PRIVATE
-        -Wall          # Enable all compiler warnings
-        -Wextra        # Enable extra warnings
-)
-
-# Optional: Add a custom command to copy resources if needed
-# add_custom_command(TARGET Citizen POST_BUILD
-#     COMMAND ${CMAKE_COMMAND} -E copy_directory
-#     ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:Citizen>/resources
-# )
-
 # Optional: Add a message to indicate successful configuration
 message(STATUS "CMake configuration complete. Building project: ${PROJECT_NAME}")
