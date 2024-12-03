@@ -327,8 +327,9 @@ Citizen *searchCitizenById(List *list, int citizenId) {
 }
 
 
-//Get the age of the citizen
-int getCitizenAge(List *list, int citizenId) {
+// Get the age of the citizen
+int getCitizenAge(List *list, int citizenId)
+{
     Node *current = list->head;
 
     // Get the current date
@@ -338,8 +339,10 @@ int getCitizenAge(List *list, int citizenId) {
     int currentMonth = current_time->tm_mon + 1;
     int currentDay = current_time->tm_mday;
 
-    while (current != NULL) {
-        if (current->citizen.citizenId == citizenId) {
+    while (current != NULL)
+    {
+        if (current->citizen.citizenId == citizenId)
+        {
             char *token;
             char delimiter[] = "-";
             char birthYear[5];
@@ -361,7 +364,8 @@ int getCitizenAge(List *list, int citizenId) {
 
             int age = currentYear - birth_year;
 
-            if (currentMonth < birth_month || (currentMonth == birth_month && currentDay < birth_day)) {
+            if (currentMonth < birth_month || (currentMonth == birth_month && currentDay < birth_day))
+            {
                 age--;
             }
             return age;
@@ -379,13 +383,16 @@ int getCitizenAge(List *list, int citizenId) {
  * @param list A pointer to the list of citizens.
  * @return The number of male citizens in the list.
  */
-int getMalePopulation(List *list) {
+int getMalePopulation(List *list)
+{
     Node *current = list->head;  // Start from the head of the list
     int malePopulation = 0;      // Counter for male population
 
     // Traverse the list and count males
-    while (current != NULL) {
-        if (current->citizen.gender == MALE) {
+    while (current != NULL)
+    {
+        if (current->citizen.gender == MALE)
+        {
             malePopulation++;
         }
         current = current->next; // Move to the next citizen in the list
@@ -401,13 +408,16 @@ int getMalePopulation(List *list) {
  * @param list A pointer to the list of citizens.
  * @return The number of female citizens in the list.
  */
-int getFemalePopulation(List *list) {
+int getFemalePopulation(List *list)
+{
     Node *current = list->head;   // Start from the head of the list
     int femalePopulation = 0;     // Counter for female population
 
     // Traverse the list and count females
-    while (current != NULL) {
-        if (current->citizen.gender == FEMALE) {
+    while (current != NULL)
+    {
+        if (current->citizen.gender == FEMALE)
+        {
             femalePopulation++;
         }
         current = current->next; // Move to the next citizen in the list
@@ -423,7 +433,8 @@ int getFemalePopulation(List *list) {
  * @param list A pointer to the list of citizens.
  * @return The oldest citizen in the list.
  */
-Citizen getOldestCitizen(List *list) {
+Citizen getOldestCitizen(List *list)
+{
     // Sort the list by birthdate in ascending order
     List sortedBdate = sortCitizen(list, BirthDate);
     Citizen oldestCitizen = sortedBdate.head->citizen; // First citizen in sorted list is the oldest
@@ -438,7 +449,8 @@ Citizen getOldestCitizen(List *list) {
  * @param list A pointer to the list of citizens.
  * @return The youngest citizen in the list.
  */
-Citizen getYoungestCitizen(List *list) {
+Citizen getYoungestCitizen(List *list)
+{
     // Sort the list by birth date in ascending order
     List sortedBdate = sortCitizen(list, BirthDate);
     Citizen youngestCitizen = sortedBdate.tail->citizen; // Last citizen in sorted list is the youngest
@@ -452,9 +464,11 @@ Citizen getYoungestCitizen(List *list) {
  *
  * @param list A pointer to the list of citizens.
  */
-void viewDemographics(List *list) {
+void viewDemographics(List *list)
+{
     // Check if the list is empty
-    if (list == NULL || list->head == NULL) {
+    if (list == NULL || list->head == NULL)
+    {
         printf("No demographic information available. The list is empty.\n");
         return;
     }
