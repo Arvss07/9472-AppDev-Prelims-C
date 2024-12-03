@@ -13,25 +13,31 @@ int counter = 0;
  * Compare two Citizen objects based on the specified sort type.
  * Returns the result of the comparison.
  */
-int compareCitizen(const Citizen a, const Citizen b, Type sort) {
-
+int compareCitizen(const Citizen a, const Citizen b, Type sort)
+{
     // Compare based on the sorting type provided
-    if (sort == FirstName) {
+    if (sort == FirstName)
+    {
         return strcmp(a.firstName, b.firstName);
     }
 
-    if (sort == MiddleName) {
+    if (sort == MiddleName)
+    {
         return strcmp(a.middleName, b.middleName);
     }
 
-    if (sort == LastName) {
+    if (sort == LastName)
+    {
         return strcmp(a.lastName, b.lastName);
     }
 
-    if (sort == CitizenId) {
+    if (sort == CitizenId)
+    {
         return a.citizenId - b.citizenId;
     }
-    if (sort == BirthDate) {
+
+    if (sort == BirthDate)
+    {
         return strcmp(a.birthDate, b.birthDate);
     }
     return 0;
