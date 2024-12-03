@@ -9,9 +9,12 @@
 int counter = 0;
 
 
-// compare two Citizen objects based on the specified sort type.
-// Returns the result of the comparison.
-int cmpCtz(const Citizen a, const Citizen b, Type sort) {
+/*
+ * Compare two Citizen objects based on the specified sort type.
+ * Returns the result of the comparison.
+ */
+int compareCitizen(const Citizen a, const Citizen b, Type sort) {
+
     // Compare based on the sorting type provided
     if (sort == FirstName) {
         return strcmp(a.firstName, b.firstName);
