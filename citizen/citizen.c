@@ -30,6 +30,8 @@ int cmpCtz(const Citizen a, const Citizen b, Type sort) {
     }
     if (sort == BirthDate) {
         return strcmp(a.birthDate, b.birthDate);
+
+        //solving this
     }
     return 0;
 }
