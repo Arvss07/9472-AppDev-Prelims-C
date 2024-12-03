@@ -5,31 +5,32 @@
 #include <string.h>
 #include <time.h>
 
+// This is my new comment
 // Counter for the number of citizens in the list
 int counter = 0;
 
 
 // compare two Citizen objects based on the specified sort type.
 // Returns the result of the comparison.
-int cmpCtz(const Citizen a, const Citizen b, Type sort) {
+int cmpCtz(const Citizen first, const Citizen second, Type sort) {
     // Compare based on the sorting type provided
     if (sort == FirstName) {
-        return strcmp(a.firstName, b.firstName);
+        return strcmp(first.firstName, second.firstName);
     }
 
     if (sort == MiddleName) {
-        return strcmp(a.middleName, b.middleName);
+        return strcmp(first.middleName, second.middleName);
     }
 
     if (sort == LastName) {
-        return strcmp(a.lastName, b.lastName);
+        return strcmp(first.lastName, second.lastName);
     }
 
     if (sort == CitizenId) {
-        return a.citizenId - b.citizenId;
+        return first.citizenId - second.citizenId;
     }
     if (sort == BirthDate) {
-        return strcmp(a.birthDate, b.birthDate);
+        return strcmp(first.birthDate, second.birthDate);
     }
     return 0;
 }
