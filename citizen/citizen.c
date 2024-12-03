@@ -171,7 +171,8 @@ void printTable(List *list) {
 }
 
 // print detailed information of a single citizen.
-void printCitizen(Citizen citizen) {
+void printCitizen(Citizen citizen) 
+{
     printf("CitizenId: %d\n", citizen.citizenId);
     printf("Full Name: %s %s %s\n", citizen.firstName, citizen.middleName, citizen.lastName);
     printf("Gender: %s\n", getGender(citizen.gender));
@@ -187,30 +188,38 @@ void printCitizen(Citizen citizen) {
 }
 
 // remove a citizen from the list based on citizenId.
-ResponseCode removeCitizen(List *list, int citizenId) {
+ResponseCode removeCitizen(List *list, int citizenId) 
+{
     Node *current = list->head;
     Node *previous = NULL;
 
     // Traverse the list to find the citizen with the specified citizenId
-    while (current != NULL && current->citizen.citizenId != citizenId) {
+    while (current != NULL && current->citizen.citizenId != citizenId) 
+    {
         previous = current;
         current = current->next;
     }
 
-    if (current == NULL) {
+    if (current == NULL) 
+    {
         printf("Citizen with ID %d not found.\n", citizenId);
         return Failed;
     }
 
     // Adjust the list pointers to remove the node
-    if (previous == NULL) {
+    if (previous == NULL) 
+    {
         list->head = current->next;
-        if (list->head == NULL) {
+        if (list->head == NULL) 
+        {
             list->tail = NULL;
         }
-    } else {
+    } 
+    else 
+    {
         previous->next = current->next;
-        if (current->next == NULL) {
+        if (current->next == NULL) 
+        {
             list->tail = previous;
         }
     }
@@ -220,15 +229,21 @@ ResponseCode removeCitizen(List *list, int citizenId) {
 }
 
 // update a citizen's information in the list.
-ResponseCode updateCitizen(List *list, const Citizen *citizen) {
-    if (list == NULL || citizen == NULL) return Failed;
+ResponseCode updateCitizen(List *list, const Citizen *citizen) 
+{
+    if (list == NULL || citizen == NULL) 
+    {
+    return Failed;
+    }
 
     Node *current = list->head;
     int found = 0;
 
     // Traverse the list to find and update the citizen
-    while (current != NULL) {
-        if (current->citizen.citizenId == citizen->citizenId) {
+    while (current != NULL) 
+    {
+        if (current->citizen.citizenId == citizen->citizenId) 
+        {
             found = 1;
             current->citizen = *citizen;
             break;
@@ -236,36 +251,45 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen) {
         current = current->next;
     }
 
-    if (found) {
+    if (found) 
+    {
         return Success;
-    } else {
+    } 
+    else 
+    {
         return NotFound;
     }
 }
 
 // sort a list of citizens based on a specified attribute.
-List sortCitizen(List *list, Type sort) {
+List sortCitizen(List *list, Type sort) 
+{
     List sortedList = {NULL, NULL};
 
-    if (list->head == NULL) {
+    if (list->head == NULL) 
+    {
         return sortedList;
     }
 
     List *copy = copyList(list); // Create a copy of the list
-    if (copy == NULL) {
+    if (copy == NULL) 
+    {
         return sortedList;
     }
 
     const Node *current = copy->head;
 
     // Perform selection sort on the copied list
-    while (current != NULL) {
+    while (current != NULL) 
+    {
         const Node *min = current;
         const Node *search = current->next;
 
 
-        while (search != NULL) {
-            if (cmpCtz(min->citizen, search->citizen, sort) > 0) {
+        while (search != NULL) 
+        {
+            if (cmpCtz(min->citizen, search->citizen, sort) > 0) 
+            {
                 min = search;
             }
             search = search->next;
@@ -283,11 +307,13 @@ List sortCitizen(List *list, Type sort) {
 }
 
 // free the memory allocated for a list of citizens.
-void freeList(List *list) {
+void freeList(List *list) 
+{
     Node *current = list->head;
 
     // Traverse the list and free each node
-    while (current != NULL) {
+    while (current != NULL) 
+    {
         Node *next = current->next;
         free(current);
         current = next;
@@ -298,12 +324,15 @@ void freeList(List *list) {
 }
 
 // search for a citizen in the list by a specific attribute and keyword.
-Citizen *searchCitizen(List *list, Type searchType, const char *keyword) {
+Citizen *searchCitizen(List *list, Type searchType, const char *keyword) 
+{
     Node *current = list->head;
 
     // Traverse the list to search for a citizen that matches the keyword
-    while (current != NULL) {
-        if (com(current->citizen, keyword, searchType)) {
+    while (current != NULL) 
+    {
+        if (com(current->citizen, keyword, searchType)) 
+        {
             return &current->citizen;
         }
         current = current->next;
@@ -314,7 +343,8 @@ Citizen *searchCitizen(List *list, Type searchType, const char *keyword) {
 }
 
 // search for a citizen in the list by citizenId.
-Citizen *searchCitizenById(List *list, int citizenId) {
+Citizen *searchCitizenById(List *list, int citizenId) 
+{
     Node *current = list->head;
 
     // Traverse the list to find the citizen with the specified citizenId
