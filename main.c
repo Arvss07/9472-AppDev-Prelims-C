@@ -15,9 +15,7 @@ int main(void) {
         printf("\nEnter 1 to show demographics : ");
         scanf(" %d", &play);
 
-        if(play == 1) {
-            viewDemographics(&list);
-        }
+
 
         printf("\n\n");
 
