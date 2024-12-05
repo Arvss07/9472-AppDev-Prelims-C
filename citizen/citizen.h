@@ -89,7 +89,6 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen);
 void freeList(List *list);
 Citizen *searchCitizen(List *list, Type searchType, const char *keyword);
 Citizen *searchCitizenById(List *list,  int citizenId);
-void viewDemographics(List *list);
 int getCitizenAge(List *list, int citizenId);
 
 #endif
