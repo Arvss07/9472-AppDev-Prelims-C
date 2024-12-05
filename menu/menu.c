@@ -51,10 +51,9 @@ void printMainMenu(List *list) {
         printf("2. Search\n");
         printf("3. Update\n");
         printf("4. Delete\n");
-        printf("5. Create Brgy. Certificate\n");
-        printf("6. Demographics\n");
-        printf("7. Display Citizens\n");
-        printf("8. Exit\n");
+        printf("5. Demographics\n");
+        printf("6. Display Citizens\n");
+        printf("7. Exit\n");
         printf("Enter your choice: ");
 
         scanf("%d", &choice);
@@ -287,57 +286,23 @@ void printMainMenu(List *list) {
             }
 
             case 5: {
-                char continueChoice;
-                printf("Creating Barangay certificate for a citizen.\n");
-                int citizenIdToPrint;
-                Citizen *citizenToPrint = NULL;
-
-                // Loop for generating Barangay certificates for multiple citizens.
-                do {
-                    // Get the citizen ID to print the certificate.
-                    printf("Enter the ID of the citizen to print the Brgy. Certificate: ");
-                    scanf("%d", &citizenIdToPrint);
-                    getchar();  // Consume the leftover newline character.
-
-                    // Search for the citizen by ID.
-                    citizenToPrint = searchCitizenById(list, citizenIdToPrint);
-
-                    // Check if the citizen exists.
-                    if (citizenToPrint == NULL) {
-                        printf("Citizen with ID %d not found.\n", citizenIdToPrint);
-                    } else {
-                        // Create and save the Barangay certificate for the found citizen.
-                        createAndSaveCitizenCert(list, citizenToPrint);
-                        printf("Certificate created and saved for %s %s.\n", citizenToPrint->firstName, citizenToPrint->lastName);
-                    }
-
-                    // Ask the user if they want to create another certificate.
-                    printf("Do you want to create Barangay certificate of another citizen (y/n)? ");
-                    scanf("%c", &continueChoice);
-                    getchar();  // Consume the newline character.
-
-                } while (tolower(continueChoice) == 'y');  // Continue if the user wants to generate another certificate.
-                pressAnyKeyToContinue();
-                break;
-            }
-            case 6: {
                 // Display the demographic's submenu.
                 subMenu1(list);
                 break;
             }
-            case 7: {
+            case 6: {
                 // Display the list of citizens in a table format.
                 printTable(list);
                 break;
             }
-            case 8: {
+            case 7: {
                 // Exit the application.
                 printf("Thank you for using the application");
                 break;
             }
             default: printf("Invalid choice. Please enter a number between 1 and 8\n");// Handle invalid menu choices.
         }
-    } while (choice != 8);
+    } while (choice != 7);
 }
 
 /**
