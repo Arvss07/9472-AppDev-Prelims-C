@@ -281,17 +281,17 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen)
 // sort a list of citizens based on a specified attribute.
 List sortCitizen(List *list, Type sort) 
 {
-    List sortedList = {NULL, NULL};
+    List sorted_list = {NULL, NULL};
 
     if (list->head == NULL) 
     {
-        return sortedList;
+        return sorted_list;
     }
 
     List *copy = copyList(list); 
     if (copy == NULL) 
     {
-        return sortedList;
+        return sorted_list;
     }
 
     const Node *current = copy->head;
@@ -311,13 +311,13 @@ List sortCitizen(List *list, Type sort)
             search = search->next;
         }
 
-        addLast(&sortedList, min->citizen);
+        addLast(&sorted_list, min->citizen);
         removeCitizen(copy, min->citizen.citizen_id);
         current = copy->head;
     }
 
     freeList(copy); 
-    return sortedList;
+    return sorted_list;
 }
 
 // free the memory allocated for a list of citizens.
@@ -337,12 +337,12 @@ void freeList(List *list)
 }
 
 // search for a citizen in the list by a specific attribute and keyword.
-Citizen *searchCitizen(List *list, Type searchType, const char *keyword) 
+Citizen *searchCitizen(List *list, Type search_type, const char *keyword) 
 {
     Node *current = list->head;
     while (current != NULL) 
     {
-        if (com(current->citizen, keyword, searchType)) 
+        if (com(current->citizen, keyword, search_type)) 
         {
             return &current->citizen;
         }
@@ -374,9 +374,9 @@ int getCitizenAge(List *list, int citizen_id)
 
     time_t now = time(NULL);
     struct tm *current_time = localtime(&now);
-    int currentYear = current_time->tm_year + 1900;
-    int currentMonth = current_time->tm_mon + 1;
-    int currentDay = current_time->tm_mday;
+    int current_year = current_time->tm_year + 1900;
+    int current_month = current_time->tm_mon + 1;
+    int current_day = current_time->tm_mday;
 
     while (current != NULL)
     {
@@ -384,26 +384,26 @@ int getCitizenAge(List *list, int citizen_id)
         {
             char *token;
             char delimiter[] = "-";
-            char birthYear[5];
-            char birthMonth[3];
-            char birthDay[3];
+            char birth_year[5];
+            char birth_month[3];
+            char birth_day[3];
 
             token = strtok(current->citizen.birth_date, delimiter);
-            strcpy(birthYear, token);
+            strcpy(birth_year, token);
 
             token = strtok(NULL, delimiter);
-            strcpy(birthMonth, token);
+            strcpy(birth_month, token);
 
             token = strtok(NULL, delimiter);
-            strcpy(birthDay, token);
+            strcpy(birth_day, token);
 
-            int birth_year = atoi(birthYear);
-            int birth_month = atoi(birthMonth);
-            int birth_day = atoi(birthDay);
+            int birth_year_int = atoi(birth_year);
+            int birth_month_int = atoi(birth_month);
+            int birth_day_int = atoi(birth_day);
 
-            int age = currentYear - birth_year;
+            int age = current_year - birth_year_int;
 
-            if (currentMonth < birth_month || (currentMonth == birth_month && currentDay < birth_day))
+            if (current_month < birth_month_int || (current_month == birth_month_int && currentDay < birth_day_int))
             {
                 age--;
             }
@@ -422,7 +422,7 @@ int getCitizenAge(List *list, int citizen_id)
  * @param list A pointer to the list of citizens.
  * @return The number of male citizens in the list.
  */
-int getmale_population(List *list)
+int getMalePopulation(List *list)
 {
     Node *current = list->head;
     int male_population = 0;      
@@ -446,7 +446,7 @@ int getmale_population(List *list)
  * @param list A pointer to the list of citizens.
  * @return The number of female citizens in the list.
  */
-int getfemale_population(List *list)
+int getFemalePopulation(List *list)
 {
     Node *current = list->head;
     int female_population = 0;     
@@ -470,10 +470,10 @@ int getfemale_population(List *list)
  * @param list A pointer to the list of citizens.
  * @return The oldest citizen in the list.
  */
-Citizen getoldest_citizen(List *list)
+Citizen getOldestCitizen(List *list)
 {
-    List sortedBdate = sortCitizen(list, birth_date);
-    Citizen oldest_citizen = sortedBdate.head->citizen; 
+    List sorted_bdate = sortCitizen(list, birth_date);
+    Citizen oldest_citizen = sorted_bdate.head->citizen; 
     return oldest_citizen;
 }
 
@@ -485,9 +485,9 @@ Citizen getoldest_citizen(List *list)
  * @param list A pointer to the list of citizens.
  * @return The youngest citizen in the list.
  */
-Citizen getyoungest_citizen(List *list)
+Citizen getYoungestCitizen(List *list)
 {
-    List sortedBdate = sortCitizen(list, birth_date);
-    Citizen youngest_citizen = sortedBdate.tail->citizen; 
+    List sorted_bdate = sortCitizen(list, birth_date);
+    Citizen youngest_citizen = sorted_bdate.tail->citizen; 
     return youngest_citizen;
 }
