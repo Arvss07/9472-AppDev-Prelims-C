@@ -485,6 +485,7 @@ Citizen getOldestCitizen(List *list)
  * @param list A pointer to the list of citizens.
  * @return The youngest citizen in the list.
  */
+
 Citizen getYoungestCitizen(List *list)
 {
     List sorted_bdate = sortCitizen(list, birth_date);

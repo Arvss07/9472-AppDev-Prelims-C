@@ -12,37 +12,42 @@
  * @param filename The name of the CSV file.
  * @param list The list where the citizens will be stored.
  */
-void loadCitizensFromCSV(const char *filename, List *list) {
+void loadCitizensFromCSV (const char *filename, List *list)
+{
     FILE *file = fopen(filename, "r"); // Open the CSV file in read mode
 
-    if (file == NULL) { // Check if the file could not be opened
+    if (file == NULL)
+    {
+        // Check if the file could not be opened
         perror("Error opening file");
         return;
     }
 
     char line[MAX_LINE_LENGTH]; // Buffer to store each line of the file
 
-
     // Skip the header line
-    if (fgets(line, sizeof(line), file) == NULL) {
+    if (fgets(line, sizeof(line), file) == NULL)
+    {
         perror("Error reading file header");
         fclose(file);
         return;
     }
 
     // Read each line and process it
-    while (fgets(line, sizeof(line), file)) {
+    while (fgets(line, sizeof(line), file))
+    {
         // Trim the newline character from the end of the line
         const size_t len = strlen(line);
-        if (len > 0 && line[len - 1] == '\n') {
+        if (len > 0 && line[len - 1] == '\n')
+        {
             line[len - 1] = '\0';
         }
 
         // Tokenize the line using comma as a delimiter
         const char *token = strtok(line, ",");
 
-        if (token != NULL) {
-
+        if (token != NULL)
+        {
             Address address;
             Citizen citizen;
 
@@ -102,12 +107,13 @@ void loadCitizensFromCSV(const char *filename, List *list) {
             citizen.address = address;
             const ResponseCode result = addLast(list, citizen); // Add the citizen to the list
 
-            if (result != Success) {
+            if (result != Success)
+            {
                 fprintf(stderr, "Error adding citizen: %d\n", result);
             }
         }
     }
-    fclose(file);// Close the file
+    fclose(file); // Close the file
 }
 
 /**
@@ -119,14 +125,16 @@ void loadCitizensFromCSV(const char *filename, List *list) {
  * @param filename The target CSV file where the list will be saved.
  * @param list The list of citizens to save.
  */
-void saveListToFile(const char *filename, List *list) {
+void saveListToFile (const char *filename, List *list)
+{
     FILE *file = fopen(filename, "w"); // Open temp file for writing
 
     fprintf(file,
             "CitizenID,FirstName,MiddleName,LastName,Gender,BirthDate,MaritalStatus,Nationality,Religion,ContactNumber,EmailAddress,HouseNumber,Street,PurokZone\n");
 
     Node *current = list->head;
-    while (current != NULL) {
+    while (current != NULL)
+    {
         Citizen *citizen = &current->citizen;
         fprintf(file, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
                 citizen->citizenId,
@@ -143,11 +151,10 @@ void saveListToFile(const char *filename, List *list) {
                 citizen->address.houseNumber,
                 citizen->address.street,
                 citizen->address.purokZone
-             );
+        );
         current = current->next;
     }
 
     fclose(file);
-
 }
 
