@@ -13,54 +13,54 @@ int counter = 0;
  * Compare two Citizen objects based on the specified sort type.
  * Returns the result of the comparison.
  */
-int compareCitizen(const Citizen a, const Citizen b, Type sort)
+int compareCitizen(const Citizen citizen_a, const Citizen citizen_b, Type sort)
 {
     // Compare based on the sorting type provided
     if (sort == first_name)
     {
-        return strcmp(a.first_name, b.first_name);
+        return strcmp(citizen_a.first_name, citizen_b.first_name);
     }
 
     if (sort == middle_name)
     {
-        return strcmp(a.middle_name, b.middle_name);
+        return strcmp(citizen_a.middle_name, citizen_b.middle_name);
     }
 
     if (sort == last_name)
     {
-        return strcmp(a.last_name, b.last_name);
+        return strcmp(citizen_a.last_name, citizen_b.last_name);
     }
 
     if (sort == citizen_id)
     {
-        return a.citizen_id - b.citizen_id;
+        return citizen_a.citizen_id - citizen_b.citizen_id;
     }
 
     if (sort == birth_date)
     {
-        return strcmp(a.birth_date, b.birth_date);
+        return strcmp(citizen_a.birth_date, citizen_b.birth_date);
     }
     return 0;
 }
 
 
 // check if a Citizen's attribute contains a keyword.
-int com(const Citizen a, const char *keyword, Type type) 
+int com(const Citizen citizen_a, const char *keyword, Type type) 
 {
     // Search in the citizen's specified attribute based on the type
     if (type == first_name) 
     {
-        return strstr(a.first_name, keyword) != NULL;
+        return strstr(citizen_a.first_name, keyword) != NULL;
     }
 
     if (type == middle_name) 
     {
-        return strstr(a.middle_name, keyword) != NULL;
+        return strstr(citizen_a.middle_name, keyword) != NULL;
     }
 
     if (type == last_name) 
     {
-        return strstr(a.last_name, keyword) != NULL;
+        return strstr(citizen_a.last_name, keyword) != NULL;
     }
 
 
@@ -149,14 +149,14 @@ void printList(List *list)
         printf("Name: %s %s %s\n", current->citizen.first_name, current->citizen.middle_name, current->citizen.last_name);
         printf("Gender: %s\n", getGender(current->citizen.gender));
         printf("Birth Date: %s\n", current->citizen.birth_date);
-        printf("Marital Status: %s\n", getmarital_status(current->citizen.marital_status));
+        printf("Marital Status: %s\n", getMaritalStatus(current->citizen.marital_status));
         printf("Nationality: %s\n", current->citizen.nationality);
         printf("Religion: %s\n", current->citizen.religion);
         printf("Contact Number: %s\n", current->citizen.contact_number);
         printf("Email Address: %s\n", current->citizen.email_address);
-        printf("House Number: %s\n", current->citizen.address.houseNumber);
+        printf("House Number: %s\n", current->citizen.address.house_number);
         printf("Street: %s\n", current->citizen.address.street);
-        printf("Purok Zone: %s\n", current->citizen.address.purokZone);
+        printf("Purok Zone: %s\n", current->citizen.address.purok_zone);
         current = current->next;
         printf("\n");
     }
@@ -179,13 +179,13 @@ void printTable(List *list)
                getFullName(current->citizen.first_name, current->citizen.middle_name, current->citizen.last_name),
                getGender(current->citizen.gender),
                current->citizen.birth_date,
-               getmarital_status(current->citizen.marital_status),
+               getMaritalStatus(current->citizen.marital_status),
                current->citizen.nationality,
                current->citizen.religion, current->citizen.contact_number,
                current->citizen.email_address,
-               current->citizen.address.houseNumber,
+               current->citizen.address.house_number,
                current->citizen.address.street,
-               current->citizen.address.purokZone);
+               current->citizen.address.purok_zone);
         current = current->next;
     }
 }
@@ -197,14 +197,14 @@ void printCitizen(Citizen citizen)
     printf("Full Name: %s %s %s\n", citizen.first_name, citizen.middle_name, citizen.last_name);
     printf("Gender: %s\n", getGender(citizen.gender));
     printf("Birth Date: %s\n", citizen.birth_date);
-    printf("Marital Status: %s\n", getmarital_status(citizen.marital_status));
+    printf("Marital Status: %s\n", getMaritalStatus(citizen.marital_status));
     printf("Nationality: %s\n", citizen.nationality);
     printf("Religion: %s\n", citizen.religion);
     printf("Contact Number: %s\n", citizen.contact_number);
     printf("Email Address: %s\n", citizen.email_address);
-    printf("House Number: %s\n", citizen.address.houseNumber);
+    printf("House Number: %s\n", citizen.address.house_number);
     printf("Street: %s\n", citizen.address.street);
-    printf("Purok Zone: %s\n", citizen.address.purokZone);
+    printf("Purok Zone: %s\n", citizen.address.purok_zone);
 }
 
 // remove a citizen from the list based on citizen_id.
@@ -403,7 +403,7 @@ int getCitizenAge(List *list, int citizen_id)
 
             int age = current_year - birth_year_int;
 
-            if (current_month < birth_month_int || (current_month == birth_month_int && currentDay < birth_day_int))
+            if (current_month < birth_month_int || (current_month == birth_month_int && current_day < birth_day_int))
             {
                 age--;
             }
