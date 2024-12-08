@@ -101,7 +101,7 @@ ResponseCode addFirst(List *list, Citizen citizen)
     new_node->citizen = citizen;
     new_node->next = list->head;
 
-    if (list->head == NULL) 
+    if (list->head == NULL)
     {
         list->tail = new_node;
     }
@@ -111,10 +111,10 @@ ResponseCode addFirst(List *list, Citizen citizen)
 }
 
 // add a citizen to the end of the list.
-ResponseCode addLast(List *list, Citizen citizen) 
+ResponseCode addLast(List *list, Citizen citizen)
 {
     Node *new_node = malloc(sizeof(Node));
-    if (new_node == NULL) 
+    if (new_node == NULL)
     {
         fprintf(stderr, "Failed to allocate memory\n");
         return failed;
@@ -122,12 +122,12 @@ ResponseCode addLast(List *list, Citizen citizen)
     new_node->citizen = citizen;
     new_node->next = NULL;
 
-    if (list->tail == NULL) 
+    if (list->tail == NULL)
     {
         list->head = new_node;
         list->tail = new_node;
-    } 
-    else 
+    }
+    else
     {
         list->tail->next = new_node;
         list->tail = new_node;
@@ -137,13 +137,13 @@ ResponseCode addLast(List *list, Citizen citizen)
 }
 
 // print all citizens in the list with detailed information.
-void printList(List *list) 
+void printList(List *list)
 {
     Node *current = list->head;
     int i = 1;
     printf("List of Citizens\n\n");
 
-    while (current != NULL) 
+    while (current != NULL)
     {
         printf("\n%d.citizen_id: %d\n", i++, current->citizen.citizen_id);
         printf("Name: %s %s %s\n", current->citizen.first_name, current->citizen.middle_name, current->citizen.last_name);
@@ -163,7 +163,7 @@ void printList(List *list)
 }
 
 // print all citizens in tabular format.
-void printTable(List *list) 
+void printTable(List *list)
 {
     Node *current = list->head;
     int i = 1;
@@ -171,7 +171,7 @@ void printTable(List *list)
     printf("%-3s %-5s %-40s %-10s %-10s %-10s %-10s %-15s %-15s %-30s %-7s %-25s %-10s \n",
            "No.", "CtzId", "Name", "Gender", "BDate", "MStat", "Nat", "Rel", "CNum", "Email", "House#", "St", "P/Z");
     // Traverse the list and print each citizen's data in tabular format
-    while (current != NULL) 
+    while (current != NULL)
     {
         printf("%-3d %-5d %-40s %-10s %-10s %-10s %-10s %-15s %-15s %-30s %-7s %-25s %-10s \n",
                i++,
@@ -191,7 +191,7 @@ void printTable(List *list)
 }
 
 // print detailed information of a single citizen.
-void printCitizen(Citizen citizen) 
+void printCitizen(Citizen citizen)
 {
     printf("citizen_id: %d\n", citizen.citizen_id);
     printf("Full Name: %s %s %s\n", citizen.first_name, citizen.middle_name, citizen.last_name);
@@ -208,35 +208,35 @@ void printCitizen(Citizen citizen)
 }
 
 // remove a citizen from the list based on citizen_id.
-ResponseCode removeCitizen(List *list, int citizen_id) 
+ResponseCode removeCitizen(List *list, int citizen_id)
 {
     Node *current = list->head;
     Node *previous = NULL;
 
-    while (current != NULL && current->citizen.citizen_id != citizen_id) 
+    while (current != NULL && current->citizen.citizen_id != citizen_id)
     {
         previous = current;
         current = current->next;
     }
 
-    if (current == NULL) 
+    if (current == NULL)
     {
         printf("Citizen with ID %d not found.\n", citizen_id);
         return failed;
     }
 
-    if (previous == NULL) 
+    if (previous == NULL)
     {
         list->head = current->next;
-        if (list->head == NULL) 
+        if (list->head == NULL)
         {
             list->tail = NULL;
         }
-    } 
-    else 
+    }
+    else
     {
         previous->next = current->next;
-        if (current->next == NULL) 
+        if (current->next == NULL)
         {
             list->tail = previous;
         }
@@ -247,9 +247,9 @@ ResponseCode removeCitizen(List *list, int citizen_id)
 }
 
 // update a citizen's information in the list.
-ResponseCode updateCitizen(List *list, const Citizen *citizen) 
+ResponseCode updateCitizen(List *list, const Citizen *citizen)
 {
-    if (list == NULL || citizen == NULL) 
+    if (list == NULL || citizen == NULL)
     {
     return failed;
     }
@@ -257,9 +257,9 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen)
     Node *current = list->head;
     int found = 0;
 
-    while (current != NULL) 
+    while (current != NULL)
     {
-        if (current->citizen.citizen_id == citizen->citizen_id) 
+        if (current->citizen.citizen_id == citizen->citizen_id)
         {
             found = 1;
             current->citizen = *citizen;
@@ -268,41 +268,41 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen)
         current = current->next;
     }
 
-    if (found) 
+    if (found)
     {
         return success;
-    } 
-    else 
+    }
+    else
     {
         return not_found;
     }
 }
 
 // sort a list of citizens based on a specified attribute.
-List sortCitizen(List *list, Type sort) 
+List sortCitizen(List *list, Type sort)
 {
     List sorted_list = {NULL, NULL};
 
-    if (list->head == NULL) 
+    if (list->head == NULL)
     {
         return sorted_list;
     }
 
-    List *copy = copyList(list); 
-    if (copy == NULL) 
+    List *copy = copyList(list);
+    if (copy == NULL)
     {
         return sorted_list;
     }
 
     const Node *current = copy->head;
 
-    while (current != NULL) 
+    while (current != NULL)
     {
         const Node *min = current;
         const Node *search = current->next;
 
 
-        while (search != NULL) 
+        while (search != NULL)
         {
             if (compareCitizen(min->citizen, search->citizen, sort) > 0)
             {
@@ -316,16 +316,16 @@ List sortCitizen(List *list, Type sort)
         current = copy->head;
     }
 
-    freeList(copy); 
+    freeList(copy);
     return sorted_list;
 }
 
 // free the memory allocated for a list of citizens.
-void freeList(List *list) 
+void freeList(List *list)
 {
     Node *current = list->head;
 
-    while (current != NULL) 
+    while (current != NULL)
     {
         Node *next = current->next;
         free(current);
@@ -337,12 +337,12 @@ void freeList(List *list)
 }
 
 // search for a citizen in the list by a specific attribute and keyword.
-Citizen *searchCitizen(List *list, Type search_type, const char *keyword) 
+Citizen *searchCitizen(List *list, Type search_type, const char *keyword)
 {
     Node *current = list->head;
-    while (current != NULL) 
+    while (current != NULL)
     {
-        if (com(current->citizen, keyword, search_type)) 
+        if (com(current->citizen, keyword, search_type))
         {
             return &current->citizen;
         }
@@ -352,7 +352,7 @@ Citizen *searchCitizen(List *list, Type search_type, const char *keyword)
 }
 
 // search for a citizen in the list by citizen_id.
-Citizen *searchCitizenById(List *list, int citizen_id) 
+Citizen *searchCitizenById(List *list, int citizen_id)
 {
     Node *current = list->head;
 
@@ -425,7 +425,7 @@ int getCitizenAge(List *list, int citizen_id)
 int getMalePopulation(List *list)
 {
     Node *current = list->head;
-    int male_population = 0;      
+    int male_population = 0;
 
     while (current != NULL)
     {
@@ -449,7 +449,7 @@ int getMalePopulation(List *list)
 int getFemalePopulation(List *list)
 {
     Node *current = list->head;
-    int female_population = 0;     
+    int female_population = 0;
 
     while (current != NULL)
     {
