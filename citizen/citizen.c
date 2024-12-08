@@ -96,7 +96,7 @@ ResponseCode addFirst(List *list, Citizen citizen)
     if (new_node == NULL) 
     {
         fprintf(stderr, "Failed to allocate memory\n");
-        return Failed;
+        return failed;
     }
     new_node->citizen = citizen;
     new_node->next = list->head;
@@ -107,7 +107,7 @@ ResponseCode addFirst(List *list, Citizen citizen)
     }
     counter++;
     list->head = new_node;
-    return Success;
+    return success;
 }
 
 // add a citizen to the end of the list.
@@ -117,7 +117,7 @@ ResponseCode addLast(List *list, Citizen citizen)
     if (new_node == NULL) 
     {
         fprintf(stderr, "Failed to allocate memory\n");
-        return Failed;
+        return failed;
     }
     new_node->citizen = citizen;
     new_node->next = NULL;
@@ -133,7 +133,7 @@ ResponseCode addLast(List *list, Citizen citizen)
         list->tail = new_node;
     }
     counter++;
-    return Success;
+    return success;
 }
 
 // print all citizens in the list with detailed information.
@@ -222,7 +222,7 @@ ResponseCode removeCitizen(List *list, int citizen_id)
     if (current == NULL) 
     {
         printf("Citizen with ID %d not found.\n", citizen_id);
-        return Failed;
+        return failed;
     }
 
     if (previous == NULL) 
@@ -243,7 +243,7 @@ ResponseCode removeCitizen(List *list, int citizen_id)
     }
     counter--;
     free(current);
-    return Success;
+    return success;
 }
 
 // update a citizen's information in the list.
@@ -251,7 +251,7 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen)
 {
     if (list == NULL || citizen == NULL) 
     {
-    return Failed;
+    return failed;
     }
 
     Node *current = list->head;
@@ -270,11 +270,11 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen)
 
     if (found) 
     {
-        return Success;
+        return success;
     } 
     else 
     {
-        return NotFound;
+        return not_found;
     }
 }
 
@@ -304,7 +304,7 @@ List sortCitizen(List *list, Type sort)
 
         while (search != NULL) 
         {
-            if (cmpCtz(min->citizen, search->citizen, sort) > 0) 
+            if (compareCitizen(min->citizen, search->citizen, sort) > 0)
             {
                 min = search;
             }
@@ -429,7 +429,7 @@ int getMalePopulation(List *list)
 
     while (current != NULL)
     {
-        if (current->citizen.gender == MALE)
+        if (current->citizen.gender == male)
         {
             male_population++;
         }
@@ -453,7 +453,7 @@ int getFemalePopulation(List *list)
 
     while (current != NULL)
     {
-        if (current->citizen.gender == FEMALE)
+        if (current->citizen.gender == female)
         {
             female_population++;
         }
