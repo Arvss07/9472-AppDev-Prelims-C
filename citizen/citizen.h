@@ -6,51 +6,51 @@
 extern int counter;
 
 typedef enum {
-    FirstName,
-    LastName,
-    MiddleName,
-    CitizenId,
-    BirthDate
+    first_name,
+    last_name,
+    middle_name,
+    citizen_id,
+    birth_date
 }Type;
 
 typedef enum {
-    Success,
-    Failed,
-    NotFound
+    success,
+    failed,
+    not_found
 }ResponseCode;
 
 typedef enum {
-    MALE = 0,
-    FEMALE = 1,
-    OTHERS = 3
+    male = 0,
+    female = 1,
+    others = 3
 } Gender;
 
 typedef enum {
-    SINGLE = 0,
-    MARRIED = 1,
-    DIVORCED = 2,
-    WIDOWED = 3
+    single = 0,
+    married = 1,
+    divorced = 2,
+    widowed = 3
 } MaritalStatus;
 
 typedef struct {
-    char houseNumber[100];
+    char house_number[100];
     char street[100];
-    char purokZone[100];
+    char purok_zone[100];
 } Address;
 
 
 typedef struct {
-    int citizenId;
-    char firstName[100];
-    char middleName[100];
-    char lastName[100];
+    int citizen_id;
+    char first_name[100];
+    char middle_name[100];
+    char last_name[100];
     Gender gender;
-    char birthDate[100];
-    MaritalStatus maritalStatus;
+    char birth_date[100];
+    MaritalStatus marital_status;
     char nationality[100];
     char religion[100];
-    char contactNumber[100];
-    char emailAddress[100];
+    char contact_number[100];
+    char email_address[100];
     Address address;
 } Citizen;
 
@@ -65,10 +65,10 @@ typedef struct {
 } List;
 
 #define getGender(g) \
-((g) == MALE ? "Male" : (g) == FEMALE ? "Female" : "Others")
+((g) == male ? "Male" : (g) == female ? "Female" : "Others")
 
 #define getMaritalStatus(m) \
-((m) == SINGLE ? "Single" : (m) == MARRIED ? "Married" : (m) == DIVORCED ? "Divorced" : "Widowed")
+((m) == single ? "Single" : (m) == married ? "Married" : (m) == divorced ? "Divorced" : "Widowed")
 
 #define getFullName(firstName, middleName, lastName) ({ \
 static char fullName[100]; \
@@ -83,12 +83,12 @@ ResponseCode addLast(List *list, Citizen citizen);
 void printList(List * list);
 void printTable(List *list);
 void printCitizen(Citizen citizen);
-ResponseCode removeCitizen(List *list, int citizenId);
+ResponseCode removeCitizen(List *list, int citizen_id);
 List sortCitizen(List *list, Type sort);
 ResponseCode updateCitizen(List *list, const Citizen *citizen);
 void freeList(List *list);
-Citizen *searchCitizen(List *list, Type searchType, const char *keyword);
-Citizen *searchCitizenById(List *list,  int citizenId);
-int getCitizenAge(List *list, int citizenId);
+Citizen *searchCitizen(List *list, Type search_type, const char *keyword);
+Citizen *searchCitizenById(List *list,  int citizen_id);
+int getCitizenAge(List *list, int citizen_id);
 
 #endif
