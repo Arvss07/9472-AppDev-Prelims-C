@@ -9,45 +9,58 @@
 int counter = 0;
 
 
-// compare two Citizen objects based on the specified sort type.
-// Returns the result of the comparison.
-int cmpCtz(const Citizen a, const Citizen b, Type sort) {
+/*
+ * Compare two Citizen objects based on the specified sort type.
+ * Returns the result of the comparison.
+ */
+int compareCitizen(const Citizen citizen_a, const Citizen citizen_b, Type sort)
+{
     // Compare based on the sorting type provided
-    if (sort == FirstName) {
-        return strcmp(a.firstName, b.firstName);
+    if (sort == first_name)
+    {
+        return strcmp(citizen_a.first_name, citizen_b.first_name);
     }
 
-    if (sort == MiddleName) {
-        return strcmp(a.middleName, b.middleName);
+    if (sort == middle_name)
+    {
+        return strcmp(citizen_a.middle_name, citizen_b.middle_name);
     }
 
-    if (sort == LastName) {
-        return strcmp(a.lastName, b.lastName);
+    if (sort == last_name)
+    {
+        return strcmp(citizen_a.last_name, citizen_b.last_name);
     }
 
-    if (sort == CitizenId) {
-        return a.citizenId - b.citizenId;
+    if (sort == citizen_id)
+    {
+        return citizen_a.citizen_id - citizen_b.citizen_id;
     }
-    if (sort == BirthDate) {
-        return strcmp(a.birthDate, b.birthDate);
+
+    if (sort == birth_date)
+    {
+        return strcmp(citizen_a.birth_date, citizen_b.birth_date);
     }
     return 0;
 }
 
 
 // check if a Citizen's attribute contains a keyword.
-int com(const Citizen a, const char *keyword, Type type) {
+int com(const Citizen citizen_a, const char *keyword, Type type) 
+{
     // Search in the citizen's specified attribute based on the type
-    if (type == FirstName) {
-        return strstr(a.firstName, keyword) != NULL;
+    if (type == first_name) 
+    {
+        return strstr(citizen_a.first_name, keyword) != NULL;
     }
 
-    if (type == MiddleName) {
-        return strstr(a.middleName, keyword) != NULL;
+    if (type == middle_name) 
+    {
+        return strstr(citizen_a.middle_name, keyword) != NULL;
     }
 
-    if (type == LastName) {
-        return strstr(a.lastName, keyword) != NULL;
+    if (type == last_name) 
+    {
+        return strstr(citizen_a.last_name, keyword) != NULL;
     }
 
 
@@ -55,9 +68,11 @@ int com(const Citizen a, const char *keyword, Type type) {
 }
 
 // create a deep copy of a list of citizens.
-List *copyList(List *list) {
+List *copyList(List *list) 
+{
     List *copy = malloc(sizeof(List));
-    if (copy == NULL) {
+    if (copy == NULL) 
+    {
         fprintf(stderr, "Failed to allocate memory for copied list\n");
         return NULL;
     }
@@ -65,149 +80,164 @@ List *copyList(List *list) {
     copy->head = NULL;
     copy->tail = NULL;
 
-    // Traverse the original list and add each citizen to the copied list
     Node *current = list->head;
-    while (current != NULL) {
+    while (current != NULL) 
+    {
         addLast(copy, current->citizen);
         current = current->next;
     }
-
-
     return copy;
 }
 
 // add a citizen to the front of the list.
-ResponseCode addFirst(List *list, Citizen citizen) {
-    Node *newNode = malloc(sizeof(Node));
-    if (newNode == NULL) {
+ResponseCode addFirst(List *list, Citizen citizen) 
+{
+    Node *new_node = malloc(sizeof(Node));
+    if (new_node == NULL) 
+    {
         fprintf(stderr, "Failed to allocate memory\n");
         return Failed;
     }
-    newNode->citizen = citizen;
-    newNode->next = list->head;
+    new_node->citizen = citizen;
+    new_node->next = list->head;
 
-    if (list->head == NULL) {
-        list->tail = newNode;
+    if (list->head == NULL) 
+    {
+        list->tail = new_node;
     }
     counter++;
-    list->head = newNode;
+    list->head = new_node;
     return Success;
 }
 
 // add a citizen to the end of the list.
-ResponseCode addLast(List *list, Citizen citizen) {
-    Node *newNode = malloc(sizeof(Node));
-    if (newNode == NULL) {
+ResponseCode addLast(List *list, Citizen citizen) 
+{
+    Node *new_node = malloc(sizeof(Node));
+    if (new_node == NULL) 
+    {
         fprintf(stderr, "Failed to allocate memory\n");
         return Failed;
     }
-    newNode->citizen = citizen;
-    newNode->next = NULL;
+    new_node->citizen = citizen;
+    new_node->next = NULL;
 
-    if (list->tail == NULL) {
-        list->head = newNode;
-        list->tail = newNode;
-    } else {
-        list->tail->next = newNode;
-        list->tail = newNode;
+    if (list->tail == NULL) 
+    {
+        list->head = new_node;
+        list->tail = new_node;
+    } 
+    else 
+    {
+        list->tail->next = new_node;
+        list->tail = new_node;
     }
     counter++;
     return Success;
 }
 
 // print all citizens in the list with detailed information.
-void printList(List *list) {
+void printList(List *list) 
+{
     Node *current = list->head;
     int i = 1;
     printf("List of Citizens\n\n");
 
-    // Traverse the list and print each citizen's information
-    while (current != NULL) {
-        printf("\n%d.CitizenId: %d\n", i++, current->citizen.citizenId);
-        printf("Name: %s %s %s\n", current->citizen.firstName, current->citizen.middleName, current->citizen.lastName);
+    while (current != NULL) 
+    {
+        printf("\n%d.citizen_id: %d\n", i++, current->citizen.citizen_id);
+        printf("Name: %s %s %s\n", current->citizen.first_name, current->citizen.middle_name, current->citizen.last_name);
         printf("Gender: %s\n", getGender(current->citizen.gender));
-        printf("Birth Date: %s\n", current->citizen.birthDate);
-        printf("Marital Status: %s\n", getMaritalStatus(current->citizen.maritalStatus));
+        printf("Birth Date: %s\n", current->citizen.birth_date);
+        printf("Marital Status: %s\n", getMaritalStatus(current->citizen.marital_status));
         printf("Nationality: %s\n", current->citizen.nationality);
         printf("Religion: %s\n", current->citizen.religion);
-        printf("Contact Number: %s\n", current->citizen.contactNumber);
-        printf("Email Address: %s\n", current->citizen.emailAddress);
-        printf("House Number: %s\n", current->citizen.address.houseNumber);
+        printf("Contact Number: %s\n", current->citizen.contact_number);
+        printf("Email Address: %s\n", current->citizen.email_address);
+        printf("House Number: %s\n", current->citizen.address.house_number);
         printf("Street: %s\n", current->citizen.address.street);
-        printf("Purok Zone: %s\n", current->citizen.address.purokZone);
+        printf("Purok Zone: %s\n", current->citizen.address.purok_zone);
         current = current->next;
         printf("\n");
     }
 }
 
 // print all citizens in tabular format.
-void printTable(List *list) {
+void printTable(List *list) 
+{
     Node *current = list->head;
     int i = 1;
     printf("List of Citizens\n\n");
-    // Print table headers
     printf("%-3s %-5s %-40s %-10s %-10s %-10s %-10s %-15s %-15s %-30s %-7s %-25s %-10s \n",
            "No.", "CtzId", "Name", "Gender", "BDate", "MStat", "Nat", "Rel", "CNum", "Email", "House#", "St", "P/Z");
     // Traverse the list and print each citizen's data in tabular format
-    while (current != NULL) {
+    while (current != NULL) 
+    {
         printf("%-3d %-5d %-40s %-10s %-10s %-10s %-10s %-15s %-15s %-30s %-7s %-25s %-10s \n",
                i++,
-               current->citizen.citizenId,
-               getFullName(current->citizen.firstName, current->citizen.middleName, current->citizen.lastName),
+               current->citizen.citizen_id,
+               getFullName(current->citizen.first_name, current->citizen.middle_name, current->citizen.last_name),
                getGender(current->citizen.gender),
-               current->citizen.birthDate,
-               getMaritalStatus(current->citizen.maritalStatus),
+               current->citizen.birth_date,
+               getMaritalStatus(current->citizen.marital_status),
                current->citizen.nationality,
-               current->citizen.religion, current->citizen.contactNumber,
-               current->citizen.emailAddress,
-               current->citizen.address.houseNumber,
+               current->citizen.religion, current->citizen.contact_number,
+               current->citizen.email_address,
+               current->citizen.address.house_number,
                current->citizen.address.street,
-               current->citizen.address.purokZone);
+               current->citizen.address.purok_zone);
         current = current->next;
     }
 }
 
 // print detailed information of a single citizen.
-void printCitizen(Citizen citizen) {
-    printf("CitizenId: %d\n", citizen.citizenId);
-    printf("Full Name: %s %s %s\n", citizen.firstName, citizen.middleName, citizen.lastName);
+void printCitizen(Citizen citizen) 
+{
+    printf("citizen_id: %d\n", citizen.citizen_id);
+    printf("Full Name: %s %s %s\n", citizen.first_name, citizen.middle_name, citizen.last_name);
     printf("Gender: %s\n", getGender(citizen.gender));
-    printf("Birth Date: %s\n", citizen.birthDate);
-    printf("Marital Status: %s\n", getMaritalStatus(citizen.maritalStatus));
+    printf("Birth Date: %s\n", citizen.birth_date);
+    printf("Marital Status: %s\n", getMaritalStatus(citizen.marital_status));
     printf("Nationality: %s\n", citizen.nationality);
     printf("Religion: %s\n", citizen.religion);
-    printf("Contact Number: %s\n", citizen.contactNumber);
-    printf("Email Address: %s\n", citizen.emailAddress);
-    printf("House Number: %s\n", citizen.address.houseNumber);
+    printf("Contact Number: %s\n", citizen.contact_number);
+    printf("Email Address: %s\n", citizen.email_address);
+    printf("House Number: %s\n", citizen.address.house_number);
     printf("Street: %s\n", citizen.address.street);
-    printf("Purok Zone: %s\n", citizen.address.purokZone);
+    printf("Purok Zone: %s\n", citizen.address.purok_zone);
 }
 
-// remove a citizen from the list based on citizenId.
-ResponseCode removeCitizen(List *list, int citizenId) {
+// remove a citizen from the list based on citizen_id.
+ResponseCode removeCitizen(List *list, int citizen_id) 
+{
     Node *current = list->head;
     Node *previous = NULL;
 
-    // Traverse the list to find the citizen with the specified citizenId
-    while (current != NULL && current->citizen.citizenId != citizenId) {
+    while (current != NULL && current->citizen.citizen_id != citizen_id) 
+    {
         previous = current;
         current = current->next;
     }
 
-    if (current == NULL) {
-        printf("Citizen with ID %d not found.\n", citizenId);
+    if (current == NULL) 
+    {
+        printf("Citizen with ID %d not found.\n", citizen_id);
         return Failed;
     }
 
-    // Adjust the list pointers to remove the node
-    if (previous == NULL) {
+    if (previous == NULL) 
+    {
         list->head = current->next;
-        if (list->head == NULL) {
+        if (list->head == NULL) 
+        {
             list->tail = NULL;
         }
-    } else {
+    } 
+    else 
+    {
         previous->next = current->next;
-        if (current->next == NULL) {
+        if (current->next == NULL) 
+        {
             list->tail = previous;
         }
     }
@@ -217,15 +247,20 @@ ResponseCode removeCitizen(List *list, int citizenId) {
 }
 
 // update a citizen's information in the list.
-ResponseCode updateCitizen(List *list, const Citizen *citizen) {
-    if (list == NULL || citizen == NULL) return Failed;
+ResponseCode updateCitizen(List *list, const Citizen *citizen) 
+{
+    if (list == NULL || citizen == NULL) 
+    {
+    return Failed;
+    }
 
     Node *current = list->head;
     int found = 0;
 
-    // Traverse the list to find and update the citizen
-    while (current != NULL) {
-        if (current->citizen.citizenId == citizen->citizenId) {
+    while (current != NULL) 
+    {
+        if (current->citizen.citizen_id == citizen->citizen_id) 
+        {
             found = 1;
             current->citizen = *citizen;
             break;
@@ -233,58 +268,65 @@ ResponseCode updateCitizen(List *list, const Citizen *citizen) {
         current = current->next;
     }
 
-    if (found) {
+    if (found) 
+    {
         return Success;
-    } else {
+    } 
+    else 
+    {
         return NotFound;
     }
 }
 
 // sort a list of citizens based on a specified attribute.
-List sortCitizen(List *list, Type sort) {
-    List sortedList = {NULL, NULL};
+List sortCitizen(List *list, Type sort) 
+{
+    List sorted_list = {NULL, NULL};
 
-    if (list->head == NULL) {
-        return sortedList;
+    if (list->head == NULL) 
+    {
+        return sorted_list;
     }
 
-    List *copy = copyList(list); // Create a copy of the list
-    if (copy == NULL) {
-        return sortedList;
+    List *copy = copyList(list); 
+    if (copy == NULL) 
+    {
+        return sorted_list;
     }
 
     const Node *current = copy->head;
 
-    // Perform selection sort on the copied list
-    while (current != NULL) {
+    while (current != NULL) 
+    {
         const Node *min = current;
         const Node *search = current->next;
 
 
-        while (search != NULL) {
-            if (cmpCtz(min->citizen, search->citizen, sort) > 0) {
+        while (search != NULL) 
+        {
+            if (cmpCtz(min->citizen, search->citizen, sort) > 0) 
+            {
                 min = search;
             }
             search = search->next;
         }
 
-
-        // Add the smallest element to the sorted list
-        addLast(&sortedList, min->citizen);
-        removeCitizen(copy, min->citizen.citizenId);
+        addLast(&sorted_list, min->citizen);
+        removeCitizen(copy, min->citizen.citizen_id);
         current = copy->head;
     }
 
-    freeList(copy); // Free the memory used by the copied list
-    return sortedList;
+    freeList(copy); 
+    return sorted_list;
 }
 
 // free the memory allocated for a list of citizens.
-void freeList(List *list) {
+void freeList(List *list) 
+{
     Node *current = list->head;
 
-    // Traverse the list and free each node
-    while (current != NULL) {
+    while (current != NULL) 
+    {
         Node *next = current->next;
         free(current);
         current = next;
@@ -295,73 +337,74 @@ void freeList(List *list) {
 }
 
 // search for a citizen in the list by a specific attribute and keyword.
-Citizen *searchCitizen(List *list, Type searchType, const char *keyword) {
+Citizen *searchCitizen(List *list, Type search_type, const char *keyword) 
+{
     Node *current = list->head;
-
-    // Traverse the list to search for a citizen that matches the keyword
-    while (current != NULL) {
-        if (com(current->citizen, keyword, searchType)) {
+    while (current != NULL) 
+    {
+        if (com(current->citizen, keyword, search_type)) 
+        {
             return &current->citizen;
         }
         current = current->next;
     }
-
-    // If no match is found, return NULL
     return NULL;
 }
 
-// search for a citizen in the list by citizenId.
-Citizen *searchCitizenById(List *list, int citizenId) {
+// search for a citizen in the list by citizen_id.
+Citizen *searchCitizenById(List *list, int citizen_id) 
+{
     Node *current = list->head;
 
-    // Traverse the list to find the citizen with the specified citizenId
+    // Traverse the list to find the citizen with the specified citizen_id
     while (current != NULL) {
-        if (current->citizen.citizenId == citizenId) {
+        if (current->citizen.citizen_id == citizen_id) {
             return &current->citizen;
         }
         current = current->next;
     }
-
-    // If no match is found, return NULL
     return NULL;
 }
 
 
-//Get the age of the citizen
-int getCitizenAge(List *list, int citizenId) {
+// Get the age of the citizen
+int getCitizenAge(List *list, int citizen_id)
+{
     Node *current = list->head;
 
-    // Get the current date
     time_t now = time(NULL);
     struct tm *current_time = localtime(&now);
-    int currentYear = current_time->tm_year + 1900;
-    int currentMonth = current_time->tm_mon + 1;
-    int currentDay = current_time->tm_mday;
+    int current_year = current_time->tm_year + 1900;
+    int current_month = current_time->tm_mon + 1;
+    int current_day = current_time->tm_mday;
 
-    while (current != NULL) {
-        if (current->citizen.citizenId == citizenId) {
+    while (current != NULL)
+    {
+        if (current->citizen.citizen_id == citizen_id)
+        {
             char *token;
             char delimiter[] = "-";
-            char birthYear[5];
-            char birthMonth[3];
-            char birthDay[3];
+            char birth_year[5];
+            char birth_month[3];
+            char birth_day[3];
 
-            token = strtok(current->citizen.birthDate, delimiter);
-            strcpy(birthYear, token);
-
-            token = strtok(NULL, delimiter);
-            strcpy(birthMonth, token);
+            token = strtok(current->citizen.birth_date, delimiter);
+            strcpy(birth_year, token);
 
             token = strtok(NULL, delimiter);
-            strcpy(birthDay, token);
+            strcpy(birth_month, token);
 
-            int birth_year = atoi(birthYear);
-            int birth_month = atoi(birthMonth);
-            int birth_day = atoi(birthDay);
+            token = strtok(NULL, delimiter);
+            strcpy(birth_day, token);
 
-            int age = currentYear - birth_year;
+            int birth_year_int = atoi(birth_year);
+            int birth_month_int = atoi(birth_month);
+            int birth_day_int = atoi(birth_day);
 
-            if (currentMonth < birth_month || (currentMonth == birth_month && currentDay < birth_day)) {
+            int age = current_year - birth_year_int;
+
+            if (current_month < birth_month_int || (current_month == birth_month_int && current_day < birth_day_int))
+            {
                 age--;
             }
             return age;
@@ -379,18 +422,20 @@ int getCitizenAge(List *list, int citizenId) {
  * @param list A pointer to the list of citizens.
  * @return The number of male citizens in the list.
  */
-int getMalePopulation(List *list) {
-    Node *current = list->head;  // Start from the head of the list
-    int malePopulation = 0;      // Counter for male population
+int getMalePopulation(List *list)
+{
+    Node *current = list->head;
+    int male_population = 0;      
 
-    // Traverse the list and count males
-    while (current != NULL) {
-        if (current->citizen.gender == MALE) {
-            malePopulation++;
+    while (current != NULL)
+    {
+        if (current->citizen.gender == MALE)
+        {
+            male_population++;
         }
-        current = current->next; // Move to the next citizen in the list
+        current = current->next;
     }
-    return malePopulation;
+    return male_population;
 }
 
 /**
@@ -401,33 +446,35 @@ int getMalePopulation(List *list) {
  * @param list A pointer to the list of citizens.
  * @return The number of female citizens in the list.
  */
-int getFemalePopulation(List *list) {
-    Node *current = list->head;   // Start from the head of the list
-    int femalePopulation = 0;     // Counter for female population
+int getFemalePopulation(List *list)
+{
+    Node *current = list->head;
+    int female_population = 0;     
 
-    // Traverse the list and count females
-    while (current != NULL) {
-        if (current->citizen.gender == FEMALE) {
-            femalePopulation++;
+    while (current != NULL)
+    {
+        if (current->citizen.gender == FEMALE)
+        {
+            female_population++;
         }
-        current = current->next; // Move to the next citizen in the list
+        current = current->next; 
     }
-    return femalePopulation;
+    return female_population;
 }
 
 /**
  * @brief Get the oldest citizen from the list.
  *
- * This function sorts the citizens by birthdate and returns the oldest citizen.
+ * This function sorts the citizens by birth_date and returns the oldest citizen.
  *
  * @param list A pointer to the list of citizens.
  * @return The oldest citizen in the list.
  */
-Citizen getOldestCitizen(List *list) {
-    // Sort the list by birthdate in ascending order
-    List sortedBdate = sortCitizen(list, BirthDate);
-    Citizen oldestCitizen = sortedBdate.head->citizen; // First citizen in sorted list is the oldest
-    return oldestCitizen;
+Citizen getOldestCitizen(List *list)
+{
+    List sorted_bdate = sortCitizen(list, birth_date);
+    Citizen oldest_citizen = sorted_bdate.head->citizen; 
+    return oldest_citizen;
 }
 
 /**
@@ -438,10 +485,10 @@ Citizen getOldestCitizen(List *list) {
  * @param list A pointer to the list of citizens.
  * @return The youngest citizen in the list.
  */
-Citizen getYoungestCitizen(List *list) {
-    // Sort the list by birth date in ascending order
-    List sortedBdate = sortCitizen(list, BirthDate);
-    Citizen youngestCitizen = sortedBdate.tail->citizen; // Last citizen in sorted list is the youngest
-    return youngestCitizen;
-}
 
+Citizen getYoungestCitizen(List *list)
+{
+    List sorted_bdate = sortCitizen(list, birth_date);
+    Citizen youngest_citizen = sorted_bdate.tail->citizen; 
+    return youngest_citizen;
+}
