@@ -341,7 +341,12 @@ void printMainMenu(List *list)
         }
     } while (choice != 7);
 }
-
+/**
+ * @brief Submenu for handling demographics-related options.
+ *
+ * This function presents a submenu where the user can choose to view demographic information
+ * or get the age of a specific citizen based on their ID. The submenu continues until the user
+ * chooses to go back to the main menu.
 /*
  * @param list A pointer to the list of citizens.
  */
