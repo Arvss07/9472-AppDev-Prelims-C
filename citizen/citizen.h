@@ -1,7 +1,7 @@
 #ifndef CITIZEN_H
 #define CITIZEN_H
 
-#define FILENAME "data.csv"
+#define FILENAME "../data.csv"
 
 extern int counter;
 
@@ -97,5 +97,5 @@ void freeList(List *list);
 Citizen *searchCitizen(List *list, Type search_type, const char *keyword);
 Citizen *searchCitizenById(List *list,  int citizen_id);
 int getCitizenAge(List *list, int citizen_id);
-
+void viewDemographics(List *list);
 #endif

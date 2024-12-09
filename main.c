@@ -2,6 +2,7 @@
 
 #include "citizen/citizen.h"
 #include "file/file.h"
+#include "menu/menu.h"
 
 
 int main(void) {
@@ -9,17 +10,7 @@ int main(void) {
     List list = {NULL, NULL};
     loadCitizensFromCSV(FILENAME, &list);
 
-    int play = 1;
-    while(play == 1) {
-
-        printf("\nEnter 1 to show demographics : ");
-        scanf(" %d", &play);
-
-
-
-        printf("\n\n");
-
-    }
+    printMainMenu(&list);
 
     return 0;
 }

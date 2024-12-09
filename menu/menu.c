@@ -321,7 +321,7 @@ void printMainMenu(List *list)
         case 5:
         {
             // Display the demographic's submenu.
-            printf("Demographics\n");
+            subMenu1(list);
             break;
         }
         case 6:
@@ -341,3 +341,78 @@ void printMainMenu(List *list)
         }
     } while (choice != 7);
 }
+/**
+ * @brief Submenu for handling demographics-related options.
+ *
+ * This function presents a submenu where the user can choose to view demographic information
+ * or get the age of a specific citizen based on their ID. The submenu continues until the user
+ * chooses to go back to the main menu.
+/*
+ * @param list A pointer to the list of citizens.
+ */
+void subMenu1(List *list)
+{
+    int choice;         // Variable to store the user's menu choice
+    char continue_choice; // Variable to determine if the user wants to continue
+    do
+    {
+        // Display the submenu options
+        printf("\nDemographics\n");
+        printf("1. View Demographics\n");
+        printf("2. Get Citizen Age\n");
+        printf("3. Go Back\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); // Consume the newline character left by scanf
+        // Handle the user's menu choice
+        switch (choice)
+        {
+            case 1:
+            {
+                // View demographics of the citizens
+                viewDemographics(list);
+                pressAnyKeyToContinue(); // Wait for user to press a key before continuing
+                break;
+            }
+            case 2:
+            {
+                // Loop to handle checking multiple citizens' ages
+                do
+                {
+                    int citizen_id;
+                    // Prompt for the citizen's ID
+                    printf("Enter Citizen ID: ");
+                    scanf("%d", &citizen_id);
+                    getchar(); // Consume newline character
+                    // Get the age of the citizen
+                    int age = getCitizenAge(list, citizen_id);
+                    Citizen *citizen = searchCitizenById(list, citizen_id);
+                    // Check if the citizen exists and display the result
+                    if (citizen != NULL && age != -1)
+                    {
+                        printf("Citizen %s %s %s is %d years old.\n", citizen->first_name, citizen->middle_name, citizen->last_name, age);
+                    }
+                    else
+                    {
+                        printf("Citizen ID %d not found.\n", citizen_id);
+                    }
+                    // Ask if the user wants to check another citizen's age
+                    printf("Do you want to know the age of another citizen (y/n)? ");
+                    scanf("%c", &continue_choice);
+                    getchar(); // Consume newline character
+                } while (tolower(continue_choice) == 'y'); // Continue if user inputs 'y'
+                break;
+            }
+            case 3:
+            {
+                // Option to go back to the main menu
+                printf("Going back to the main menu...\n");
+                break;
+            }
+            default:
+                // Invalid input
+                printf("Invalid Choice\n");
+        }
+    } while (choice != 3); // Continue the submenu until the user selects option 3
+}
+
