@@ -492,3 +492,47 @@ Citizen getYoungestCitizen(List *list)
     Citizen youngest_citizen = sorted_bdate.tail->citizen; 
     return youngest_citizen;
 }
+
+/**
+ * @brief View demographic information of the citizen list.
+ *
+ * This function prints the total population, male population, female population, the oldest citizen, and the youngest citizen.
+ *
+ * @param list A pointer to the list of citizens.
+ */
+void viewDemographics(List *list)
+{
+    // Check if the list is empty
+    if (list == NULL || list->head == NULL)
+    {
+        printf("No demographic information available. The list is empty.\n");
+        return;
+    }
+
+    // Get demographic details
+    int total_population = counter; // Assuming 'counter' holds total number of citizens
+    int total_male_population = getMalePopulation(list);
+    int total_female_population = getFemalePopulation(list);
+
+    // Get oldest and youngest citizens
+    Citizen oldest_citizen = getOldestCitizen(list);
+    Citizen youngest_citizen = getYoungestCitizen(list);
+
+    // Display the demographic information
+    printf("Demographic Information\n");
+    printf("Total Population: %d\n", total_population);
+    printf("Total Male Population: %d\n", total_male_population);
+    printf("Total Female Population: %d\n", total_female_population);
+
+    // Print details of the oldest citizen
+    char oldest_name[200];
+    snprintf(oldest_name, sizeof(oldest_name), "%s %s", oldest_citizen.first_name, oldest_citizen.last_name);
+    printf("The Oldest Citizen: %s\n", oldest_name);
+    printf("Age: %d\n", getCitizenAge(list, oldest_citizen.citizen_id));
+
+    // Print details of the youngest citizen
+    char youngest_name[200];
+    snprintf(youngest_name, sizeof(youngest_name), "%s %s", youngest_citizen.first_name, youngest_citizen.last_name);
+    printf("The Youngest Citizen: %s\n", youngest_name);
+    printf("Age: %d\n", getCitizenAge(list, youngest_citizen.citizen_id));
+}
