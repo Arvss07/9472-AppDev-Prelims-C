@@ -321,7 +321,7 @@ void printMainMenu(List *list)
         case 5:
         {
             // Display the demographic's submenu.
-            printf("Demographics\n");
+            subMenu1(list);
             break;
         }
         case 6:
