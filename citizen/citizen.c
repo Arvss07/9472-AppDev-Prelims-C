@@ -8,6 +8,38 @@
 // Counter for the number of citizens in the list
 int counter = 0;
 
+/*
+ * Gets the age based on a birthdate
+ */
+int getAge(const char *birth_date)
+{
+    int birth_year, birth_month, birthday;
+
+    // Parse the birthdate string
+    if (sscanf(birth_date, "%4d-%2d-%2d", &birth_year, &birth_month, &birthday) != 3)
+    {
+        return -1; // Return -1 for invalid date format
+    }
+
+    // Get the current date
+    time_t t = time(NULL);
+    struct tm current_date = *localtime(&t);
+
+    int current_year = current_date.tm_year + 1900;
+    int current_month = current_date.tm_mon + 1;
+    int current_day = current_date.tm_mday;
+
+    // Calculate age
+    int age = current_year - birth_year;
+
+    // Adjust for incomplete year
+    if (current_month < birth_month || (current_month == birth_month && current_day < birthday))
+    {
+        age--;
+    }
+
+    return age;
+}
 
 /*
  * Compare two Citizen objects based on the specified sort type.
@@ -38,11 +70,13 @@ int compareCitizen(const Citizen citizen_a, const Citizen citizen_b, Type sort)
 
     if (sort == birth_date)
     {
-        return strcmp(citizen_a.birth_date, citizen_b.birth_date);
+        int citizen_a_age = getAge(citizen_a.birth_date);
+        int citizen_b_age = getAge(citizen_b.birth_date);
+
+        return citizen_a_age - citizen_b_age;
     }
     return 0;
 }
-
 
 // check if a Citizen's attribute contains a keyword.
 int com(const Citizen citizen_a, const char *keyword, Type type) 
@@ -382,32 +416,7 @@ int getCitizenAge(List *list, int citizen_id)
     {
         if (current->citizen.citizen_id == citizen_id)
         {
-            char *token;
-            char delimiter[] = "-";
-            char birth_year[5];
-            char birth_month[3];
-            char birth_day[3];
-
-            token = strtok(current->citizen.birth_date, delimiter);
-            strcpy(birth_year, token);
-
-            token = strtok(NULL, delimiter);
-            strcpy(birth_month, token);
-
-            token = strtok(NULL, delimiter);
-            strcpy(birth_day, token);
-
-            int birth_year_int = atoi(birth_year);
-            int birth_month_int = atoi(birth_month);
-            int birth_day_int = atoi(birth_day);
-
-            int age = current_year - birth_year_int;
-
-            if (current_month < birth_month_int || (current_month == birth_month_int && current_day < birth_day_int))
-            {
-                age--;
-            }
-            return age;
+            return getAge(current->citizen.birth_date);
         }
         current = current->next;
     }
@@ -473,7 +482,7 @@ int getFemalePopulation(List *list)
 Citizen getOldestCitizen(List *list)
 {
     List sorted_bdate = sortCitizen(list, birth_date);
-    Citizen oldest_citizen = sorted_bdate.head->citizen; 
+    Citizen oldest_citizen = sorted_bdate.tail->citizen;
     return oldest_citizen;
 }
 
@@ -489,7 +498,7 @@ Citizen getOldestCitizen(List *list)
 Citizen getYoungestCitizen(List *list)
 {
     List sorted_bdate = sortCitizen(list, birth_date);
-    Citizen youngest_citizen = sorted_bdate.tail->citizen; 
+    Citizen youngest_citizen = sorted_bdate.head->citizen;
     return youngest_citizen;
 }
 
@@ -510,7 +519,7 @@ void viewDemographics(List *list)
     }
 
     // Get demographic details
-    int total_population = counter; // Assuming 'counter' holds total number of citizens
+    int total_population = getMalePopulation(list) + getFemalePopulation(list);
     int total_male_population = getMalePopulation(list);
     int total_female_population = getFemalePopulation(list);
 
@@ -521,6 +530,7 @@ void viewDemographics(List *list)
     // Display the demographic information
     printf("Demographic Information\n");
     printf("Total Population: %d\n", total_population);
+    counter = 0;
     printf("Total Male Population: %d\n", total_male_population);
     printf("Total Female Population: %d\n", total_female_population);
 
