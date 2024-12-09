@@ -14,10 +14,10 @@
  * @return The corresponding Gender enum value (MALE, FEMALE, OTHERS).
  */
 Gender getGenderStr(const char *str) {
-    if (strcmp(str, "Male") == 0) return MALE;
-    if (strcmp(str, "Female") == 0) return FEMALE;
-    if (strcmp(str, "Others") == 0) return OTHERS;
-    return MALE;  // Default to MALE if input is unrecognized
+    if (strcmp(str, "Male") == 0) return male;
+    if (strcmp(str, "Female") == 0) return female;
+    if (strcmp(str, "Others") == 0) return others;
+    return male;  // Default to MALE if input is unrecognized
 }
 
 /**
@@ -30,11 +30,11 @@ Gender getGenderStr(const char *str) {
  * @return The corresponding MaritalStatus enum value (SINGLE, MARRIED, DIVORCED, WIDOWED).
  */
 MaritalStatus getMaritalStatusStr(const char *str) {
-    if (strcmp(str, "Single") == 0) return SINGLE;
-    if (strcmp(str, "Married") == 0) return MARRIED;
-    if (strcmp(str, "Divorced") == 0) return DIVORCED;
-    if (strcmp(str, "Widowed") == 0) return WIDOWED;
-    return SINGLE;  // Default to SINGLE if input is unrecognized
+    if (strcmp(str, "Single") == 0) return single;
+    if (strcmp(str, "Married") == 0) return married;
+    if (strcmp(str, "Divorced") == 0) return divorced;
+    if (strcmp(str, "Widowed") == 0) return widowed;
+    return single;  // Default to SINGLE if input is unrecognized
 }
 
 /**
@@ -47,8 +47,8 @@ MaritalStatus getMaritalStatusStr(const char *str) {
  * @return The corresponding ResponseCode enum value (Success, Failed, NotFound).
  */
 ResponseCode getResponseCode(const char *str) {
-    if (strcmp(str, "Success") == 0) return Success;
-    if (strcmp(str, "Failed") == 0) return Failed;
-    if (strcmp(str, "Not Found") == 0) return NotFound;
-    return Success;  // Default to Success if input is unrecognized
+    if (strcmp(str, "Success") == 0) return success;
+    if (strcmp(str, "Failed") == 0) return failed;
+    if (strcmp(str, "Not Found") == 0) return not_found;
+    return success;  // Default to Success if input is unrecognized
 }

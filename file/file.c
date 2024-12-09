@@ -52,29 +52,29 @@ void loadCitizensFromCSV (const char *filename, List *list)
             Citizen citizen;
 
             // Parse each field from the CSV and assign values to the citizen struct
-            citizen.citizenId = atoi(token);
+            citizen.citizen_id = atoi(token);
             token = strtok(NULL, ",");
 
-            strncpy(citizen.firstName, token ? token : "", sizeof(citizen.firstName) - 1);
-            citizen.firstName[sizeof(citizen.firstName) - 1] = '\0';
+            strncpy(citizen.first_name, token ? token : "", sizeof(citizen.first_name) - 1);
+            citizen.first_name[sizeof(citizen.first_name) - 1] = '\0';
 
             token = strtok(NULL, ",");
-            strncpy(citizen.middleName, token ? token : "", sizeof(citizen.middleName) - 1);
-            citizen.middleName[sizeof(citizen.middleName) - 1] = '\0';
+            strncpy(citizen.middle_name, token ? token : "", sizeof(citizen.middle_name) - 1);
+            citizen.middle_name[sizeof(citizen.middle_name) - 1] = '\0';
 
             token = strtok(NULL, ",");
-            strncpy(citizen.lastName, token ? token : "", sizeof(citizen.lastName) - 1);
-            citizen.lastName[sizeof(citizen.lastName) - 1] = '\0';
+            strncpy(citizen.last_name, token ? token : "", sizeof(citizen.last_name) - 1);
+            citizen.last_name[sizeof(citizen.last_name) - 1] = '\0';
 
             token = strtok(NULL, ",");
-            citizen.gender = token ? getGenderStr(token) : MALE;
+            citizen.gender = token ? getGenderStr(token) : male;
 
             token = strtok(NULL, ",");
-            strncpy(citizen.birthDate, token ? token : "", sizeof(citizen.birthDate) - 1);
-            citizen.birthDate[sizeof(citizen.birthDate) - 1] = '\0';
+            strncpy(citizen.birth_date, token ? token : "", sizeof(citizen.birth_date) - 1);
+            citizen.birth_date[sizeof(citizen.birth_date) - 1] = '\0';
 
             token = strtok(NULL, ",");
-            citizen.maritalStatus = token ? getMaritalStatusStr(token) : SINGLE;
+            citizen.marital_status = token ? getMaritalStatusStr(token) : single;
 
             token = strtok(NULL, ",");
             strncpy(citizen.nationality, token ? token : "", sizeof(citizen.nationality) - 1);
@@ -85,29 +85,29 @@ void loadCitizensFromCSV (const char *filename, List *list)
             citizen.religion[sizeof(citizen.religion) - 1] = '\0';
 
             token = strtok(NULL, ",");
-            strncpy(citizen.contactNumber, token ? token : "", sizeof(citizen.contactNumber) - 1);
-            citizen.contactNumber[sizeof(citizen.contactNumber) - 1] = '\0';
+            strncpy(citizen.contact_number, token ? token : "", sizeof(citizen.contact_number) - 1);
+            citizen.contact_number[sizeof(citizen.contact_number) - 1] = '\0';
 
             token = strtok(NULL, ",");
-            strncpy(citizen.emailAddress, token ? token : "", sizeof(citizen.emailAddress) - 1);
-            citizen.emailAddress[sizeof(citizen.emailAddress) - 1] = '\0';
+            strncpy(citizen.email_address, token ? token : "", sizeof(citizen.email_address) - 1);
+            citizen.email_address[sizeof(citizen.email_address) - 1] = '\0';
 
             token = strtok(NULL, ",");
-            strncpy(address.houseNumber, token ? token : "", sizeof(address.houseNumber) - 1);
-            address.houseNumber[sizeof(address.houseNumber) - 1] = '\0';
+            strncpy(address.house_number, token ? token : "", sizeof(address.house_number) - 1);
+            address.house_number[sizeof(address.house_number) - 1] = '\0';
 
             token = strtok(NULL, ",");
             strncpy(address.street, token ? token : "", sizeof(address.street) - 1);
             address.street[sizeof(address.street) - 1] = '\0';
 
             token = strtok(NULL, "\n");
-            strncpy(address.purokZone, token ? token : "", sizeof(address.purokZone) - 1);
-            address.purokZone[sizeof(address.purokZone) - 1] = '\0';
+            strncpy(address.purok_zone, token ? token : "", sizeof(address.purok_zone) - 1);
+            address.purok_zone[sizeof(address.purok_zone) - 1] = '\0';
 
             citizen.address = address;
             const ResponseCode result = addLast(list, citizen); // Add the citizen to the list
 
-            if (result != Success)
+            if (result != success)
             {
                 fprintf(stderr, "Error adding citizen: %d\n", result);
             }
@@ -137,20 +137,20 @@ void saveListToFile (const char *filename, List *list)
     {
         Citizen *citizen = &current->citizen;
         fprintf(file, "%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
-                citizen->citizenId,
-                citizen->firstName,
-                citizen->middleName,
-                citizen->lastName,
+                citizen->citizen_id,
+                citizen->first_name,
+                citizen->middle_name,
+                citizen->last_name,
                 getGender(citizen->gender),
-                citizen->birthDate,
-                getMaritalStatus(citizen->maritalStatus),
+                citizen->birth_date,
+                getMaritalStatus(citizen->marital_status),
                 citizen->nationality,
                 citizen->religion,
-                citizen->contactNumber,
-                citizen->emailAddress,
-                citizen->address.houseNumber,
+                citizen->contact_number,
+                citizen->email_address,
+                citizen->address.house_number,
                 citizen->address.street,
-                citizen->address.purokZone
+                citizen->address.purok_zone
         );
         current = current->next;
     }

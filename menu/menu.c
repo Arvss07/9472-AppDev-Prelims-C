@@ -113,27 +113,27 @@ void printMainMenu(List *list)
 
             // Create and populate the citizen struct
             Address address;
-            strcpy(address.houseNumber, houseNumber);
+            strcpy(address.house_number, houseNumber);
             strcpy(address.street, street);
-            strcpy(address.purokZone, purokZone);
+            strcpy(address.purok_zone, purokZone);
 
             Citizen newCitizen = {};
-            newCitizen.citizenId = list->tail->citizen.citizenId + 1 + counter;
-            strcpy(newCitizen.firstName, firstName);
-            strcpy(newCitizen.middleName, middleName);
-            strcpy(newCitizen.lastName, lastName);
+            newCitizen.citizen_id = list->tail->citizen.citizen_id + 1 + counter;
+            strcpy(newCitizen.first_name, firstName);
+            strcpy(newCitizen.middle_name, middleName);
+            strcpy(newCitizen.last_name, lastName);
             newCitizen.gender = gender;
-            strcpy(newCitizen.birthDate, birthDate);
-            newCitizen.maritalStatus = maritalStatus;
+            strcpy(newCitizen.birth_date, birthDate);
+            newCitizen.marital_status = maritalStatus;
             strcpy(newCitizen.nationality, nationality);
             strcpy(newCitizen.religion, religion);
-            strcpy(newCitizen.contactNumber, contactNumber);
-            strcpy(newCitizen.emailAddress, emailAddress);
+            strcpy(newCitizen.contact_number, contactNumber);
+            strcpy(newCitizen.email_address, emailAddress);
             newCitizen.address = address;
 
             ResponseCode status = addLast(list, newCitizen); // Add citizen to the list
 
-            if (status == Success)
+            if (status == success)
             {
                 printf("\n Citizen successfully added.");
                 saveListToFile(FILENAME, list);
@@ -171,7 +171,7 @@ void printMainMenu(List *list)
                 fgets(searchKeyword, sizeof(searchKeyword), stdin);
                 searchKeyword[strcspn(searchKeyword, "\n")] = '\0';
 
-                foundCitizen = searchCitizen(list, FirstName, searchKeyword);
+                foundCitizen = searchCitizen(list, first_name, searchKeyword);
                 break;
             }
             case 2:
@@ -180,7 +180,7 @@ void printMainMenu(List *list)
                 fgets(searchKeyword, sizeof(searchKeyword), stdin);
                 searchKeyword[strcspn(searchKeyword, "\n")] = '\0';
 
-                foundCitizen = searchCitizen(list, LastName, searchKeyword);
+                foundCitizen = searchCitizen(list, last_name, searchKeyword);
                 break;
             }
             case 3:
@@ -188,7 +188,7 @@ void printMainMenu(List *list)
                 printf("Enter the name to search: ");
                 fgets(searchKeyword, sizeof(searchKeyword), stdin);
                 searchKeyword[strcspn(searchKeyword, "\n")] = '\0';
-                foundCitizen = searchCitizen(list, MiddleName, searchKeyword);
+                foundCitizen = searchCitizen(list, middle_name, searchKeyword);
                 break;
             }
 
@@ -233,38 +233,38 @@ void printMainMenu(List *list)
             // update citizen details
             printf("updating details for citizen ID %d:\n", citizenId);
 
-            getStringInput(citizen.firstName, sizeof(citizen.firstName), "Enter first name: ", 1);
-            getStringInput(citizen.middleName, sizeof(citizen.middleName), "Enter middle name: ", 1);
-            getStringInput(citizen.lastName, sizeof(citizen.lastName), "Enter last name: ", 1);
+            getStringInput(citizen.first_name, sizeof(citizen.first_name), "Enter first name: ", 1);
+            getStringInput(citizen.middle_name, sizeof(citizen.middle_name), "Enter middle name: ", 1);
+            getStringInput(citizen.last_name, sizeof(citizen.last_name), "Enter last name: ", 1);
             char genderUpdate[100];
             getStringInput(genderUpdate, sizeof(genderUpdate), "Enter your gender (Male, Female, Others): ", 1);
             citizen.gender = getGenderStr(genderUpdate);
-            getStringInput(citizen.birthDate, sizeof(citizen.birthDate), "Enter birth date (YYYY-MM-DD): ", 1);
+            getStringInput(citizen.birth_date, sizeof(citizen.birth_date), "Enter birth date (YYYY-MM-DD): ", 1);
             char maritalStatusUpdate[100];
-            getStringInput(maritalStatusUpdate, sizeof(citizen.maritalStatus),
+            getStringInput(maritalStatusUpdate, sizeof(citizen.marital_status),
                            "Enter marital status (Single, Married, Divorced, Widowed): ", 1);
-            citizen.maritalStatus = getMaritalStatusStr(maritalStatusUpdate);
+            citizen.marital_status = getMaritalStatusStr(maritalStatusUpdate);
             getStringInput(citizen.nationality, sizeof(citizen.nationality), "Enter nationality: ", 1);
             getStringInput(citizen.religion, sizeof(citizen.religion), "Enter religion: ", 1);
-            getStringInput(citizen.contactNumber, sizeof(citizen.contactNumber), "Enter contact number: ", 1);
-            getStringInput(citizen.emailAddress, sizeof(citizen.emailAddress), "Enter email address: ", 1);
-            getStringInput(citizen.address.houseNumber, sizeof(citizen.address.houseNumber), "Enter house number: ",
+            getStringInput(citizen.contact_number, sizeof(citizen.contact_number), "Enter contact number: ", 1);
+            getStringInput(citizen.email_address, sizeof(citizen.email_address), "Enter email address: ", 1);
+            getStringInput(citizen.address.house_number, sizeof(citizen.address.house_number), "Enter house number: ",
                            1);
             getStringInput(citizen.address.street, sizeof(citizen.address.street), "Enter street: ", 1);
-            getStringInput(citizen.address.purokZone, sizeof(citizen.address.purokZone), "Enter purok/zone: ", 1);
+            getStringInput(citizen.address.purok_zone, sizeof(citizen.address.purok_zone), "Enter purok/zone: ", 1);
 
-            citizen.citizenId = citizenId;
+            citizen.citizen_id = citizenId;
 
             // Save the updated details back to the citizen list
             ResponseCode result = updateCitizen(list, &citizen);
-            if (result == Success)
+            if (result == success)
             {
                 saveListToFile(FILENAME, list);
                 printf("Citizen updated successfully.\n");
                 printCitizen(citizen);
                 pressAnyKeyToContinue();
             }
-            else if (result == NotFound)
+            else if (result == not_found)
             {
                 printf("Citizen not found.\n");
             }
@@ -299,12 +299,12 @@ void printMainMenu(List *list)
                 const ResponseCode deleteResult = removeCitizen(list, citizenID); // Attempt to remove the citizen.
 
                 // Check if the deletion was successful.
-                if (deleteResult == Success)
+                if (deleteResult == success)
                 {
                     saveListToFile(FILENAME, list); // Save changes to file.
                     printf("Citizen with the ID %d has been deleted successfully.\n", citizenID);
                 }
-                else if (deleteResult == Failed)
+                else if (deleteResult == failed)
                 {
                     printf("Failed to delete citizen with ID %d.\n", citizenID); // If deletion fails, notify the user.
                 }
